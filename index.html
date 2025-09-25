@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Life Transformers Hub - TikTok Creator Network</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -16,6 +17,7 @@
         header { padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
         nav { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
         .logo { font-size: 24px; font-weight: bold; }
+        .user-info { display: flex; align-items: center; gap: 15px; }
         .btn {
             padding: 12px 24px;
             border: none;
@@ -98,13 +100,15 @@
             background: rgba(255,255,255,0.05);
             color: white;
         }
+        .error { color: #ef4444; margin-top: 10px; }
+        .success { color: #10b981; margin-top: 10px; }
     </style>
 </head>
 <body>
     <header>
         <nav class="container">
             <div class="logo">Life Transformers Hub</div>
-            <div>
+            <div class="user-info" id="authButtons">
                 <button class="btn" onclick="openModal('loginModal')">Login</button>
                 <button class="btn" onclick="openModal('signupModal')">Sign Up</button>
             </div>
@@ -141,16 +145,17 @@
         <div class="modal-content">
             <span class="close" onclick="closeModal('loginModal')">&times;</span>
             <h2>Login to LIFE</h2>
-            <form onsubmit="login(event)">
+            <form id="loginForm">
                 <div class="form-group">
                     <label>Email</label>
-                    <input type="email" required>
+                    <input type="email" id="loginEmail" required>
                 </div>
                 <div class="form-group">
                     <label>Password</label>
-                    <input type="password" required>
+                    <input type="password" id="loginPassword" required>
                 </div>
                 <button type="submit" class="btn">Login</button>
+                <div id="loginError" class="error"></div>
             </form>
         </div>
     </div>
@@ -159,16 +164,22 @@
         <div class="modal-content">
             <span class="close" onclick="closeModal('signupModal')">&times;</span>
             <h2>Join Life Transformers</h2>
-            <form onsubmit="signup(event)">
+            <form id="signupForm">
                 <div class="form-group">
-                    <label>Name</label>
-                    <input type="text" required>
+                    <label>Full Name</label>
+                    <input type="text" id="signupName" required>
                 </div>
                 <div class="form-group">
                     <label>Email</label>
-                    <input type="email" required>
+                    <input type="email" id="signupEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="signupPassword" required minlength="6">
                 </div>
                 <button type="submit" class="btn">Create Account</button>
+                <div id="signupError" class="error"></div>
+                <div id="signupSuccess" class="success"></div>
             </form>
         </div>
     </div>
@@ -181,6 +192,10 @@
     </div>
 
     <script>
+        const SUPABASE_URL = 'https://mfpnlrfipurarjnpkjjf.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1mcG5scmZpcHVyYXJqbnBrampmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg3NzIzMDgsImV4cCI6MjA3NDM0ODMwOH0.BrzydqLHn7jLGUwiX8nXZhuGy5ihNYXvCG0RE9Uxtmw';
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        
         const AI_CONFIG = {
             groq: {
                 apiKey: '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',
@@ -188,6 +203,80 @@
                 model: 'llama-3.1-8b-instant'
             }
         };
+        
+        let currentUser = null;
+        
+        // Check if user is logged in
+        supabase.auth.getSession().then(({ data: { session } }) => {
+            if (session) {
+                currentUser = session.user;
+                updateAuthUI();
+            }
+        });
+        
+        // Listen for auth changes
+        supabase.auth.onAuthStateChange((event, session) => {
+            currentUser = session?.user || null;
+            updateAuthUI();
+        });
+        
+        function updateAuthUI() {
+            const authButtons = document.getElementById('authButtons');
+            if (currentUser) {
+                authButtons.innerHTML = `
+                    <span>Welcome, ${currentUser.email}</span>
+                    <button class="btn" onclick="logout()">Logout</button>
+                `;
+            } else {
+                authButtons.innerHTML = `
+                    <button class="btn" onclick="openModal('loginModal')">Login</button>
+                    <button class="btn" onclick="openModal('signupModal')">Sign Up</button>
+                `;
+            }
+        }
+        
+        document.getElementById('signupForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            
+            const { data, error } = await supabase.auth.signUp({
+                email: email,
+                password: password,
+                options: {
+                    data: { name: name }
+                }
+            });
+            
+            if (error) {
+                document.getElementById('signupError').textContent = error.message;
+            } else {
+                document.getElementById('signupSuccess').textContent = 'Account created! Check your email to confirm.';
+                setTimeout(() => closeModal('signupModal'), 2000);
+            }
+        });
+        
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            const { data, error } = await supabase.auth.signInWithPassword({
+                email: email,
+                password: password
+            });
+            
+            if (error) {
+                document.getElementById('loginError').textContent = error.message;
+            } else {
+                closeModal('loginModal');
+            }
+        });
+        
+        async function logout() {
+            await supabase.auth.signOut();
+        }
         
         async function callAI(prompt) {
             try {
@@ -212,8 +301,6 @@
         
         function openModal(id) { document.getElementById(id).style.display = 'flex'; }
         function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-        function login(e) { e.preventDefault(); closeModal('loginModal'); alert('Welcome back!'); }
-        function signup(e) { e.preventDefault(); closeModal('signupModal'); alert('Account created!'); }
         
         function openTool(tool) {
             const content = document.getElementById('toolContent');
