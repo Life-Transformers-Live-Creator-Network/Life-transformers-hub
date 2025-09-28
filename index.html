@@ -571,7 +571,221 @@
                     <p>Timer created for ${duration} minutes</p>
                 </div>
             `;
+        } // Pro Subscription System - ADD THIS BEFORE </script>
+        let userTier = 'free';
+        
+        async function checkUserTier() {
+            if (!currentUser) return;
+            try {
+                const { data, error } = await supabaseClient
+                    .from('profiles')
+                    .select('tier')
+                    .eq('id', currentUser.id)
+                    .single();
+                
+                if (data) {
+                    userTier = data.tier || 'free';
+                } else {
+                    userTier = 'free';
+                }
+                updateProFeatures();
+            } catch (error) {
+                userTier = 'free';
+            }
         }
+        
+        async function updateUserTier(tier) {
+            try {
+                const { error } = await supabaseClient
+                    .from('profiles')
+                    .upsert({ 
+                        id: currentUser.id,
+                        tier: tier,
+                        name: currentUser.user_metadata?.name,
+                        email: currentUser.email
+                    });
+                
+                if (!error) {
+                    userTier = tier;
+                }
+            } catch (error) {
+                console.error('Error updating user tier:', error);
+            }
+        }
+        
+        function updateProFeatures() {
+            // Add Pro badges to advanced features
+            const advancedTools = ['script', 'scheduler', 'ring', 'countdown'];
+            const cards = document.querySelectorAll('.feature-card');
+            
+            cards.forEach((card, index) => {
+                if (index >= 2) { // Tools after Calculator and Hook Generator
+                    if (!card.querySelector('.pro-badge')) {
+                        const badge = document.createElement('div');
+                        badge.className = 'pro-badge';
+                        badge.style.cssText = 'position: absolute; top: -10px; right: -10px; background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #1a1b23; padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold;';
+                        badge.textContent = userTier === 'pro' ? 'PRO ✓' : 'PRO';
+                        card.style.position = 'relative';
+                        card.appendChild(badge);
+                    }
+                }
+            });
+        }
+        
+        async function subscribeToPro() {
+            if (!currentUser) {
+                alert('Please login first');
+                return;
+            }
+            
+            localStorage.setItem('life_pending_pro', JSON.stringify({
+                userId: currentUser.id,
+                email: currentUser.email,
+                timestamp: Date.now()
+            }));
+            
+            window.open('https://buy.stripe.com/bJe3cw2y5a14gsV9lV8g00u', '_blank');
+            closeModal('upgradeModal');
+            showProActivationPrompt();
+        }
+        
+        function showProActivationPrompt() {
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.style.display = 'flex';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <h2>Complete Your Payment</h2>
+                    <p>1. Complete payment in the new tab that opened</p>
+                    <p>2. Return to this page</p>
+                    <p>3. Click "Activate Pro" below when payment is complete</p>
+                    <br>
+                    <button class="btn" style="background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #1a1b23;" onclick="confirmProActivation()">I Completed Payment - Activate Pro</button>
+                    <button class="btn" onclick="this.parentElement.parentElement.remove()">Cancel</button>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+        
+        function confirmProActivation() {
+            const pending = localStorage.getItem('life_pending_pro');
+            if (pending && currentUser) {
+                const data = JSON.parse(pending);
+                if (data.userId === currentUser.id) {
+                    userTier = 'pro';
+                    updateUserTier('pro');
+                    updateAuthUI();
+                    updateProFeatures();
+                    localStorage.removeItem('life_pending_pro');
+                    
+                    document.querySelector('.modal').remove();
+                    alert('Welcome to Life Transformers Pro! All features are now unlocked.');
+                }
+            }
+        }
+        
+        // Update the existing updateAuthUI function
+        function updateAuthUI() {
+            const authButtons = document.getElementById('authButtons');
+            if (currentUser) {
+                const name = currentUser.user_metadata?.name || currentUser.email;
+                const tierBadge = userTier === 'pro' ? '<span style="color:#fbbf24;font-size:0.8rem;">PRO</span>' : '<span style="color:#999;font-size:0.8rem;">FREE</span>';
+                authButtons.innerHTML = `
+                    <span>Welcome, ${name} ${tierBadge}</span>
+                    ${userTier === 'free' ? '<button class="btn" style="background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #1a1b23;" onclick="openUpgradeModal()">Upgrade to Pro</button>' : ''}
+                    <button class="btn" onclick="logout()">Logout</button>
+                `;
+            } else {
+                authButtons.innerHTML = `
+                    <button class="btn" onclick="openModal('loginModal')">Login</button>
+                    <button class="btn" onclick="openModal('signupModal')">Sign Up</button>
+                `;
+            }
+        }
+        
+        function openUpgradeModal() {
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.style.display = 'flex';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <span class="close" onclick="this.parentElement.parentElement.remove()">&times;</span>
+                    <h2>Upgrade to Pro</h2>
+                    <div style="background: rgba(255,255,255,0.05); border: 2px solid #fbbf24; border-radius: 16px; padding: 30px; text-align: center; margin: 20px 0;">
+                        <h3>Life Transformers Pro</h3>
+                        <div style="font-size: 3rem; font-weight: bold; margin: 20px 0; color: #fbbf24;">£5<span style="font-size:1rem;">/month</span></div>
+                        <ul style="text-align: left; margin: 20px 0;">
+                            <li>✓ AI Script Generator</li>
+                            <li>✓ LIVE Scheduler</li>
+                            <li>✓ Profile Ring Designer</li>
+                            <li>✓ Countdown Timer</li>
+                            <li>✓ Priority Support</li>
+                            <li>✓ Advanced Analytics</li>
+                        </ul>
+                        <button class="btn" style="background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #1a1b23; width: 100%;" onclick="subscribeToPro()">Subscribe Now</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+        
+        // Update existing openTool function to check Pro status
+        function openTool(tool) {
+            if (!currentUser) {
+                alert('Please login to use tools');
+                openModal('loginModal');
+                return;
+            }
+            
+            const proTools = ['script', 'scheduler', 'ring', 'countdown'];
+            if (proTools.includes(tool) && userTier !== 'pro') {
+                openUpgradeModal();
+                return;
+            }
+            
+            const content = document.getElementById('toolContent');
+            
+            switch(tool) {
+                case 'calculator':
+                    content.innerHTML = createDiamondCalculator();
+                    break;
+                case 'hooks':
+                    content.innerHTML = createHookGenerator();
+                    break;
+                case 'script':
+                    content.innerHTML = createScriptGenerator();
+                    break;
+                case 'scheduler':
+                    content.innerHTML = createScheduler();
+                    break;
+                case 'ring':
+                    content.innerHTML = createRingDesigner();
+                    break;
+                case 'countdown':
+                    content.innerHTML = createCountdownTimer();
+                    break;
+                default:
+                    content.innerHTML = '<h2>Tool Coming Soon</h2><p>This feature is under development.</p>';
+            }
+            
+            openModal('toolModal');
+        }
+        
+        // Update auth state change to check user tier
+        supabaseClient.auth.onAuthStateChange((event, session) => {
+            currentUser = session?.user || null;
+            if (currentUser) {
+                checkUserTier();
+            } else {
+                userTier = 'free';
+            }
+            updateAuthUI();
+            
+            if (event === 'SIGNED_IN') {
+                closeModal('loginModal');
+                closeModal('signupModal');
+            }
+        });
     </script>
 </body>
 </html>
