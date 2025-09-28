@@ -28,17 +28,9 @@
             color: white;
             text-decoration: none;
             display: inline-block;
-            width: 100%;
-            margin-bottom: 15px;
-            text-align: center;
+            transition: all 0.3s;
         }
         .btn:hover { transform: translateY(-2px); }
-        .btn-google { background: #4285f4; }
-        .btn-facebook { background: #1877f2; }
-        .btn-apple { background: #000; }
-        .btn-phone { background: #25d366; }
-        .btn-email { background: linear-gradient(135deg, #6366f1, #8b5cf6); }
-        
         .hero { text-align: center; padding: 60px 0; }
         .hero h1 {
             font-size: clamp(2rem, 5vw, 3.5rem);
@@ -53,9 +45,7 @@
             background: linear-gradient(135deg, #ef4444, #dc2626);
             font-size: 1.1rem;
             padding: 18px 36px;
-            width: auto;
         }
-        
         .features {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -68,10 +58,11 @@
             border-radius: 16px;
             padding: 30px;
             text-align: center;
+            transition: all 0.3s;
         }
+        .feature-card:hover { transform: translateY(-5px); }
         .feature-card h3 { margin: 20px 0 10px; }
         .feature-card p { opacity: 0.8; margin-bottom: 20px; }
-        
         .modal {
             display: none;
             position: fixed;
@@ -114,24 +105,9 @@
         }
         .error { color: #ef4444; margin-top: 10px; }
         .success { color: #10b981; margin-top: 10px; }
-        .divider { 
-            text-align: center; 
-            margin: 20px 0; 
-            position: relative;
-        }
-        .divider::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: rgba(255,255,255,0.2);
-        }
-        .divider span {
-            background: #1a1b23;
-            padding: 0 15px;
-            color: rgba(255,255,255,0.6);
+        @media (max-width: 768px) {
+            .nav { flex-direction: column; }
+            .features { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -140,8 +116,8 @@
         <nav class="container">
             <div class="logo">Life Transformers Hub</div>
             <div class="user-info" id="authButtons">
-                <button class="btn" onclick="openModal('loginModal')" style="width: auto;">Login</button>
-                <button class="btn" onclick="openModal('signupModal')" style="width: auto;">Sign Up</button>
+                <button class="btn" onclick="openModal('loginModal')">Login</button>
+                <button class="btn" onclick="openModal('signupModal')">Sign Up</button>
             </div>
         </nav>
     </header>
@@ -156,46 +132,41 @@
         <section class="features">
             <div class="feature-card">
                 <h3>Diamond Calculator</h3>
-                <p>Convert TikTok diamonds to real money</p>
-                <button class="btn" onclick="openTool('calculator')" style="width: auto;">Use Tool</button>
+                <p>Convert TikTok diamonds to real money in multiple currencies</p>
+                <button class="btn" onclick="openTool('calculator')">Use Tool</button>
             </div>
             <div class="feature-card">
                 <h3>AI Hook Generator</h3>
                 <p>Generate viral TikTok hooks with AI</p>
-                <button class="btn" onclick="openTool('hooks')" style="width: auto;">Generate Hooks</button>
+                <button class="btn" onclick="openTool('hooks')">Generate Hooks</button>
             </div>
             <div class="feature-card">
                 <h3>AI Script Generator</h3>
-                <p>Create full video scripts</p>
-                <button class="btn" onclick="openTool('script')" style="width: auto;">Generate Script</button>
+                <p>Create full video scripts with AI</p>
+                <button class="btn" onclick="openTool('script')">Generate Script</button>
+            </div>
+            <div class="feature-card">
+                <h3>LIVE Scheduler</h3>
+                <p>Plan and schedule your TikTok streams</p>
+                <button class="btn" onclick="openTool('scheduler')">Schedule Stream</button>
+            </div>
+            <div class="feature-card">
+                <h3>Profile Ring Designer</h3>
+                <p>Create branded profile images</p>
+                <button class="btn" onclick="openTool('ring')">Design Ring</button>
+            </div>
+            <div class="feature-card">
+                <h3>Countdown Timer</h3>
+                <p>Create countdown overlays for streams</p>
+                <button class="btn" onclick="openTool('countdown')">Create Timer</button>
             </div>
         </section>
     </main>
 
-    <!-- Login Modal -->
     <div id="loginModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('loginModal')">&times;</span>
             <h2>Login to LIFE</h2>
-            
-            <button class="btn btn-google" onclick="signInWithProvider('google')">
-                Continue with Google
-            </button>
-            
-            <button class="btn btn-facebook" onclick="signInWithProvider('facebook')">
-                Continue with Facebook
-            </button>
-            
-            <button class="btn btn-apple" onclick="signInWithProvider('apple')">
-                Continue with Apple
-            </button>
-            
-            <button class="btn btn-phone" onclick="openPhoneAuth()">
-                Continue with Phone
-            </button>
-            
-            <div class="divider"><span>or</span></div>
-            
             <form id="loginForm">
                 <div class="form-group">
                     <label>Email</label>
@@ -205,36 +176,16 @@
                     <label>Password</label>
                     <input type="password" id="loginPassword" required>
                 </div>
-                <button type="submit" class="btn btn-email">Login with Email</button>
+                <button type="submit" class="btn" style="width: 100%;">Login</button>
                 <div id="loginError" class="error"></div>
             </form>
         </div>
     </div>
 
-    <!-- Signup Modal -->
     <div id="signupModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('signupModal')">&times;</span>
             <h2>Join Life Transformers</h2>
-            
-            <button class="btn btn-google" onclick="signInWithProvider('google')">
-                Sign up with Google
-            </button>
-            
-            <button class="btn btn-facebook" onclick="signInWithProvider('facebook')">
-                Sign up with Facebook
-            </button>
-            
-            <button class="btn btn-apple" onclick="signInWithProvider('apple')">
-                Sign up with Apple
-            </button>
-            
-            <button class="btn btn-phone" onclick="openPhoneAuth()">
-                Sign up with Phone
-            </button>
-            
-            <div class="divider"><span>or</span></div>
-            
             <form id="signupForm">
                 <div class="form-group">
                     <label>Full Name</label>
@@ -248,43 +199,15 @@
                     <label>Password</label>
                     <input type="password" id="signupPassword" required minlength="6">
                 </div>
-                <button type="submit" class="btn btn-email">Create Account</button>
+                <button type="submit" class="btn" style="width: 100%;">Create Account</button>
                 <div id="signupError" class="error"></div>
                 <div id="signupSuccess" class="success"></div>
             </form>
         </div>
     </div>
 
-    <!-- Phone Auth Modal -->
-    <div id="phoneModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('phoneModal')">&times;</span>
-            <h2>Phone Authentication</h2>
-            
-            <div id="phoneStep1">
-                <div class="form-group">
-                    <label>Phone Number</label>
-                    <input type="tel" id="phoneNumber" placeholder="+44 7700 900000" required>
-                </div>
-                <button class="btn btn-phone" onclick="sendOTP()">Send Code</button>
-            </div>
-            
-            <div id="phoneStep2" style="display: none;">
-                <div class="form-group">
-                    <label>Enter 6-digit code</label>
-                    <input type="text" id="otpCode" placeholder="123456" maxlength="6" required>
-                </div>
-                <button class="btn btn-phone" onclick="verifyOTP()">Verify Code</button>
-                <button class="btn" onclick="backToPhone()" style="background: #666; margin-top: 10px;">Back</button>
-            </div>
-            
-            <div id="phoneError" class="error"></div>
-        </div>
-    </div>
-
-    <!-- Tool Modal -->
     <div id="toolModal" class="modal">
-        <div class="modal-content" style="max-width: 600px;">
+        <div class="modal-content" style="max-width: 700px;">
             <span class="close" onclick="closeModal('toolModal')">&times;</span>
             <div id="toolContent"></div>
         </div>
@@ -307,7 +230,6 @@
         
         let currentUser = null;
         
-        // Authentication state management
         supabaseClient.auth.getSession().then(({ data: { session } }) => {
             if (session) {
                 currentUser = session.user;
@@ -322,101 +244,25 @@
             if (event === 'SIGNED_IN') {
                 closeModal('loginModal');
                 closeModal('signupModal');
-                closeModal('phoneModal');
             }
         });
         
         function updateAuthUI() {
             const authButtons = document.getElementById('authButtons');
             if (currentUser) {
-                const name = currentUser.user_metadata?.name || currentUser.email || currentUser.phone;
+                const name = currentUser.user_metadata?.name || currentUser.email;
                 authButtons.innerHTML = `
                     <span>Welcome, ${name}</span>
-                    <button class="btn" onclick="logout()" style="width: auto;">Logout</button>
+                    <button class="btn" onclick="logout()">Logout</button>
                 `;
             } else {
                 authButtons.innerHTML = `
-                    <button class="btn" onclick="openModal('loginModal')" style="width: auto;">Login</button>
-                    <button class="btn" onclick="openModal('signupModal')" style="width: auto;">Sign Up</button>
+                    <button class="btn" onclick="openModal('loginModal')">Login</button>
+                    <button class="btn" onclick="openModal('signupModal')">Sign Up</button>
                 `;
             }
         }
         
-        // OAuth Authentication (Google, Facebook, Apple)
-        async function signInWithProvider(provider) {
-            const { data, error } = await supabaseClient.auth.signInWithOAuth({
-                provider: provider,
-                options: {
-                    redirectTo: window.location.origin
-                }
-            });
-            
-            if (error) {
-                console.error(`${provider} sign-in error:`, error);
-                alert(`Error signing in with ${provider}: ${error.message}`);
-            }
-        }
-        
-        // Phone Authentication
-        function openPhoneAuth() {
-            closeModal('loginModal');
-            closeModal('signupModal');
-            document.getElementById('phoneStep1').style.display = 'block';
-            document.getElementById('phoneStep2').style.display = 'none';
-            document.getElementById('phoneError').textContent = '';
-            openModal('phoneModal');
-        }
-        
-        async function sendOTP() {
-            const phone = document.getElementById('phoneNumber').value;
-            
-            if (!phone) {
-                document.getElementById('phoneError').textContent = 'Please enter a phone number';
-                return;
-            }
-            
-            const { data, error } = await supabaseClient.auth.signInWithOtp({
-                phone: phone
-            });
-            
-            if (error) {
-                document.getElementById('phoneError').textContent = error.message;
-            } else {
-                document.getElementById('phoneStep1').style.display = 'none';
-                document.getElementById('phoneStep2').style.display = 'block';
-                document.getElementById('phoneError').textContent = '';
-            }
-        }
-        
-        async function verifyOTP() {
-            const phone = document.getElementById('phoneNumber').value;
-            const token = document.getElementById('otpCode').value;
-            
-            if (!token || token.length !== 6) {
-                document.getElementById('phoneError').textContent = 'Please enter the 6-digit code';
-                return;
-            }
-            
-            const { data, error } = await supabaseClient.auth.verifyOtp({
-                phone: phone,
-                token: token,
-                type: 'sms'
-            });
-            
-            if (error) {
-                document.getElementById('phoneError').textContent = error.message;
-            } else {
-                closeModal('phoneModal');
-            }
-        }
-        
-        function backToPhone() {
-            document.getElementById('phoneStep1').style.display = 'block';
-            document.getElementById('phoneStep2').style.display = 'none';
-            document.getElementById('phoneError').textContent = '';
-        }
-        
-        // Email Authentication
         document.getElementById('signupForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             
@@ -465,7 +311,6 @@
             await supabaseClient.auth.signOut();
         }
         
-        // AI Functions
         async function callAI(prompt) {
             try {
                 const response = await fetch(AI_CONFIG.groq.baseUrl + '/chat/completions', {
@@ -487,29 +332,149 @@
             }
         }
         
-        // Modal Functions
         function openModal(id) { 
             document.getElementById(id).style.display = 'flex'; 
         }
         
         function closeModal(id) { 
             document.getElementById(id).style.display = 'none'; 
-            // Clear any error messages
             const errorEls = document.querySelectorAll('.error, .success');
             errorEls.forEach(el => el.textContent = '');
         }
         
-        // Tool Functions
         function openTool(tool) {
             const content = document.getElementById('toolContent');
-            if (tool === 'calculator') {
-                content.innerHTML = '<h2>Diamond Calculator</h2><div class="form-group"><label>Number of Diamonds:</label><input type="number" id="diamonds" placeholder="Enter diamonds"></div><button class="btn" onclick="calculate()" style="width: auto;">Calculate Value</button><div id="result" style="margin-top:20px;"></div>';
-            } else if (tool === 'hooks') {
-                content.innerHTML = '<h2>AI Hook Generator</h2><div class="form-group"><label>Topic:</label><input type="text" id="hookTopic" placeholder="e.g., fitness motivation"></div><button class="btn" onclick="generateHooks()" style="width: auto;">Generate Hooks</button><div id="hooksResult" style="margin-top:20px;"></div>';
-            } else if (tool === 'script') {
-                content.innerHTML = '<h2>AI Script Generator</h2><div class="form-group"><label>Topic:</label><input type="text" id="scriptTopic" placeholder="e.g., morning routine"></div><button class="btn" onclick="generateScript()" style="width: auto;">Generate Script</button><div id="scriptResult" style="margin-top:20px;"></div>';
+            
+            switch(tool) {
+                case 'calculator':
+                    content.innerHTML = createDiamondCalculator();
+                    break;
+                case 'hooks':
+                    content.innerHTML = createHookGenerator();
+                    break;
+                case 'script':
+                    content.innerHTML = createScriptGenerator();
+                    break;
+                case 'scheduler':
+                    content.innerHTML = createScheduler();
+                    break;
+                case 'ring':
+                    content.innerHTML = createRingDesigner();
+                    break;
+                case 'countdown':
+                    content.innerHTML = createCountdownTimer();
+                    break;
+                default:
+                    content.innerHTML = '<h2>Tool Coming Soon</h2><p>This feature is under development.</p>';
             }
+            
             openModal('toolModal');
+        }
+        
+        function createDiamondCalculator() {
+            return `
+                <h2>Diamond Calculator</h2>
+                <div class="form-group">
+                    <label>Number of Diamonds:</label>
+                    <input type="number" id="diamonds" placeholder="Enter diamonds">
+                </div>
+                <button class="btn" onclick="calculate()">Calculate Value</button>
+                <div id="result" style="margin-top:20px;"></div>
+            `;
+        }
+        
+        function createHookGenerator() {
+            return `
+                <h2>AI Hook Generator</h2>
+                <div class="form-group">
+                    <label>Topic:</label>
+                    <input type="text" id="hookTopic" placeholder="e.g., fitness motivation">
+                </div>
+                <button class="btn" onclick="generateHooks()">Generate Hooks</button>
+                <div id="hooksResult" style="margin-top:20px;"></div>
+            `;
+        }
+        
+        function createScriptGenerator() {
+            return `
+                <h2>AI Script Generator</h2>
+                <div class="form-group">
+                    <label>Topic:</label>
+                    <input type="text" id="scriptTopic" placeholder="e.g., morning routine">
+                </div>
+                <div class="form-group">
+                    <label>Duration:</label>
+                    <select id="scriptDuration">
+                        <option value="30 seconds">30 seconds</option>
+                        <option value="60 seconds">60 seconds</option>
+                        <option value="90 seconds">90 seconds</option>
+                    </select>
+                </div>
+                <button class="btn" onclick="generateScript()">Generate Script</button>
+                <div id="scriptResult" style="margin-top:20px;"></div>
+            `;
+        }
+        
+        function createScheduler() {
+            return `
+                <h2>LIVE Scheduler</h2>
+                <div class="form-group">
+                    <label>Stream Title:</label>
+                    <input type="text" id="streamTitle" placeholder="Enter stream title">
+                </div>
+                <div class="form-group">
+                    <label>Date:</label>
+                    <input type="date" id="streamDate">
+                </div>
+                <div class="form-group">
+                    <label>Time:</label>
+                    <input type="time" id="streamTime">
+                </div>
+                <button class="btn" onclick="scheduleStream()">Schedule Stream</button>
+                <div id="scheduleResult" style="margin-top:20px;"></div>
+            `;
+        }
+        
+        function createRingDesigner() {
+            return `
+                <h2>Profile Ring Designer</h2>
+                <div class="form-group">
+                    <label>Ring Color:</label>
+                    <select id="ringColor">
+                        <option value="#6366f1">Purple</option>
+                        <option value="#ef4444">Red</option>
+                        <option value="#10b981">Green</option>
+                        <option value="#f59e0b">Orange</option>
+                        <option value="#8b5cf6">Violet</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Ring Style:</label>
+                    <select id="ringStyle">
+                        <option value="solid">Solid</option>
+                        <option value="gradient">Gradient</option>
+                        <option value="animated">Animated</option>
+                    </select>
+                </div>
+                <button class="btn" onclick="designRing()">Create Ring</button>
+                <div id="ringResult" style="margin-top:20px;"></div>
+            `;
+        }
+        
+        function createCountdownTimer() {
+            return `
+                <h2>Countdown Timer</h2>
+                <div class="form-group">
+                    <label>Event Name:</label>
+                    <input type="text" id="eventName" placeholder="e.g., LIVE Stream Starting">
+                </div>
+                <div class="form-group">
+                    <label>Countdown Duration (minutes):</label>
+                    <input type="number" id="countdownDuration" value="5" min="1" max="60">
+                </div>
+                <button class="btn" onclick="createTimer()">Create Timer</button>
+                <div id="timerResult" style="margin-top:20px;"></div>
+            `;
         }
         
         function calculate() {
@@ -548,6 +513,8 @@
         
         async function generateScript() {
             const topic = document.getElementById('scriptTopic').value;
+            const duration = document.getElementById('scriptDuration').value;
+            
             if (!topic) {
                 alert('Please enter a topic');
                 return;
@@ -556,8 +523,54 @@
             const result = document.getElementById('scriptResult');
             result.innerHTML = '<p style="color:#fbbf24;">Generating script...</p>';
             
-            const script = await callAI(`Create a complete TikTok video script about "${topic}". Include hook, main content, transitions, and call-to-action. Keep it under 60 seconds.`);
+            const script = await callAI(`Create a complete TikTok video script about "${topic}" that is ${duration} long. Include hook, main content, transitions, and call-to-action.`);
             result.innerHTML = '<div style="background:rgba(255,255,255,0.05);padding:20px;border-radius:8px;white-space:pre-wrap;">' + script + '</div>';
+        }
+        
+        function scheduleStream() {
+            const title = document.getElementById('streamTitle').value;
+            const date = document.getElementById('streamDate').value;
+            const time = document.getElementById('streamTime').value;
+            
+            if (!title || !date || !time) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            document.getElementById('scheduleResult').innerHTML = `
+                <div style="background:rgba(255,255,255,0.05);padding:20px;border-radius:8px;">
+                    <h3 style="color:#10b981;">Stream Scheduled!</h3>
+                    <p><strong>${title}</strong></p>
+                    <p>${date} at ${time}</p>
+                </div>
+            `;
+        }
+        
+        function designRing() {
+            const color = document.getElementById('ringColor').value;
+            const style = document.getElementById('ringStyle').value;
+            
+            document.getElementById('ringResult').innerHTML = `
+                <div style="background:rgba(255,255,255,0.05);padding:20px;border-radius:8px;text-align:center;">
+                    <h3>Your Profile Ring</h3>
+                    <div style="width:100px;height:100px;border:4px ${style === 'solid' ? 'solid' : 'dashed'} ${color};border-radius:50%;margin:20px auto;"></div>
+                    <p>Color: ${color}</p>
+                    <p>Style: ${style}</p>
+                </div>
+            `;
+        }
+        
+        function createTimer() {
+            const eventName = document.getElementById('eventName').value || 'Event';
+            const duration = document.getElementById('countdownDuration').value;
+            
+            document.getElementById('timerResult').innerHTML = `
+                <div style="background:rgba(255,255,255,0.05);padding:20px;border-radius:8px;text-align:center;">
+                    <h3>${eventName}</h3>
+                    <div style="font-size:2rem;font-weight:bold;margin:20px 0;">${duration}:00</div>
+                    <p>Timer created for ${duration} minutes</p>
+                </div>
+            `;
         }
     </script>
 </body>
