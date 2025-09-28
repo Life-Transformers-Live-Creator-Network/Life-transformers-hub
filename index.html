@@ -30,6 +30,12 @@
             display: inline-block;
         }
         .btn:hover { transform: translateY(-2px); }
+        .btn-google {
+            background: #4285f4;
+            color: white;
+            width: 100%;
+            margin-bottom: 15px;
+        }
         .hero { text-align: center; padding: 60px 0; }
         .hero h1 {
             font-size: clamp(2rem, 5vw, 3.5rem);
@@ -76,10 +82,8 @@
             background: #1a1b23;
             border-radius: 16px;
             padding: 40px;
-            max-width: 600px;
+            max-width: 500px;
             width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
             position: relative;
         }
         .close {
@@ -92,7 +96,7 @@
         }
         .form-group { margin-bottom: 20px; }
         .form-group label { display: block; margin-bottom: 5px; font-weight: 600; }
-        .form-group input, .form-group select {
+        .form-group input {
             width: 100%;
             padding: 12px;
             border: 1px solid rgba(255,255,255,0.2);
@@ -102,6 +106,25 @@
         }
         .error { color: #ef4444; margin-top: 10px; }
         .success { color: #10b981; margin-top: 10px; }
+        .divider { 
+            text-align: center; 
+            margin: 20px 0; 
+            position: relative;
+        }
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: rgba(255,255,255,0.2);
+        }
+        .divider span {
+            background: #1a1b23;
+            padding: 0 15px;
+            color: rgba(255,255,255,0.6);
+        }
     </style>
 </head>
 <body>
@@ -145,6 +168,13 @@
         <div class="modal-content">
             <span class="close" onclick="closeModal('loginModal')">&times;</span>
             <h2>Login to LIFE</h2>
+            
+            <button class="btn btn-google" onclick="signInWithGoogle()">
+                Continue with Google
+            </button>
+            
+            <div class="divider"><span>or</span></div>
+            
             <form id="loginForm">
                 <div class="form-group">
                     <label>Email</label>
@@ -154,7 +184,7 @@
                     <label>Password</label>
                     <input type="password" id="loginPassword" required>
                 </div>
-                <button type="submit" class="btn">Login</button>
+                <button type="submit" class="btn" style="width: 100%;">Login with Email</button>
                 <div id="loginError" class="error"></div>
             </form>
         </div>
@@ -164,6 +194,13 @@
         <div class="modal-content">
             <span class="close" onclick="closeModal('signupModal')">&times;</span>
             <h2>Join Life Transformers</h2>
+            
+            <button class="btn btn-google" onclick="signInWithGoogle()">
+                Sign up with Google
+            </button>
+            
+            <div class="divider"><span>or</span></div>
+            
             <form id="signupForm">
                 <div class="form-group">
                     <label>Full Name</label>
@@ -177,7 +214,7 @@
                     <label>Password</label>
                     <input type="password" id="signupPassword" required minlength="6">
                 </div>
-                <button type="submit" class="btn">Create Account</button>
+                <button type="submit" class="btn" style="width: 100%;">Create Account</button>
                 <div id="signupError" class="error"></div>
                 <div id="signupSuccess" class="success"></div>
             </form>
@@ -185,7 +222,7 @@
     </div>
 
     <div id="toolModal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content" style="max-width: 600px;">
             <span class="close" onclick="closeModal('toolModal')">&times;</span>
             <div id="toolContent"></div>
         </div>
@@ -194,7 +231,9 @@
     <script>
         const SUPABASE_URL = 'https://mfpnlrfipurarjnpkjjf.supabase.co';
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1mcG5scmZpcHVyYXJqbnBrampmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg3NzIzMDgsImV4cCI6MjA3NDM0ODMwOH0.BrzydqLHn7jLGUwiX8nXZhuGy5ihNYXvCG0RE9Uxtmw';
-        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        
+        const { createClient } = supabase;
+        const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
         
         const AI_CONFIG = {
             groq: {
@@ -206,8 +245,8 @@
         
         let currentUser = null;
         
-        // Check if user is logged in
-        supabase.auth.getSession().then(({ data: { session } }) => {
+        // Check auth state on page load
+        supabaseClient.auth.getSession().then(({ data: { session } }) => {
             if (session) {
                 currentUser = session.user;
                 updateAuthUI();
@@ -215,16 +254,22 @@
         });
         
         // Listen for auth changes
-        supabase.auth.onAuthStateChange((event, session) => {
+        supabaseClient.auth.onAuthStateChange((event, session) => {
             currentUser = session?.user || null;
             updateAuthUI();
+            
+            if (event === 'SIGNED_IN') {
+                closeModal('loginModal');
+                closeModal('signupModal');
+            }
         });
         
         function updateAuthUI() {
             const authButtons = document.getElementById('authButtons');
             if (currentUser) {
+                const name = currentUser.user_metadata?.name || currentUser.email;
                 authButtons.innerHTML = `
-                    <span>Welcome, ${currentUser.email}</span>
+                    <span>Welcome, ${name}</span>
                     <button class="btn" onclick="logout()">Logout</button>
                 `;
             } else {
@@ -235,13 +280,27 @@
             }
         }
         
+        async function signInWithGoogle() {
+            const { data, error } = await supabaseClient.auth.signInWithOAuth({
+                provider: 'google',
+                options: {
+                    redirectTo: window.location.origin
+                }
+            });
+            
+            if (error) {
+                console.error('Google sign-in error:', error);
+            }
+        }
+        
         document.getElementById('signupForm').addEventListener('submit', async (e) => {
             e.preventDefault();
+            
             const name = document.getElementById('signupName').value;
             const email = document.getElementById('signupEmail').value;
             const password = document.getElementById('signupPassword').value;
             
-            const { data, error } = await supabase.auth.signUp({
+            const { data, error } = await supabaseClient.auth.signUp({
                 email: email,
                 password: password,
                 options: {
@@ -249,33 +308,37 @@
                 }
             });
             
+            const errorEl = document.getElementById('signupError');
+            const successEl = document.getElementById('signupSuccess');
+            
             if (error) {
-                document.getElementById('signupError').textContent = error.message;
+                errorEl.textContent = error.message;
+                successEl.textContent = '';
             } else {
-                document.getElementById('signupSuccess').textContent = 'Account created! Check your email to confirm.';
+                errorEl.textContent = '';
+                successEl.textContent = 'Account created successfully!';
                 setTimeout(() => closeModal('signupModal'), 2000);
             }
         });
         
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
+            
             const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('loginPassword').value;
             
-            const { data, error } = await supabase.auth.signInWithPassword({
+            const { data, error } = await supabaseClient.auth.signInWithPassword({
                 email: email,
                 password: password
             });
             
             if (error) {
                 document.getElementById('loginError').textContent = error.message;
-            } else {
-                closeModal('loginModal');
             }
         });
         
         async function logout() {
-            await supabase.auth.signOut();
+            await supabaseClient.auth.signOut();
         }
         
         async function callAI(prompt) {
@@ -299,39 +362,74 @@
             }
         }
         
-        function openModal(id) { document.getElementById(id).style.display = 'flex'; }
-        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+        function openModal(id) { 
+            document.getElementById(id).style.display = 'flex'; 
+        }
+        
+        function closeModal(id) { 
+            document.getElementById(id).style.display = 'none'; 
+            // Clear any error messages
+            const errorEls = document.querySelectorAll('.error, .success');
+            errorEls.forEach(el => el.textContent = '');
+        }
         
         function openTool(tool) {
             const content = document.getElementById('toolContent');
             if (tool === 'calculator') {
-                content.innerHTML = '<h2>💎 Diamond Calculator</h2><div class="form-group"><label>Diamonds:</label><input type="number" id="diamonds"></div><button class="btn" onclick="calculate()">Calculate</button><div id="result" style="margin-top:20px;"></div>';
+                content.innerHTML = '<h2>💎 Diamond Calculator</h2><div class="form-group"><label>Number of Diamonds:</label><input type="number" id="diamonds" placeholder="Enter diamonds"></div><button class="btn" onclick="calculate()">Calculate Value</button><div id="result" style="margin-top:20px;"></div>';
             } else if (tool === 'hooks') {
-                content.innerHTML = '<h2>🤖 AI Hook Generator</h2><div class="form-group"><label>Topic:</label><input type="text" id="hookTopic" placeholder="e.g., fitness"></div><button class="btn" onclick="generateHooks()">Generate</button><div id="hooksResult" style="margin-top:20px;"></div>';
+                content.innerHTML = '<h2>🤖 AI Hook Generator</h2><div class="form-group"><label>Topic:</label><input type="text" id="hookTopic" placeholder="e.g., fitness motivation"></div><button class="btn" onclick="generateHooks()">Generate Hooks</button><div id="hooksResult" style="margin-top:20px;"></div>';
             } else if (tool === 'script') {
-                content.innerHTML = '<h2>📝 AI Script Generator</h2><div class="form-group"><label>Topic:</label><input type="text" id="scriptTopic" placeholder="e.g., morning routine"></div><button class="btn" onclick="generateScript()">Generate</button><div id="scriptResult" style="margin-top:20px;"></div>';
+                content.innerHTML = '<h2>📝 AI Script Generator</h2><div class="form-group"><label>Topic:</label><input type="text" id="scriptTopic" placeholder="e.g., morning routine"></div><button class="btn" onclick="generateScript()">Generate Script</button><div id="scriptResult" style="margin-top:20px;"></div>';
             }
             openModal('toolModal');
         }
         
         function calculate() {
             const d = document.getElementById('diamonds').value;
-            document.getElementById('result').innerHTML = '<div style="background:rgba(255,255,255,0.05);padding:20px;border-radius:8px;"><h3>£' + (d * 0.004).toFixed(2) + '</h3><p>$' + (d * 0.005).toFixed(2) + ' USD</p></div>';
+            if (!d || d <= 0) {
+                alert('Please enter a valid number of diamonds');
+                return;
+            }
+            const gbp = (d * 0.004).toFixed(2);
+            const usd = (d * 0.005).toFixed(2);
+            const eur = (d * 0.0045).toFixed(2);
+            
+            document.getElementById('result').innerHTML = `
+                <div style="background:rgba(255,255,255,0.05);padding:20px;border-radius:8px;">
+                    <h3 style="color:#fbbf24;margin-bottom:10px;">Your Earnings:</h3>
+                    <p>💷 GBP: £${gbp}</p>
+                    <p>💵 USD: $${usd}</p>
+                    <p>💶 EUR: €${eur}</p>
+                </div>
+            `;
         }
         
         async function generateHooks() {
             const topic = document.getElementById('hookTopic').value;
+            if (!topic) {
+                alert('Please enter a topic');
+                return;
+            }
+            
             const result = document.getElementById('hooksResult');
-            result.innerHTML = '<p>Generating...</p>';
-            const hooks = await callAI('Generate 5 viral TikTok hooks about ' + topic + '. Number them 1-5.');
+            result.innerHTML = '<p style="color:#fbbf24;">Generating viral hooks...</p>';
+            
+            const hooks = await callAI(`Generate 5 viral TikTok hooks about "${topic}". Make them attention-grabbing within 3 seconds. Number them 1-5.`);
             result.innerHTML = '<div style="background:rgba(255,255,255,0.05);padding:20px;border-radius:8px;">' + hooks.replace(/\n/g, '<br>') + '</div>';
         }
         
         async function generateScript() {
             const topic = document.getElementById('scriptTopic').value;
+            if (!topic) {
+                alert('Please enter a topic');
+                return;
+            }
+            
             const result = document.getElementById('scriptResult');
-            result.innerHTML = '<p>Generating...</p>';
-            const script = await callAI('Create a TikTok video script about ' + topic + '. Include hook, content, and call-to-action.');
+            result.innerHTML = '<p style="color:#fbbf24;">Generating script...</p>';
+            
+            const script = await callAI(`Create a complete TikTok video script about "${topic}". Include hook, main content, transitions, and call-to-action. Keep it under 60 seconds.`);
             result.innerHTML = '<div style="background:rgba(255,255,255,0.05);padding:20px;border-radius:8px;white-space:pre-wrap;">' + script + '</div>';
         }
     </script>
