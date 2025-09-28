@@ -28,14 +28,17 @@
             color: white;
             text-decoration: none;
             display: inline-block;
-        }
-        .btn:hover { transform: translateY(-2px); }
-        .btn-google {
-            background: #4285f4;
-            color: white;
             width: 100%;
             margin-bottom: 15px;
+            text-align: center;
         }
+        .btn:hover { transform: translateY(-2px); }
+        .btn-google { background: #4285f4; }
+        .btn-facebook { background: #1877f2; }
+        .btn-apple { background: #000; }
+        .btn-phone { background: #25d366; }
+        .btn-email { background: linear-gradient(135deg, #6366f1, #8b5cf6); }
+        
         .hero { text-align: center; padding: 60px 0; }
         .hero h1 {
             font-size: clamp(2rem, 5vw, 3.5rem);
@@ -50,7 +53,9 @@
             background: linear-gradient(135deg, #ef4444, #dc2626);
             font-size: 1.1rem;
             padding: 18px 36px;
+            width: auto;
         }
+        
         .features {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -66,6 +71,7 @@
         }
         .feature-card h3 { margin: 20px 0 10px; }
         .feature-card p { opacity: 0.8; margin-bottom: 20px; }
+        
         .modal {
             display: none;
             position: fixed;
@@ -84,6 +90,8 @@
             padding: 40px;
             max-width: 500px;
             width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
             position: relative;
         }
         .close {
@@ -132,8 +140,8 @@
         <nav class="container">
             <div class="logo">Life Transformers Hub</div>
             <div class="user-info" id="authButtons">
-                <button class="btn" onclick="openModal('loginModal')">Login</button>
-                <button class="btn" onclick="openModal('signupModal')">Sign Up</button>
+                <button class="btn" onclick="openModal('loginModal')" style="width: auto;">Login</button>
+                <button class="btn" onclick="openModal('signupModal')" style="width: auto;">Sign Up</button>
             </div>
         </nav>
     </header>
@@ -147,30 +155,43 @@
 
         <section class="features">
             <div class="feature-card">
-                <h3>💎 Diamond Calculator</h3>
+                <h3>Diamond Calculator</h3>
                 <p>Convert TikTok diamonds to real money</p>
-                <button class="btn" onclick="openTool('calculator')">Use Tool</button>
+                <button class="btn" onclick="openTool('calculator')" style="width: auto;">Use Tool</button>
             </div>
             <div class="feature-card">
-                <h3>🤖 AI Hook Generator</h3>
+                <h3>AI Hook Generator</h3>
                 <p>Generate viral TikTok hooks with AI</p>
-                <button class="btn" onclick="openTool('hooks')">Generate Hooks</button>
+                <button class="btn" onclick="openTool('hooks')" style="width: auto;">Generate Hooks</button>
             </div>
             <div class="feature-card">
-                <h3>📝 AI Script Generator</h3>
+                <h3>AI Script Generator</h3>
                 <p>Create full video scripts</p>
-                <button class="btn" onclick="openTool('script')">Generate Script</button>
+                <button class="btn" onclick="openTool('script')" style="width: auto;">Generate Script</button>
             </div>
         </section>
     </main>
 
+    <!-- Login Modal -->
     <div id="loginModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('loginModal')">&times;</span>
             <h2>Login to LIFE</h2>
             
-            <button class="btn btn-google" onclick="signInWithGoogle()">
+            <button class="btn btn-google" onclick="signInWithProvider('google')">
                 Continue with Google
+            </button>
+            
+            <button class="btn btn-facebook" onclick="signInWithProvider('facebook')">
+                Continue with Facebook
+            </button>
+            
+            <button class="btn btn-apple" onclick="signInWithProvider('apple')">
+                Continue with Apple
+            </button>
+            
+            <button class="btn btn-phone" onclick="openPhoneAuth()">
+                Continue with Phone
             </button>
             
             <div class="divider"><span>or</span></div>
@@ -184,19 +205,32 @@
                     <label>Password</label>
                     <input type="password" id="loginPassword" required>
                 </div>
-                <button type="submit" class="btn" style="width: 100%;">Login with Email</button>
+                <button type="submit" class="btn btn-email">Login with Email</button>
                 <div id="loginError" class="error"></div>
             </form>
         </div>
     </div>
 
+    <!-- Signup Modal -->
     <div id="signupModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('signupModal')">&times;</span>
             <h2>Join Life Transformers</h2>
             
-            <button class="btn btn-google" onclick="signInWithGoogle()">
+            <button class="btn btn-google" onclick="signInWithProvider('google')">
                 Sign up with Google
+            </button>
+            
+            <button class="btn btn-facebook" onclick="signInWithProvider('facebook')">
+                Sign up with Facebook
+            </button>
+            
+            <button class="btn btn-apple" onclick="signInWithProvider('apple')">
+                Sign up with Apple
+            </button>
+            
+            <button class="btn btn-phone" onclick="openPhoneAuth()">
+                Sign up with Phone
             </button>
             
             <div class="divider"><span>or</span></div>
@@ -214,13 +248,41 @@
                     <label>Password</label>
                     <input type="password" id="signupPassword" required minlength="6">
                 </div>
-                <button type="submit" class="btn" style="width: 100%;">Create Account</button>
+                <button type="submit" class="btn btn-email">Create Account</button>
                 <div id="signupError" class="error"></div>
                 <div id="signupSuccess" class="success"></div>
             </form>
         </div>
     </div>
 
+    <!-- Phone Auth Modal -->
+    <div id="phoneModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('phoneModal')">&times;</span>
+            <h2>Phone Authentication</h2>
+            
+            <div id="phoneStep1">
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" id="phoneNumber" placeholder="+44 7700 900000" required>
+                </div>
+                <button class="btn btn-phone" onclick="sendOTP()">Send Code</button>
+            </div>
+            
+            <div id="phoneStep2" style="display: none;">
+                <div class="form-group">
+                    <label>Enter 6-digit code</label>
+                    <input type="text" id="otpCode" placeholder="123456" maxlength="6" required>
+                </div>
+                <button class="btn btn-phone" onclick="verifyOTP()">Verify Code</button>
+                <button class="btn" onclick="backToPhone()" style="background: #666; margin-top: 10px;">Back</button>
+            </div>
+            
+            <div id="phoneError" class="error"></div>
+        </div>
+    </div>
+
+    <!-- Tool Modal -->
     <div id="toolModal" class="modal">
         <div class="modal-content" style="max-width: 600px;">
             <span class="close" onclick="closeModal('toolModal')">&times;</span>
@@ -245,7 +307,7 @@
         
         let currentUser = null;
         
-        // Check auth state on page load
+        // Authentication state management
         supabaseClient.auth.getSession().then(({ data: { session } }) => {
             if (session) {
                 currentUser = session.user;
@@ -253,7 +315,6 @@
             }
         });
         
-        // Listen for auth changes
         supabaseClient.auth.onAuthStateChange((event, session) => {
             currentUser = session?.user || null;
             updateAuthUI();
@@ -261,38 +322,101 @@
             if (event === 'SIGNED_IN') {
                 closeModal('loginModal');
                 closeModal('signupModal');
+                closeModal('phoneModal');
             }
         });
         
         function updateAuthUI() {
             const authButtons = document.getElementById('authButtons');
             if (currentUser) {
-                const name = currentUser.user_metadata?.name || currentUser.email;
+                const name = currentUser.user_metadata?.name || currentUser.email || currentUser.phone;
                 authButtons.innerHTML = `
                     <span>Welcome, ${name}</span>
-                    <button class="btn" onclick="logout()">Logout</button>
+                    <button class="btn" onclick="logout()" style="width: auto;">Logout</button>
                 `;
             } else {
                 authButtons.innerHTML = `
-                    <button class="btn" onclick="openModal('loginModal')">Login</button>
-                    <button class="btn" onclick="openModal('signupModal')">Sign Up</button>
+                    <button class="btn" onclick="openModal('loginModal')" style="width: auto;">Login</button>
+                    <button class="btn" onclick="openModal('signupModal')" style="width: auto;">Sign Up</button>
                 `;
             }
         }
         
-        async function signInWithGoogle() {
+        // OAuth Authentication (Google, Facebook, Apple)
+        async function signInWithProvider(provider) {
             const { data, error } = await supabaseClient.auth.signInWithOAuth({
-                provider: 'google',
+                provider: provider,
                 options: {
                     redirectTo: window.location.origin
                 }
             });
             
             if (error) {
-                console.error('Google sign-in error:', error);
+                console.error(`${provider} sign-in error:`, error);
+                alert(`Error signing in with ${provider}: ${error.message}`);
             }
         }
         
+        // Phone Authentication
+        function openPhoneAuth() {
+            closeModal('loginModal');
+            closeModal('signupModal');
+            document.getElementById('phoneStep1').style.display = 'block';
+            document.getElementById('phoneStep2').style.display = 'none';
+            document.getElementById('phoneError').textContent = '';
+            openModal('phoneModal');
+        }
+        
+        async function sendOTP() {
+            const phone = document.getElementById('phoneNumber').value;
+            
+            if (!phone) {
+                document.getElementById('phoneError').textContent = 'Please enter a phone number';
+                return;
+            }
+            
+            const { data, error } = await supabaseClient.auth.signInWithOtp({
+                phone: phone
+            });
+            
+            if (error) {
+                document.getElementById('phoneError').textContent = error.message;
+            } else {
+                document.getElementById('phoneStep1').style.display = 'none';
+                document.getElementById('phoneStep2').style.display = 'block';
+                document.getElementById('phoneError').textContent = '';
+            }
+        }
+        
+        async function verifyOTP() {
+            const phone = document.getElementById('phoneNumber').value;
+            const token = document.getElementById('otpCode').value;
+            
+            if (!token || token.length !== 6) {
+                document.getElementById('phoneError').textContent = 'Please enter the 6-digit code';
+                return;
+            }
+            
+            const { data, error } = await supabaseClient.auth.verifyOtp({
+                phone: phone,
+                token: token,
+                type: 'sms'
+            });
+            
+            if (error) {
+                document.getElementById('phoneError').textContent = error.message;
+            } else {
+                closeModal('phoneModal');
+            }
+        }
+        
+        function backToPhone() {
+            document.getElementById('phoneStep1').style.display = 'block';
+            document.getElementById('phoneStep2').style.display = 'none';
+            document.getElementById('phoneError').textContent = '';
+        }
+        
+        // Email Authentication
         document.getElementById('signupForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             
@@ -341,6 +465,7 @@
             await supabaseClient.auth.signOut();
         }
         
+        // AI Functions
         async function callAI(prompt) {
             try {
                 const response = await fetch(AI_CONFIG.groq.baseUrl + '/chat/completions', {
@@ -362,6 +487,7 @@
             }
         }
         
+        // Modal Functions
         function openModal(id) { 
             document.getElementById(id).style.display = 'flex'; 
         }
@@ -373,14 +499,15 @@
             errorEls.forEach(el => el.textContent = '');
         }
         
+        // Tool Functions
         function openTool(tool) {
             const content = document.getElementById('toolContent');
             if (tool === 'calculator') {
-                content.innerHTML = '<h2>💎 Diamond Calculator</h2><div class="form-group"><label>Number of Diamonds:</label><input type="number" id="diamonds" placeholder="Enter diamonds"></div><button class="btn" onclick="calculate()">Calculate Value</button><div id="result" style="margin-top:20px;"></div>';
+                content.innerHTML = '<h2>Diamond Calculator</h2><div class="form-group"><label>Number of Diamonds:</label><input type="number" id="diamonds" placeholder="Enter diamonds"></div><button class="btn" onclick="calculate()" style="width: auto;">Calculate Value</button><div id="result" style="margin-top:20px;"></div>';
             } else if (tool === 'hooks') {
-                content.innerHTML = '<h2>🤖 AI Hook Generator</h2><div class="form-group"><label>Topic:</label><input type="text" id="hookTopic" placeholder="e.g., fitness motivation"></div><button class="btn" onclick="generateHooks()">Generate Hooks</button><div id="hooksResult" style="margin-top:20px;"></div>';
+                content.innerHTML = '<h2>AI Hook Generator</h2><div class="form-group"><label>Topic:</label><input type="text" id="hookTopic" placeholder="e.g., fitness motivation"></div><button class="btn" onclick="generateHooks()" style="width: auto;">Generate Hooks</button><div id="hooksResult" style="margin-top:20px;"></div>';
             } else if (tool === 'script') {
-                content.innerHTML = '<h2>📝 AI Script Generator</h2><div class="form-group"><label>Topic:</label><input type="text" id="scriptTopic" placeholder="e.g., morning routine"></div><button class="btn" onclick="generateScript()">Generate Script</button><div id="scriptResult" style="margin-top:20px;"></div>';
+                content.innerHTML = '<h2>AI Script Generator</h2><div class="form-group"><label>Topic:</label><input type="text" id="scriptTopic" placeholder="e.g., morning routine"></div><button class="btn" onclick="generateScript()" style="width: auto;">Generate Script</button><div id="scriptResult" style="margin-top:20px;"></div>';
             }
             openModal('toolModal');
         }
@@ -398,9 +525,9 @@
             document.getElementById('result').innerHTML = `
                 <div style="background:rgba(255,255,255,0.05);padding:20px;border-radius:8px;">
                     <h3 style="color:#fbbf24;margin-bottom:10px;">Your Earnings:</h3>
-                    <p>💷 GBP: £${gbp}</p>
-                    <p>💵 USD: $${usd}</p>
-                    <p>💶 EUR: €${eur}</p>
+                    <p>GBP: £${gbp}</p>
+                    <p>USD: $${usd}</p>
+                    <p>EUR: €${eur}</p>
                 </div>
             `;
         }
