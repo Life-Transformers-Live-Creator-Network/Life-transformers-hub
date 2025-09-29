@@ -1632,93 +1632,89 @@ function formatTime(seconds) {
                             <li>✓ Priority Support</li>
                             <li>✓ Advanced Analytics</li>
                         </ul>
-                       <button class="btn" style="background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #1a1b23; width: 100%;" onclick="activateProNow()">Activate Pro (Demo)</button>
-                </div> `;
-            document.body.appendChild(modal);
-        }
+                     <button class="btn" style="background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #1a1b23; width: 100%;" onclick="activateProNow()">Activate Pro (Demo)</button>
+                    </div>
+                </div>
             `;
-            document.body.appendChild(modal); 
+            document.body.appendChild(modal);
         }function activateProNow() {
     if (!currentUser) {
         alert('Please login first');
         return;
     }
     
-    // Immediate Pro activation for testing
     userTier = 'pro';
     updateAuthUI();
     
-    // Close all modals
     document.querySelectorAll('.modal').forEach(modal => modal.remove());
     
-    // Update the database
     if (typeof updateUserTier === 'function') {
         updateUserTier('pro');
     }
     
     alert('Pro activated! All tools are now unlocked.');
     
-    // Refresh the page to ensure all Pro features are active
     setTimeout(() => {
         window.location.reload();
     }, 1000);
 }
-        
-            if (!currentUser) {
-                alert('Please login to use tools');
-                openModal('loginModal');
-                return;
-            }
-            
-            const proTools = ['script', 'scheduler', 'ring', 'countdown'];
-            if (proTools.includes(tool) && userTier !== 'pro') {
-                openUpgradeModal();
-                return;
-            }
-            
-            const content = document.getElementById('toolContent');
-            
-            switch(tool) {
-                case 'calculator':
-                    content.innerHTML = createDiamondCalculator();
-                    break;
-                case 'hooks':
-                    content.innerHTML = createHookGenerator();
-                    break;
-                case 'script':
-                    content.innerHTML = createScriptGenerator();
-                    break;
-                case 'scheduler':
-                    content.innerHTML = createScheduler();
-                    break;
-                case 'ring':
-                    content.innerHTML = createRingDesigner();
-                    break;
-                case 'countdown':
-                    content.innerHTML = createCountdownTimer();
-                    break;
-                default:
-                    content.innerHTML = '<h2>Tool Coming Soon</h2><p>This feature is under development.</p>';
-            }
-            
-            openModal('toolModal');
-        }
-        
-        // Update auth state change to check user tier
-        supabaseClient.auth.onAuthStateChange((event, session) => {
-            currentUser = session?.user || null;
-            if (currentUser) {
-                checkUserTier();
-            } else {
-                userTier = 'free';
-            }
-            updateAuthUI();
-            
-            if (event === 'SIGNED_IN') {
-                closeModal('loginModal');
-                closeModal('signupModal');
-            }
-        });
+
+function openTool(tool) {
+    if (!currentUser) {
+        alert('Please login to use tools');
+        openModal('loginModal');
+        return;
+    }
+    
+    const proTools = ['script', 'scheduler', 'ring', 'countdown'];
+    if (proTools.includes(tool) && userTier !== 'pro') {
+        openUpgradeModal();
+        return;
+    }
+    
+    const content = document.getElementById('toolContent');
+    
+    switch(tool) {
+        case 'calculator':
+            content.innerHTML = createDiamondCalculator();
+            break;
+        case 'hooks':
+            content.innerHTML = createHookGenerator();
+            break;
+        case 'script':
+            content.innerHTML = createScriptGenerator();
+            break;
+        case 'scheduler':
+            content.innerHTML = createScheduler();
+            break;
+        case 'ring':
+            content.innerHTML = createRingDesigner();
+            break;
+        case 'countdown':
+            content.innerHTML = createCountdownTimer();
+            break;
+        default:
+            content.innerHTML = '<h2>Tool Coming Soon</h2><p>This feature is under development.</p>';
+    }
+    
+    openModal('toolModal');
+}
+
+// Update auth state change to check user tier
+supabaseClient.auth.onAuthStateChange((event, session) => {
+    currentUser = session?.user || null;
+    if (currentUser) {
+        checkUserTier();
+    } else {
+        userTier = 'free';
+    }
+    updateAuthUI();
+    
+    if (event === 'SIGNED_IN') {
+        closeModal('loginModal');
+        closeModal('signupModal');
+    }
+});
     </script>
 </body>
 </html>
