@@ -371,110 +371,833 @@
             openModal('toolModal');
         }
         
-        function createDiamondCalculator() {
-            return `
-                <h2>Diamond Calculator</h2>
-                <div class="form-group">
-                    <label>Number of Diamonds:</label>
-                    <input type="number" id="diamonds" placeholder="Enter diamonds">
-                </div>
-                <button class="btn" onclick="calculate()">Calculate Value</button>
-                <div id="result" style="margin-top:20px;"></div>
-            `;
+      // AI FUNCTIONS - Add this after the existing JavaScript, before the closing </script> tag
+
+async function callAI(prompt) {
+    try {
+        const response = await fetch(AI_CONFIG.groq.baseUrl + '/chat/completions', {
+            method: 'POST',
+            headers: {
+                'Authorization': 'Bearer ' + AI_CONFIG.groq.apiKey,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                model: AI_CONFIG.groq.model,
+                messages: [{ role: 'user', content: prompt }],
+                max_tokens: 500
+            })
+        });
+        
+        if (!response.ok) {
+            throw new Error(`API request failed: ${response.status}`);
         }
         
-        function createHookGenerator() {
-            return `
-                <h2>AI Hook Generator</h2>
-                <div class="form-group">
-                    <label>Topic:</label>
-                    <input type="text" id="hookTopic" placeholder="e.g., fitness motivation">
+        const data = await response.json();
+        return data.choices[0].message.content;
+    } catch (error) {
+        console.error('AI API Error:', error);
+        return 'Error: Unable to generate content. Please try again later.';
+    }
+}
+
+// DIAMOND CALCULATOR TOOL
+function createDiamondCalculator() {
+    return `
+        <h2>TikTok Diamond Calculator</h2>
+        <div class="form-group">
+            <label>Number of Diamonds:</label>
+            <input type="number" id="diamonds" placeholder="Enter diamonds" min="1">
+        </div>
+        <button class="btn" onclick="calculateDiamonds()" style="width: 100%; margin-bottom: 20px;">Calculate Value</button>
+        <div id="diamondResult" style="display: none;"></div>
+    `;
+}
+
+function calculateDiamonds() {
+    const diamondsInput = document.getElementById('diamonds');
+    const resultDiv = document.getElementById('diamondResult');
+    
+    if (!diamondsInput || !resultDiv) return;
+    
+    const diamonds = parseInt(diamondsInput.value);
+    
+    if (!diamonds || diamonds <= 0) {
+        alert('Please enter a valid number of diamonds');
+        return;
+    }
+    
+    // TikTok diamond conversion rates (approximate)
+    const gbp = (diamonds * 0.004).toFixed(2);
+    const usd = (diamonds * 0.005).toFixed(2);
+    const eur = (diamonds * 0.0045).toFixed(2);
+    
+    resultDiv.innerHTML = `
+        <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 25px; margin-top: 20px;">
+            <h3 style="color: #fbbf24; margin-bottom: 15px; text-align: center;">💎 Your Earnings from ${diamonds.toLocaleString()} Diamonds</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 15px; text-align: center;">
+                <div style="background: rgba(34, 197, 94, 0.1); border: 1px solid #22c55e; border-radius: 8px; padding: 15px;">
+                    <div style="font-size: 1.5rem; font-weight: bold; color: #22c55e;">£${gbp}</div>
+                    <div style="font-size: 0.9rem; opacity: 0.8;">GBP</div>
                 </div>
-                <button class="btn" onclick="generateHooks()">Generate Hooks</button>
-                <div id="hooksResult" style="margin-top:20px;"></div>
-            `;
-        }
+                <div style="background: rgba(59, 130, 246, 0.1); border: 1px solid #3b82f6; border-radius: 8px; padding: 15px;">
+                    <div style="font-size: 1.5rem; font-weight: bold; color: #3b82f6;">$${usd}</div>
+                    <div style="font-size: 0.9rem; opacity: 0.8;">USD</div>
+                </div>
+                <div style="background: rgba(168, 85, 247, 0.1); border: 1px solid #a855f7; border-radius: 8px; padding: 15px;">
+                    <div style="font-size: 1.5rem; font-weight: bold; color: #a855f7;">€${eur}</div>
+                    <div style="font-size: 0.9rem; opacity: 0.8;">EUR</div>
+                </div>
+            </div>
+            <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); text-align: center; font-size: 0.9rem; opacity: 0.7;">
+                Exchange rates: 1 Diamond ≈ £0.004 | $0.005 | €0.0045
+            </div>
+        </div>
+    `;
+    
+    resultDiv.style.display = 'block';
+}
+       // HOOK GENERATOR TOOL
+function createHookGenerator() {
+    return `
+        <h2>AI Hook Generator</h2>
+        <div class="form-group">
+            <label>Topic:</label>
+            <input type="text" id="hookTopic" placeholder="e.g., fitness motivation, cooking tips, life advice">
+        </div>
+        <div class="form-group">
+            <label>Style:</label>
+            <select id="hookStyle">
+                <option value="question">Question Hook</option>
+                <option value="shocking">Shocking Statement</option>
+                <option value="story">Story Hook</option>
+                <option value="numbers">Numbers/Stats</option>
+                <option value="challenge">Challenge Hook</option>
+            </select>
+        </div>
+        <button class="btn" onclick="generateHooks()" style="width: 100%; margin-bottom: 20px;">Generate Viral Hooks</button>
+        <div id="hooksResult" style="display: none;"></div>
+    `;
+}
+
+async function generateHooks() {
+    const topicInput = document.getElementById('hookTopic');
+    const styleSelect = document.getElementById('hookStyle');
+    const resultDiv = document.getElementById('hooksResult');
+    
+    if (!topicInput || !styleSelect || !resultDiv) return;
+    
+    const topic = topicInput.value.trim();
+    const style = styleSelect.value;
+    
+    if (!topic) {
+        alert('Please enter a topic');
+        return;
+    }
+    
+    resultDiv.style.display = 'block';
+    resultDiv.innerHTML = '<p style="color: #fbbf24; text-align: center;">🤖 Generating viral hooks...</p>';
+    
+    const stylePrompts = {
+        question: "Create 5 compelling question hooks",
+        shocking: "Create 5 shocking statement hooks that grab attention",
+        story: "Create 5 story-based hooks that create curiosity", 
+        numbers: "Create 5 number/statistic-based hooks",
+        challenge: "Create 5 challenge-based hooks that engage viewers"
+    };
+    
+    const prompt = `${stylePrompts[style]} about "${topic}" for TikTok. Each hook should be under 15 words and designed to capture attention in the first 3 seconds. Make them engaging, viral-worthy, and numbered 1-5. Focus on creating immediate curiosity or emotional impact.`;
+    
+    const hooks = await callAI(prompt);
+    
+    resultDiv.innerHTML = `
+        <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 25px;">
+            <h3 style="color: #fbbf24; margin-bottom: 15px; text-align: center;">🔥 Viral Hooks for "${topic}"</h3>
+            <div style="background: rgba(0,0,0,0.3); padding: 20px; border-radius: 8px; white-space: pre-wrap; line-height: 1.8; font-family: 'Segoe UI', sans-serif;">
+${hooks}
+            </div>
+            <div style="margin-top: 20px; padding: 15px; background: rgba(59, 130, 246, 0.1); border: 1px solid #3b82f6; border-radius: 8px;">
+                <h4 style="color: #3b82f6; margin-bottom: 10px;">💡 Pro Tips:</h4>
+                <ul style="margin: 0; padding-left: 20px; line-height: 1.6;">
+                    <li>Use these hooks in the first 3 seconds of your video</li>
+                    <li>Test multiple hooks to see which performs best</li>
+                    <li>Combine with strong visuals for maximum impact</li>
+                    <li>Make sure your content delivers on the hook's promise</li>
+                </ul>
+            </div>
+        </div>
+    `;
+}
+
+// SCRIPT GENERATOR TOOL  
+function createScriptGenerator() {
+    return `
+        <h2>AI Script Generator</h2>
+        <div class="form-group">
+            <label>Topic:</label>
+            <input type="text" id="scriptTopic" placeholder="e.g., morning routine, productivity tips">
+        </div>
+        <div class="form-group">
+            <label>Video Duration:</label>
+            <select id="scriptDuration">
+                <option value="15-30 seconds">15-30 seconds</option>
+                <option value="30-60 seconds">30-60 seconds</option>
+                <option value="60-90 seconds">60-90 seconds</option>
+                <option value="90+ seconds">90+ seconds</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Content Style:</label>
+            <select id="scriptStyle">
+                <option value="educational">Educational</option>
+                <option value="entertainment">Entertainment</option>
+                <option value="motivational">Motivational</option>
+                <option value="tutorial">Tutorial/How-to</option>
+                <option value="storytelling">Storytelling</option>
+            </select>
+        </div>
+        <button class="btn" onclick="generateScript()" style="width: 100%; margin-bottom: 20px;">Generate Script</button>
+        <div id="scriptResult" style="display: none;"></div>
+    `;
+}
+
+async function generateScript() {
+    const topicInput = document.getElementById('scriptTopic');
+    const durationSelect = document.getElementById('scriptDuration');
+    const styleSelect = document.getElementById('scriptStyle');
+    const resultDiv = document.getElementById('scriptResult');
+    
+    if (!topicInput || !durationSelect || !styleSelect || !resultDiv) return;
+    
+    const topic = topicInput.value.trim();
+    const duration = durationSelect.value;
+    const style = styleSelect.value;
+    
+    if (!topic) {
+        alert('Please enter a topic');
+        return;
+    }
+    
+    resultDiv.style.display = 'block';
+    resultDiv.innerHTML = '<p style="color: #fbbf24; text-align: center;">🎬 Generating your script...</p>';
+    
+    const prompt = `Create a complete TikTok video script about "${topic}" that is ${duration} long in a ${style} style. 
+
+Structure the script with:
+1. HOOK (0-3 seconds): Attention-grabbing opening
+2. CONTENT (main body): Clear, engaging content with smooth transitions
+3. CTA (call-to-action): Ending that encourages engagement
+
+Include timing indicators and make it specifically optimized for TikTok's algorithm. Focus on keeping viewers engaged throughout the entire video.`;
+    
+    const script = await callAI(prompt);
+    
+    resultDiv.innerHTML = `
+        <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 25px;">
+            <h3 style="color: #fbbf24; margin-bottom: 15px; text-align: center;">🎬 TikTok Script: "${topic}" (${duration})</h3>
+            <div style="background: rgba(0,0,0,0.4); padding: 25px; border-radius: 12px; white-space: pre-wrap; line-height: 1.8; font-family: 'Courier New', monospace; border-left: 4px solid #fbbf24;">
+${script}
+            </div>
+            <div style="margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div style="padding: 15px; background: rgba(34, 197, 94, 0.1); border: 1px solid #22c55e; border-radius: 8px;">
+                    <h4 style="color: #22c55e; margin-bottom: 10px;">📹 Filming Tips:</h4>
+                    <ul style="margin: 0; padding-left: 15px; font-size: 0.9rem; line-height: 1.5;">
+                        <li>Speak clearly and with energy</li>
+                        <li>Use good lighting</li>
+                        <li>Keep camera steady</li>
+                    </ul>
+                </div>
+                <div style="padding: 15px; background: rgba(168, 85, 247, 0.1); border: 1px solid #a855f7; border-radius: 8px;">
+                    <h4 style="color: #a855f7; margin-bottom: 10px;">🚀 Engagement Tips:</h4>
+                    <ul style="margin: 0; padding-left: 15px; font-size: 0.9rem; line-height: 1.5;">
+                        <li>Post at peak times</li>
+                        <li>Use trending hashtags</li>
+                        <li>Respond to comments quickly</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    `;
+}
+     // LIVE SCHEDULER TOOL
+function createScheduler() {
+    return `
+        <h2>LIVE Stream Scheduler</h2>
+        <div class="form-group">
+            <label>Stream Title:</label>
+            <input type="text" id="streamTitle" placeholder="e.g., Morning Motivation Live">
+        </div>
+        <div class="form-group">
+            <label>Date:</label>
+            <input type="date" id="streamDate" min="${new Date().toISOString().split('T')[0]}">
+        </div>
+        <div class="form-group">
+            <label>Time:</label>
+            <input type="time" id="streamTime">
+        </div>
+        <div class="form-group">
+            <label>Duration (minutes):</label>
+            <select id="streamDuration">
+                <option value="15">15 minutes</option>
+                <option value="30">30 minutes</option>
+                <option value="60" selected>1 hour</option>
+                <option value="90">1.5 hours</option>
+                <option value="120">2 hours</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Stream Category:</label>
+            <select id="streamCategory">
+                <option value="Chat">Just Chatting</option>
+                <option value="Music">Music Performance</option>
+                <option value="Gaming">Gaming</option>
+                <option value="Education">Educational</option>
+                <option value="Fitness">Fitness/Workout</option>
+                <option value="Cooking">Cooking</option>
+                <option value="Art">Art/Creative</option>
+            </select>
+        </div>
+        <button class="btn" onclick="scheduleStream()" style="width: 100%; margin-bottom: 20px;">Schedule Stream</button>
+        <div id="schedulerResult" style="display: none;"></div>
+    `;
+}
+
+function scheduleStream() {
+    const titleInput = document.getElementById('streamTitle');
+    const dateInput = document.getElementById('streamDate');
+    const timeInput = document.getElementById('streamTime');
+    const durationSelect = document.getElementById('streamDuration');
+    const categorySelect = document.getElementById('streamCategory');
+    const resultDiv = document.getElementById('schedulerResult');
+    
+    if (!titleInput || !dateInput || !timeInput || !durationSelect || !categorySelect || !resultDiv) return;
+    
+    const title = titleInput.value.trim();
+    const date = dateInput.value;
+    const time = timeInput.value;
+    const duration = durationSelect.value;
+    const category = categorySelect.value;
+    
+    if (!title || !date || !time) {
+        alert('Please fill in all required fields');
+        return;
+    }
+    
+    // Calculate end time
+    const startDateTime = new Date(date + 'T' + time);
+    const endDateTime = new Date(startDateTime.getTime() + duration * 60000);
+    
+    const formattedDate = startDateTime.toLocaleDateString('en-GB', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+    const formattedStartTime = startDateTime.toLocaleTimeString('en-GB', {
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+    const formattedEndTime = endDateTime.toLocaleTimeString('en-GB', {
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+    
+    resultDiv.innerHTML = `
+        <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 25px;">
+            <h3 style="color: #10b981; margin-bottom: 20px; text-align: center;">✅ Stream Scheduled Successfully!</h3>
+            <div style="background: rgba(16, 185, 129, 0.1); border: 2px solid #10b981; border-radius: 12px; padding: 20px; margin: 15px 0;">
+                <div style="display: grid; gap: 15px;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span style="color: #10b981; font-size: 1.2rem;">📺</span>
+                        <strong>Title:</strong> ${title}
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span style="color: #10b981; font-size: 1.2rem;">📅</span>
+                        <strong>Date:</strong> ${formattedDate}
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span style="color: #10b981; font-size: 1.2rem;">⏰</span>
+                        <strong>Time:</strong> ${formattedStartTime} - ${formattedEndTime}
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span style="color: #10b981; font-size: 1.2rem;">⏱️</span>
+                        <strong>Duration:</strong> ${duration} minutes
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span style="color: #10b981; font-size: 1.2rem;">🎯</span>
+                        <strong>Category:</strong> ${category}
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: 20px; padding: 15px; background: rgba(59, 130, 246, 0.1); border: 1px solid #3b82f6; border-radius: 8px;">
+                <h4 style="color: #3b82f6; margin-bottom: 10px;">📋 Pre-Stream Checklist:</h4>
+                <ul style="margin: 0; padding-left: 20px; line-height: 1.6;">
+                    <li>Test your equipment and internet connection</li>
+                    <li>Promote the stream on your social media</li>
+                    <li>Prepare talking points and content</li>
+                    <li>Set up good lighting and audio</li>
+                    <li>Have backup content ready</li>
+                </ul>
+            </div>
+        </div>
+    `;
+    
+    resultDiv.style.display = 'block';
+    
+    // Clear form
+    titleInput.value = '';
+    dateInput.value = '';
+    timeInput.value = '';
+}
+
+// PROFILE RING DESIGNER TOOL
+function createRingDesigner() {
+    return `
+        <h2>Profile Ring Designer</h2>
+        <div class="form-group">
+            <label>Ring Color:</label>
+            <select id="ringColor">
+                <option value="#6366f1">Purple</option>
+                <option value="#ef4444">Red</option>
+                <option value="#10b981">Green</option>
+                <option value="#f59e0b">Orange</option>
+                <option value="#8b5cf6">Violet</option>
+                <option value="#06b6d4">Cyan</option>
+                <option value="#ec4899">Pink</option>
+                <option value="#84cc16">Lime</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Ring Style:</label>
+            <select id="ringStyle">
+                <option value="solid">Solid</option>
+                <option value="gradient">Gradient</option>
+                <option value="animated">Animated Pulse</option>
+                <option value="glow">Glow Effect</option>
+                <option value="rainbow">Rainbow</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Ring Thickness:</label>
+            <select id="ringThickness">
+                <option value="2">Thin (2px)</option>
+                <option value="4" selected>Medium (4px)</option>
+                <option value="6">Thick (6px)</option>
+                <option value="8">Extra Thick (8px)</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Background Style:</label>
+            <select id="backgroundStyle">
+                <option value="dark">Dark Background</option>
+                <option value="light">Light Background</option>
+                <option value="transparent">Transparent</option>
+            </select>
+        </div>
+        <button class="btn" onclick="designRing()" style="width: 100%; margin-bottom: 20px;">Create Ring Design</button>
+        <div id="ringResult" style="display: none;"></div>
+    `;
+}
+
+function designRing() {
+    const colorSelect = document.getElementById('ringColor');
+    const styleSelect = document.getElementById('ringStyle');
+    const thicknessSelect = document.getElementById('ringThickness');
+    const backgroundSelect = document.getElementById('backgroundStyle');
+    const resultDiv = document.getElementById('ringResult');
+    
+    if (!colorSelect || !styleSelect || !thicknessSelect || !backgroundSelect || !resultDiv) return;
+    
+    const color = colorSelect.value;
+    const style = styleSelect.value;
+    const thickness = thicknessSelect.value;
+    const background = backgroundSelect.value;
+    
+    let ringCSS = '';
+    let animationCSS = '';
+    let backgroundCSS = '';
+    
+    // Background styles
+    switch(background) {
+        case 'dark':
+            backgroundCSS = 'background: linear-gradient(135deg, #1a1b23, #2d1b69);';
+            break;
+        case 'light':
+            backgroundCSS = 'background: linear-gradient(135deg, #f8fafc, #e2e8f0);';
+            break;
+        case 'transparent':
+            backgroundCSS = 'background: transparent; border: 1px dashed rgba(255,255,255,0.3);';
+            break;
+    }
+    
+    // Ring styles
+    switch(style) {
+        case 'solid':
+            ringCSS = `border: ${thickness}px solid ${color};`;
+            break;
+        case 'gradient':
+            ringCSS = `border: ${thickness}px solid; border-image: linear-gradient(45deg, ${color}, #ffffff) 1;`;
+            break;
+        case 'animated':
+            ringCSS = `border: ${thickness}px solid ${color};`;
+            animationCSS = 'ring-pulse 2s infinite';
+            break;
+        case 'glow':
+            ringCSS = `border: ${thickness}px solid ${color}; box-shadow: 0 0 20px ${color}50, inset 0 0 20px ${color}30;`;
+            break;
+        case 'rainbow':
+            ringCSS = `border: ${thickness}px solid; border-image: linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3) 1;`;
+            animationCSS = 'rainbow-rotate 3s linear infinite';
+            break;
+    }
+    
+    resultDiv.innerHTML = `
+        <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 25px;">
+            <h3 style="color: #fbbf24; margin-bottom: 20px; text-align: center;">🎨 Your Custom Profile Ring</h3>
+            <div style="text-align: center; margin: 30px 0;">
+                <div class="profile-ring-preview" style="
+                    width: 150px; 
+                    height: 150px; 
+                    ${ringCSS}
+                    ${backgroundCSS}
+                    border-radius: 50%; 
+                    margin: 0 auto;
+                    animation: ${animationCSS};
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: ${background === 'light' ? '#1a1b23' : 'white'};
+                    font-size: 0.9rem;
+                    font-weight: bold;
+                    position: relative;
+                ">
+                    Your Photo
+                </div>
+            </div>
+            <div style="background: rgba(0,0,0,0.3); padding: 20px; border-radius: 8px; margin: 20px 0;">
+                <h4 style="color: #fbbf24; margin-bottom: 15px;">Design Specifications:</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; font-size: 0.9rem;">
+                    <div><strong>Color:</strong> ${color}</div>
+                    <div><strong>Style:</strong> ${style.charAt(0).toUpperCase() + style.slice(1)}</div>
+                    <div><strong>Thickness:</strong> ${thickness}px</div>
+                    <div><strong>Background:</strong> ${background.charAt(0).toUpperCase() + background.slice(1)}</div>
+                </div>
+            </div>
+            <div style="margin-top: 20px; padding: 15px; background: rgba(168, 85, 247, 0.1); border: 1px solid #a855f7; border-radius: 8px;">
+                <h4 style="color: #a855f7; margin-bottom: 10px;">💡 Usage Tips:</h4>
+                <ul style="margin: 0; padding-left: 20px; line-height: 1.6; font-size: 0.9rem;">
+                    <li>Save this design as inspiration for your profile picture</li>
+                    <li>Use photo editing apps to recreate this ring effect</li>
+                    <li>Consider your brand colors when choosing ring colors</li>
+                    <li>Test how it looks on different backgrounds</li>
+                </ul>
+            </div>
+        </div>
         
-        function createScriptGenerator() {
-            return `
-                <h2>AI Script Generator</h2>
-                <div class="form-group">
-                    <label>Topic:</label>
-                    <input type="text" id="scriptTopic" placeholder="e.g., morning routine">
+        <style>
+            @keyframes ring-pulse {
+                0% { transform: scale(1); opacity: 1; }
+                50% { transform: scale(1.05); opacity: 0.8; }
+                100% { transform: scale(1); opacity: 1; }
+            }
+            @keyframes rainbow-rotate {
+                0% { filter: hue-rotate(0deg); }
+                100% { filter: hue-rotate(360deg); }
+            }
+        </style>
+    `;
+    
+    resultDiv.style.display = 'block';
+}
+// LIVE SCHEDULER TOOL
+function createScheduler() {
+    return `
+        <h2>LIVE Stream Scheduler</h2>
+        <div class="form-group">
+            <label>Stream Title:</label>
+            <input type="text" id="streamTitle" placeholder="e.g., Morning Motivation Live">
+        </div>
+        <div class="form-group">
+            <label>Date:</label>
+            <input type="date" id="streamDate" min="${new Date().toISOString().split('T')[0]}">
+        </div>
+        <div class="form-group">
+            <label>Time:</label>
+            <input type="time" id="streamTime">
+        </div>
+        <div class="form-group">
+            <label>Duration (minutes):</label>
+            <select id="streamDuration">
+                <option value="15">15 minutes</option>
+                <option value="30">30 minutes</option>
+                <option value="60" selected>1 hour</option>
+                <option value="90">1.5 hours</option>
+                <option value="120">2 hours</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Stream Category:</label>
+            <select id="streamCategory">
+                <option value="Chat">Just Chatting</option>
+                <option value="Music">Music Performance</option>
+                <option value="Gaming">Gaming</option>
+                <option value="Education">Educational</option>
+                <option value="Fitness">Fitness/Workout</option>
+                <option value="Cooking">Cooking</option>
+                <option value="Art">Art/Creative</option>
+            </select>
+        </div>
+        <button class="btn" onclick="scheduleStream()" style="width: 100%; margin-bottom: 20px;">Schedule Stream</button>
+        <div id="schedulerResult" style="display: none;"></div>
+    `;
+}
+
+function scheduleStream() {
+    const titleInput = document.getElementById('streamTitle');
+    const dateInput = document.getElementById('streamDate');
+    const timeInput = document.getElementById('streamTime');
+    const durationSelect = document.getElementById('streamDuration');
+    const categorySelect = document.getElementById('streamCategory');
+    const resultDiv = document.getElementById('schedulerResult');
+    
+    if (!titleInput || !dateInput || !timeInput || !durationSelect || !categorySelect || !resultDiv) return;
+    
+    const title = titleInput.value.trim();
+    const date = dateInput.value;
+    const time = timeInput.value;
+    const duration = durationSelect.value;
+    const category = categorySelect.value;
+    
+    if (!title || !date || !time) {
+        alert('Please fill in all required fields');
+        return;
+    }
+    
+    // Calculate end time
+    const startDateTime = new Date(date + 'T' + time);
+    const endDateTime = new Date(startDateTime.getTime() + duration * 60000);
+    
+    const formattedDate = startDateTime.toLocaleDateString('en-GB', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+    const formattedStartTime = startDateTime.toLocaleTimeString('en-GB', {
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+    const formattedEndTime = endDateTime.toLocaleTimeString('en-GB', {
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+    
+    resultDiv.innerHTML = `
+        <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 25px;">
+            <h3 style="color: #10b981; margin-bottom: 20px; text-align: center;">✅ Stream Scheduled Successfully!</h3>
+            <div style="background: rgba(16, 185, 129, 0.1); border: 2px solid #10b981; border-radius: 12px; padding: 20px; margin: 15px 0;">
+                <div style="display: grid; gap: 15px;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span style="color: #10b981; font-size: 1.2rem;">📺</span>
+                        <strong>Title:</strong> ${title}
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span style="color: #10b981; font-size: 1.2rem;">📅</span>
+                        <strong>Date:</strong> ${formattedDate}
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span style="color: #10b981; font-size: 1.2rem;">⏰</span>
+                        <strong>Time:</strong> ${formattedStartTime} - ${formattedEndTime}
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span style="color: #10b981; font-size: 1.2rem;">⏱️</span>
+                        <strong>Duration:</strong> ${duration} minutes
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span style="color: #10b981; font-size: 1.2rem;">🎯</span>
+                        <strong>Category:</strong> ${category}
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>Duration:</label>
-                    <select id="scriptDuration">
-                        <option value="30 seconds">30 seconds</option>
-                        <option value="60 seconds">60 seconds</option>
-                        <option value="90 seconds">90 seconds</option>
-                    </select>
+            </div>
+            <div style="margin-top: 20px; padding: 15px; background: rgba(59, 130, 246, 0.1); border: 1px solid #3b82f6; border-radius: 8px;">
+                <h4 style="color: #3b82f6; margin-bottom: 10px;">📋 Pre-Stream Checklist:</h4>
+                <ul style="margin: 0; padding-left: 20px; line-height: 1.6;">
+                    <li>Test your equipment and internet connection</li>
+                    <li>Promote the stream on your social media</li>
+                    <li>Prepare talking points and content</li>
+                    <li>Set up good lighting and audio</li>
+                    <li>Have backup content ready</li>
+                </ul>
+            </div>
+        </div>
+    `;
+    
+    resultDiv.style.display = 'block';
+    
+    // Clear form
+    titleInput.value = '';
+    dateInput.value = '';
+    timeInput.value = '';
+}
+
+// PROFILE RING DESIGNER TOOL
+function createRingDesigner() {
+    return `
+        <h2>Profile Ring Designer</h2>
+        <div class="form-group">
+            <label>Ring Color:</label>
+            <select id="ringColor">
+                <option value="#6366f1">Purple</option>
+                <option value="#ef4444">Red</option>
+                <option value="#10b981">Green</option>
+                <option value="#f59e0b">Orange</option>
+                <option value="#8b5cf6">Violet</option>
+                <option value="#06b6d4">Cyan</option>
+                <option value="#ec4899">Pink</option>
+                <option value="#84cc16">Lime</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Ring Style:</label>
+            <select id="ringStyle">
+                <option value="solid">Solid</option>
+                <option value="gradient">Gradient</option>
+                <option value="animated">Animated Pulse</option>
+                <option value="glow">Glow Effect</option>
+                <option value="rainbow">Rainbow</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Ring Thickness:</label>
+            <select id="ringThickness">
+                <option value="2">Thin (2px)</option>
+                <option value="4" selected>Medium (4px)</option>
+                <option value="6">Thick (6px)</option>
+                <option value="8">Extra Thick (8px)</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Background Style:</label>
+            <select id="backgroundStyle">
+                <option value="dark">Dark Background</option>
+                <option value="light">Light Background</option>
+                <option value="transparent">Transparent</option>
+            </select>
+        </div>
+        <button class="btn" onclick="designRing()" style="width: 100%; margin-bottom: 20px;">Create Ring Design</button>
+        <div id="ringResult" style="display: none;"></div>
+    `;
+}
+
+function designRing() {
+    const colorSelect = document.getElementById('ringColor');
+    const styleSelect = document.getElementById('ringStyle');
+    const thicknessSelect = document.getElementById('ringThickness');
+    const backgroundSelect = document.getElementById('backgroundStyle');
+    const resultDiv = document.getElementById('ringResult');
+    
+    if (!colorSelect || !styleSelect || !thicknessSelect || !backgroundSelect || !resultDiv) return;
+    
+    const color = colorSelect.value;
+    const style = styleSelect.value;
+    const thickness = thicknessSelect.value;
+    const background = backgroundSelect.value;
+    
+    let ringCSS = '';
+    let animationCSS = '';
+    let backgroundCSS = '';
+    
+    // Background styles
+    switch(background) {
+        case 'dark':
+            backgroundCSS = 'background: linear-gradient(135deg, #1a1b23, #2d1b69);';
+            break;
+        case 'light':
+            backgroundCSS = 'background: linear-gradient(135deg, #f8fafc, #e2e8f0);';
+            break;
+        case 'transparent':
+            backgroundCSS = 'background: transparent; border: 1px dashed rgba(255,255,255,0.3);';
+            break;
+    }
+    
+    // Ring styles
+    switch(style) {
+        case 'solid':
+            ringCSS = `border: ${thickness}px solid ${color};`;
+            break;
+        case 'gradient':
+            ringCSS = `border: ${thickness}px solid; border-image: linear-gradient(45deg, ${color}, #ffffff) 1;`;
+            break;
+        case 'animated':
+            ringCSS = `border: ${thickness}px solid ${color};`;
+            animationCSS = 'ring-pulse 2s infinite';
+            break;
+        case 'glow':
+            ringCSS = `border: ${thickness}px solid ${color}; box-shadow: 0 0 20px ${color}50, inset 0 0 20px ${color}30;`;
+            break;
+        case 'rainbow':
+            ringCSS = `border: ${thickness}px solid; border-image: linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3) 1;`;
+            animationCSS = 'rainbow-rotate 3s linear infinite';
+            break;
+    }
+    
+    resultDiv.innerHTML = `
+        <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 25px;">
+            <h3 style="color: #fbbf24; margin-bottom: 20px; text-align: center;">🎨 Your Custom Profile Ring</h3>
+            <div style="text-align: center; margin: 30px 0;">
+                <div class="profile-ring-preview" style="
+                    width: 150px; 
+                    height: 150px; 
+                    ${ringCSS}
+                    ${backgroundCSS}
+                    border-radius: 50%; 
+                    margin: 0 auto;
+                    animation: ${animationCSS};
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: ${background === 'light' ? '#1a1b23' : 'white'};
+                    font-size: 0.9rem;
+                    font-weight: bold;
+                    position: relative;
+                ">
+                    Your Photo
                 </div>
-                <button class="btn" onclick="generateScript()">Generate Script</button>
-                <div id="scriptResult" style="margin-top:20px;"></div>
-            `;
-        }
+            </div>
+            <div style="background: rgba(0,0,0,0.3); padding: 20px; border-radius: 8px; margin: 20px 0;">
+                <h4 style="color: #fbbf24; margin-bottom: 15px;">Design Specifications:</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; font-size: 0.9rem;">
+                    <div><strong>Color:</strong> ${color}</div>
+                    <div><strong>Style:</strong> ${style.charAt(0).toUpperCase() + style.slice(1)}</div>
+                    <div><strong>Thickness:</strong> ${thickness}px</div>
+                    <div><strong>Background:</strong> ${background.charAt(0).toUpperCase() + background.slice(1)}</div>
+                </div>
+            </div>
+            <div style="margin-top: 20px; padding: 15px; background: rgba(168, 85, 247, 0.1); border: 1px solid #a855f7; border-radius: 8px;">
+                <h4 style="color: #a855f7; margin-bottom: 10px;">💡 Usage Tips:</h4>
+                <ul style="margin: 0; padding-left: 20px; line-height: 1.6; font-size: 0.9rem;">
+                    <li>Save this design as inspiration for your profile picture</li>
+                    <li>Use photo editing apps to recreate this ring effect</li>
+                    <li>Consider your brand colors when choosing ring colors</li>
+                    <li>Test how it looks on different backgrounds</li>
+                </ul>
+            </div>
+        </div>
         
-        function createScheduler() {
-            return `
-                <h2>LIVE Scheduler</h2>
-                <div class="form-group">
-                    <label>Stream Title:</label>
-                    <input type="text" id="streamTitle" placeholder="Enter stream title">
-                </div>
-                <div class="form-group">
-                    <label>Date:</label>
-                    <input type="date" id="streamDate">
-                </div>
-                <div class="form-group">
-                    <label>Time:</label>
-                    <input type="time" id="streamTime">
-                </div>
-                <button class="btn" onclick="scheduleStream()">Schedule Stream</button>
-                <div id="scheduleResult" style="margin-top:20px;"></div>
-            `;
-        }
-        
-        function createRingDesigner() {
-            return `
-                <h2>Profile Ring Designer</h2>
-                <div class="form-group">
-                    <label>Ring Color:</label>
-                    <select id="ringColor">
-                        <option value="#6366f1">Purple</option>
-                        <option value="#ef4444">Red</option>
-                        <option value="#10b981">Green</option>
-                        <option value="#f59e0b">Orange</option>
-                        <option value="#8b5cf6">Violet</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Ring Style:</label>
-                    <select id="ringStyle">
-                        <option value="solid">Solid</option>
-                        <option value="gradient">Gradient</option>
-                        <option value="animated">Animated</option>
-                    </select>
-                </div>
-                <button class="btn" onclick="designRing()">Create Ring</button>
-                <div id="ringResult" style="margin-top:20px;"></div>
-            `;
-        }
-        
-        function createCountdownTimer() {
-            return `
-                <h2>Countdown Timer</h2>
-                <div class="form-group">
-                    <label>Event Name:</label>
-                    <input type="text" id="eventName" placeholder="e.g., LIVE Stream Starting">
-                </div>
-                <div class="form-group">
-                    <label>Countdown Duration (minutes):</label>
-                    <input type="number" id="countdownDuration" value="5" min="1" max="60">
-                </div>
-                <button class="btn" onclick="createTimer()">Create Timer</button>
-                <div id="timerResult" style="margin-top:20px;"></div>
-            `;
+        <style>
+            @keyframes ring-pulse {
+                0% { transform: scale(1); opacity: 1; }
+                50% { transform: scale(1.05); opacity: 0.8; }
+                100% { transform: scale(1); opacity: 1; }
+            }
+            @keyframes rainbow-rotate {
+                0% { filter: hue-rotate(0deg); }
+                100% { filter: hue-rotate(360deg); }
+            }
+        </style>
+    `;
+    
+    resultDiv.style.display = 'block';
+}
         }
         
         function calculate() {
@@ -560,18 +1283,205 @@
             `;
         }
         
-        function createTimer() {
-            const eventName = document.getElementById('eventName').value || 'Event';
-            const duration = document.getElementById('countdownDuration').value;
+       function createTimer() {
+    const eventInput = document.getElementById('eventName');
+    const typeSelect = document.getElementById('countdownType');
+    const durationInput = document.getElementById('countdownDuration');
+    const dateInput = document.getElementById('targetDate');
+    const timeInput = document.getElementById('targetTime');
+    const styleSelect = document.getElementById('timerStyle');
+    const resultDiv = document.getElementById('timerResult');
+    
+    if (!eventInput || !typeSelect || !styleSelect || !resultDiv) return;
+    
+    const eventName = eventInput.value.trim() || 'Event';
+    const type = typeSelect.value;
+    const style = styleSelect.value;
+    
+    let endTime;
+    let displayDuration;
+    
+    if (type === 'minutes') {
+        const duration = parseInt(durationInput.value) || 5;
+        if (duration < 1 || duration > 1440) {
+            alert('Duration must be between 1 and 1440 minutes (24 hours)');
+            return;
+        }
+        endTime = new Date(Date.now() + duration * 60000);
+        displayDuration = `${duration} minute${duration > 1 ? 's' : ''}`;
+    } else {
+        const date = dateInput.value;
+        const time = timeInput.value;
+        
+        if (!date || !time) {
+            alert('Please select both date and time');
+            return;
+        }
+        
+        endTime = new Date(date + 'T' + time);
+        if (endTime <= new Date()) {
+            alert('Target time must be in the future');
+            return;
+        }
+        
+        const diffMinutes = Math.floor((endTime - new Date()) / 60000);
+        displayDuration = `${Math.floor(diffMinutes / 60)}h ${diffMinutes % 60}m`;
+    }
+    
+    resultDiv.innerHTML = `
+        <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 25px;">
+            <h3 style="color: #fbbf24; margin-bottom: 20px; text-align: center;">⏰ ${eventName}</h3>
+            <div id="countdown-display" style="
+                font-size: ${style === 'digital' ? '3.5rem' : '2.5rem'}; 
+                font-weight: bold; 
+                text-align: center; 
+                color: #ef4444;
+                margin: 30px 0;
+                font-family: ${style === 'digital' ? "'Courier New', monospace" : "'Segoe UI', sans-serif"};
+                padding: 20px;
+                background: ${style === 'digital' ? 'rgba(0,0,0,0.5)' : 'transparent'};
+                border-radius: 12px;
+                ${style === 'analog' ? 'border: 3px solid #ef4444;' : ''}
+            ">${formatTime(Math.floor((endTime - new Date()) / 1000))}</div>
+            ${style === 'progress' ? '<div id="progress-bar" style="width: 100%; height: 20px; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; margin: 20px 0;"><div id="progress-fill" style="height: 100%; background: linear-gradient(90deg, #ef4444, #fbbf24); width: 100%; transition: width 1s ease;"></div></div>' : ''}
+            <div style="text-align: center; margin: 20px 0;">
+                <button class="btn" onclick="startCountdown(${endTime.getTime()}, '${eventName}', '${style}')" id="startBtn">Start Countdown</button>
+                <button class="btn" onclick="pauseCountdown()" id="pauseBtn" style="background: #f59e0b; display: none;">Pause</button>
+                <button class="btn" onclick="stopCountdown()" id="stopBtn" style="background: #ef4444;">Stop</button>
+            </div>
+            <div style="text-align: center; font-size: 0.9rem; opacity: 0.8;">
+                Duration: ${displayDuration} | Style: ${style.charAt(0).toUpperCase() + style.slice(1)}
+            </div>
+        </div>
+    `;
+    
+    resultDiv.style.display = 'block';
+}
+
+let countdownInterval = null;
+let countdownPaused = false;
+let totalDuration = 0;
+
+function startCountdown(endTime, eventName, style) {
+    stopCountdown(); 
+    countdownPaused = false;
+    totalDuration = Math.floor((endTime - new Date()) / 1000);
+    
+    document.getElementById('startBtn').style.display = 'none';
+    document.getElementById('pauseBtn').style.display = 'inline-block';
+    
+    countdownInterval = setInterval(() => {
+        if (countdownPaused) return;
+        
+        const now = new Date().getTime();
+        const distance = endTime - now;
+        
+        if (distance < 0) {
+            stopCountdown();
+            document.getElementById('countdown-display').innerHTML = '🎉 TIME\'S UP! 🎉';
+            document.getElementById('countdown-display').style.color = '#10b981';
             
-            document.getElementById('timerResult').innerHTML = `
-                <div style="background:rgba(255,255,255,0.05);padding:20px;border-radius:8px;text-align:center;">
-                    <h3>${eventName}</h3>
-                    <div style="font-size:2rem;font-weight:bold;margin:20px 0;">${duration}:00</div>
-                    <p>Timer created for ${duration} minutes</p>
-                </div>
-            `;
-        } // Pro Subscription System - ADD THIS BEFORE </script>
+            const progressFill = document.getElementById('progress-fill');
+            if (progressFill) {
+                progressFill.style.width = '0%';
+            }
+            
+            return;
+        }
+        
+        const totalSeconds = Math.floor(distance / 1000);
+        document.getElementById('countdown-display').innerHTML = formatTime(totalSeconds);
+        
+        const progressFill = document.getElementById('progress-fill');
+        if (progressFill && totalDuration > 0) {
+            const progress = ((totalDuration - totalSeconds) / totalDuration) * 100;
+            progressFill.style.width = `${progress}%`;
+        }
+    }, 1000);
+}
+
+function pauseCountdown() {
+    countdownPaused = !countdownPaused;
+    const pauseBtn = document.getElementById('pauseBtn');
+    pauseBtn.textContent = countdownPaused ? 'Resume' : 'Pause';
+    pauseBtn.style.background = countdownPaused ? '#10b981' : '#f59e0b';
+}
+
+function stopCountdown() {
+    if (countdownInterval) {
+        clearInterval(countdownInterval);
+        countdownInterval = null;
+    }
+    countdownPaused = false;
+    
+    const startBtn = document.getElementById('startBtn');
+    const pauseBtn = document.getElementById('pauseBtn');
+    
+    if (startBtn) startBtn.style.display = 'inline-block';
+    if (pauseBtn) {
+        pauseBtn.style.display = 'none';
+        pauseBtn.textContent = 'Pause';
+        pauseBtn.style.background = '#f59e0b';
+    }
+}
+
+function formatTime(seconds) {
+    if (seconds < 0) return '00:00';
+    
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const remainingSeconds = seconds % 60;
+    
+    if (hours > 0) {
+        return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+    } else {
+        return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+    }
+}
+      
+        // Update existing openTool function to check Pro status
+        function openTool(tool) function openTool(tool) {
+    // Check if user needs to login;
+    if (!currentUser) {
+        alert('Please login to use tools');
+        openModal('loginModal');
+        return;
+    }
+    
+    // Check if tool requires Pro
+    const proTools = ['script', 'scheduler', 'ring', 'countdown'];
+    if (proTools.includes(tool) && userTier !== 'pro') {
+        openUpgradeModal();
+        return;
+    }
+    
+    const content = document.getElementById('toolContent');
+    
+    switch(tool) {
+        case 'calculator':
+            content.innerHTML = createDiamondCalculator();
+            break;
+        case 'hooks':
+            content.innerHTML = createHookGenerator();
+            break;
+        case 'script':
+            content.innerHTML = createScriptGenerator();
+            break;
+        case 'scheduler':
+            content.innerHTML = createScheduler();
+            break;
+        case 'ring':
+            content.innerHTML = createRingDesigner();
+            break;
+        case 'countdown':
+            content.innerHTML = createCountdownTimer();
+            break;
+        default:
+            content.innerHTML = '<h2>Tool Coming Soon</h2><p>This feature is under development.</p>';
+    }
+    
+    openModal('toolModal');
+} // Pro Subscription System - ADD THIS BEFORE </script>
         let userTier = 'free';
         
         async function checkUserTier() {
@@ -684,7 +1594,7 @@
             }
         }
         
-        // Update the existing updateAuthUI function
+        // Update the existing updateAuthUI function;
         function updateAuthUI() {
             const authButtons = document.getElementById('authButtons');
             if (currentUser) {
@@ -722,15 +1632,38 @@
                             <li>✓ Priority Support</li>
                             <li>✓ Advanced Analytics</li>
                         </ul>
-                        <button class="btn" style="background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #1a1b23; width: 100%;" onclick="subscribeToPro()">Subscribe Now</button>
-                    </div>
-                </div>
-            `;
+                       <button class="btn" style="background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #1a1b23; width: 100%;" onclick="activateProNow()">Activate Pro (Demo)</button>
+                </div> `;
             document.body.appendChild(modal);
         }
+            `;
+            document.body.appendChild(modal); 
+        }function activateProNow() {
+    if (!currentUser) {
+        alert('Please login first');
+        return;
+    }
+    
+    // Immediate Pro activation for testing
+    userTier = 'pro';
+    updateAuthUI();
+    
+    // Close all modals
+    document.querySelectorAll('.modal').forEach(modal => modal.remove());
+    
+    // Update the database
+    if (typeof updateUserTier === 'function') {
+        updateUserTier('pro');
+    }
+    
+    alert('Pro activated! All tools are now unlocked.');
+    
+    // Refresh the page to ensure all Pro features are active
+    setTimeout(() => {
+        window.location.reload();
+    }, 1000);
+}
         
-        // Update existing openTool function to check Pro status
-        function openTool(tool) {
             if (!currentUser) {
                 alert('Please login to use tools');
                 openModal('loginModal');
