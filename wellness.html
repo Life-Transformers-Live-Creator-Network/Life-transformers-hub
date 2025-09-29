@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wellness Hub - Life Transformers</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1b23 0%, #2d1b69 50%, #4c1d95 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        nav { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+        .logo { font-size: 24px; font-weight: bold; }
+        .nav-links { display: flex; gap: 20px; flex-wrap: wrap; }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+        .nav-links a:hover { background: rgba(255,255,255,0.1); }
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+        }
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffffff, #10b981);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p { font-size: 1.2rem; opacity: 0.9; max-width: 800px; margin: 0 auto; }
+        .section {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 40px;
+            margin: 30px 0;
+        }
+        .section h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #10b981;
+        }
+        .disclaimer {
+            background: rgba(239, 68, 68, 0.1);
+            border: 2px solid #ef4444;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .disclaimer strong { color: #ef4444; }
+        .chill-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .chill-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .chill-card:hover {
+            transform: translateY(-5px);
+            border-color: #10b981;
+        }
+        .chill-card h3 {
+            color: #10b981;
+            margin-bottom: 10px;
+        }
+        .chill-card .duration {
+            color: #999;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .resource-card {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid #10b981;
+            border-radius: 12px;
+            padding: 25px;
+        }
+        .resource-card h3 {
+            color: #10b981;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        .resource-card p { margin-bottom: 15px; line-height: 1.6; }
+        .resource-link {
+            display: inline-block;
+            color: #fbbf24;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        .resource-link:hover { text-decoration: underline; }
+        .emergency-box {
+            background: rgba(239, 68, 68, 0.2);
+            border: 3px solid #ef4444;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            margin: 40px 0;
+        }
+        .emergency-box h2 {
+            color: #ef4444;
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+        .emergency-box .phone {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #fbbf24;
+            margin: 20px 0;
+        }
+    </style>
+</head> <body>
+    <header>
+        <nav class="container">
+            <div class="logo">Life Transformers Hub</div>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/about.html">About</a>
+                <a href="/services.html">Services</a>
+                <a href="/wellness.html">Wellness</a>
+                <a href="/updates.html">Updates</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Wellness Hub</h1>
+            <p>Your mental health and wellbeing matter. Take a moment for yourself.</p>
+        </section>
+
+        <div class="disclaimer">
+            <strong>Important:</strong> This page provides general wellness resources and is not a substitute for professional mental health care. If you're experiencing a mental health crisis, please contact emergency services or a crisis helpline immediately.
+        </div>
+
+        <div class="emergency-box">
+            <h2>🆘 Crisis Support - Available 24/7</h2>
+            <p>If you're in immediate danger or having thoughts of self-harm:</p>
+            <div class="phone">999</div>
+            <p style="margin-top: 20px;"><strong>Samaritans (UK):</strong> 116 123 (Free, confidential, 24/7)</p>
+            <p><strong>Crisis Text Line:</strong> Text SHOUT to 85258</p>
+        </div>
+
+        <section class="section">
+            <h2>Mental Health Resources</h2>
+            <p>Professional organizations offering support, information, and guidance:</p>
+            
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <h3>🇬🇧 NHS Mental Health Services</h3>
+                    <p>Access NHS mental health services, assessments, and treatment information.</p>
+                    <a href="https://www.nhs.uk/mental-health/" target="_blank" class="resource-link">Visit NHS Mental Health →</a>
+                </div>
+
+                <div class="resource-card">
+                    <h3>Mind</h3>
+                    <p>UK mental health charity providing advice, support, and campaigning for better mental health care.</p>
+                    <p><strong>Infoline:</strong> 0300 123 3393 (Mon-Fri, 9am-6pm)</p>
+                    <a href="https://www.mind.org.uk/" target="_blank" class="resource-link">Visit Mind →</a>
+                </div>
+
+                <div class="resource-card">
+                    <h3>Samaritans</h3>
+                    <p>Confidential support for anyone experiencing feelings of distress or despair.</p>
+                    <p><strong>Phone:</strong> 116 123 (24/7, free)</p>
+                    <p><strong>Email:</strong> jo@samaritans.org</p>
+                    <a href="https://www.samaritans.org/" target="_blank" class="resource-link">Visit Samaritans →</a>
+                </div>
+
+                <div class="resource-card">
+                    <h3>Anxiety UK</h3>
+                    <p>Support for those affected by anxiety, stress, and anxiety-based depression.</p>
+                    <p><strong>Helpline:</strong> 03444 775 774 (Mon-Fri, 9:30am-5:30pm)</p>
+                    <a href="https://www.anxietyuk.org.uk/" target="_blank" class="resource-link">Visit Anxiety UK →</a>
+                </div>
+
+                <div class="resource-card">
+                    <h3>Rethink Mental Illness</h3>
+                    <p>Support and advice for people affected by mental illness.</p>
+                    <p><strong>Advice Line:</strong> 0808 801 0525 (Mon-Fri, 9:30am-4pm)</p>
+                    <a href="https://www.rethink.org/" target="_blank" class="resource-link">Visit Rethink →</a>
+                </div>
+
+                <div class="resource-card">
+                    <h3>Young Minds</h3>
+                    <p>Mental health support specifically for children and young people.</p>
+                    <p><strong>Parent Helpline:</strong> 0808 802 5544</p>
+                    <a href="https://www.youngminds.org.uk/" target="_blank" class="resource-link">Visit Young Minds →</a>
+                </div>
+
+                <div class="resource-card">
+                    <h3>CALM (Campaign Against Living Miserably)</h3>
+                    <p>Support for men experiencing depression or in crisis.</p>
+                    <p><strong>Helpline:</strong> 0800 58 58 58 (5pm-midnight daily)</p>
+                    <a href="https://www.thecalmzone.net/" target="_blank" class="resource-link">Visit CALM →</a>
+                </div>
+
+                <div class="resource-card">
+                    <h3>Shout</h3>
+                    <p>Free, confidential text support for anyone in crisis.</p>
+                    <p><strong>Text SHOUT to 85258</strong> (24/7)</p>
+                    <a href="https://giveusashout.org/" target="_blank" class="resource-link">Visit Shout →</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>🧘 Chill Zone</h2>
+            <p>Take a moment to relax with guided meditations and calming audio. Perfect for before streams, after long sessions, or whenever you need to reset.</p> <div class="chill-grid">
+                <div class="chill-card">
+                    <h3>5-Minute Breathing Exercise</h3>
+                    <div class="duration">5 minutes</div>
+                    <p>Simple guided breathing to reduce stress and center yourself before going live.</p>
+                    <audio controls style="width: 100%; margin-top: 10px;">
+                        <source src="https://www.bensound.com/bensound-music/bensound-slowmotion.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
+
+                <div class="chill-card">
+                    <h3>Quick Body Scan</h3>
+                    <div class="duration">7 minutes</div>
+                    <p>Release physical tension with this guided body awareness meditation.</p>
+                    <audio controls style="width: 100%; margin-top: 10px;">
+                        <source src="https://www.bensound.com/bensound-music/bensound-relaxing.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
+
+                <div class="chill-card">
+                    <h3>Morning Energy Boost</h3>
+                    <div class="duration">10 minutes</div>
+                    <p>Start your day with positive energy and focus for content creation.</p>
+                    <audio controls style="width: 100%; margin-top: 10px;">
+                        <source src="https://www.bensound.com/bensound-music/bensound-sunny.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
+
+                <div class="chill-card">
+                    <h3>Post-Stream Wind Down</h3>
+                    <div class="duration">8 minutes</div>
+                    <p>Decompress after a long streaming session and prepare for rest.</p>
+                    <audio controls style="width: 100%; margin-top: 10px;">
+                        <source src="https://www.bensound.com/bensound-music/bensound-littleidea.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
+
+                <div class="chill-card">
+                    <h3>Focus & Creativity</h3>
+                    <div class="duration">15 minutes</div>
+                    <p>Instrumental background for content planning and creative work.</p>
+                    <audio controls style="width: 100%; margin-top: 10px;">
+                        <source src="https://www.bensound.com/bensound-music/bensound-pianomoment.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
+
+                <div class="chill-card">
+                    <h3>Sleep Preparation</h3>
+                    <div class="duration">20 minutes</div>
+                    <p>Calm your mind and prepare for restful sleep after late-night streams.</p>
+                    <audio controls style="width: 100%; margin-top: 10px;">
+                        <source src="https://www.bensound.com/bensound-music/bensound-memories.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
+            </div>
+
+            <div style="background: rgba(99, 102, 241, 0.1); border: 1px solid #6366f1; border-radius: 12px; padding: 20px; margin-top: 30px;">
+                <h3 style="color: #6366f1; margin-bottom: 10px;">Pro Tip for Creators</h3>
+                <p>Regular breaks and self-care aren't luxuries—they're essential for sustainable success. Take 5-10 minutes between streams to reset, hydrate, and breathe. Your audience benefits from a refreshed, energized you.</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Self-Care Reminders</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;">
+                <div style="background: rgba(16, 185, 129, 0.1); padding: 20px; border-radius: 8px; border-left: 4px solid #10b981;">
+                    <h4 style="color: #10b981; margin-bottom: 10px;">Stay Hydrated</h4>
+                    <p style="font-size: 0.9rem;">Keep water nearby during streams. Dehydration affects mood and energy.</p>
+                </div>
+                <div style="background: rgba(16, 185, 129, 0.1); padding: 20px; border-radius: 8px; border-left: 4px solid #10b981;">
+                    <h4 style="color: #10b981; margin-bottom: 10px;">Take Breaks</h4>
+                    <p style="font-size: 0.9rem;">Step away from screens every hour. Your eyes and mind need rest.</p>
+                </div>
+                <div style="background: rgba(16, 185, 129, 0.1); padding: 20px; border-radius: 8px; border-left: 4px solid #10b981;">
+                    <h4 style="color: #10b981; margin-bottom: 10px;">Sleep Matters</h4>
+                    <p style="font-size: 0.9rem;">Aim for 7-9 hours. Late-night streams are tough—prioritize recovery time.</p>
+                </div>
+                <div style="background: rgba(16, 185, 129, 0.1); padding: 20px; border-radius: 8px; border-left: 4px solid #10b981;">
+                    <h4 style="color: #10b981; margin-bottom: 10px;">Connect with Others</h4>
+                    <p style="font-size: 0.9rem;">Don't isolate. Talk to friends, family, or our LIFE community regularly.</p>
+                </div>
+            </div>
+        </section>
+
+        <div style="text-align: center; padding: 40px 20px; background: rgba(255,255,255,0.05); border-radius: 16px; margin: 40px 0;">
+            <h3 style="margin-bottom: 15px;">You're Not Alone</h3>
+            <p style="max-width: 600px; margin: 0 auto 20px;">The LIFE community is here to support you. Whether you're celebrating wins or facing challenges, reach out. Your wellbeing matters to us.</p>
+        </div>
+    </main>
+</body>
+</html>
