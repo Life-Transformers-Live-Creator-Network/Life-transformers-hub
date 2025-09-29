@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - Life Transformers Hub</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1b23 0%, #2d1b69 50%, #4c1d95 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        nav { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+        .logo { font-size: 24px; font-weight: bold; }
+        .nav-links { display: flex; gap: 20px; flex-wrap: wrap; }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+        .nav-links a:hover { background: rgba(255,255,255,0.1); }
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+        }
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffffff, #fbbf24);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p { font-size: 1.2rem; opacity: 0.9; }
+        .pro-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: #1a1b23;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        .service-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 30px;
+            transition: transform 0.3s;
+        }
+        .service-card:hover { transform: translateY(-5px); }
+        .service-card h3 {
+            color: #fbbf24;
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+        .service-duration {
+            color: #6366f1;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        .service-price {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #10b981;
+            margin: 15px 0;
+        }
+        .service-price .original {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 1.2rem;
+            margin-right: 10px;
+        }
+        .service-features {
+            list-style: none;
+            margin: 20px 0;
+            line-height: 2;
+        }
+        .service-features li:before {
+            content: "✓ ";
+            color: #10b981;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            transition: transform 0.3s;
+            margin-top: 20px;
+        }
+        .btn:hover { transform: translateY(-2px); }
+        .btn-pro {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: #1a1b23;
+        }
+        .info-banner {
+            background: rgba(99, 102, 241, 0.1);
+            border: 2px solid #6366f1;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        .info-banner h3 {
+            color: #6366f1;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">Life Transformers Hub</div>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/about.html">About</a>
+                <a href="/services.html">Services</a>
+                <a href="/updates.html">Updates</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Professional Services</h1>
+            <p>One-on-one coaching, audits, and training to accelerate your creator journey</p>
+        </section>
+
+        <div class="info-banner">
+            <h3>Pro Members Save 50%</h3>
+            <p>All services are half price for Pro subscribers (£5/month). Upgrade to Pro and unlock massive savings!</p>
+        </div>
+
+        <div class="services-grid">
+            <div class="service-card">
+                <h3>Creator Audit <span class="pro-badge">50% OFF PRO</span></h3>
+                <div class="service-duration">60 minutes | 1-on-1 Session</div>
+                <p>Comprehensive analysis of your TikTok profile, content strategy, and growth opportunities.</p>
+                <div class="service-price">
+                    <span class="original">£100</span>
+                    £50 <span style="font-size: 1rem; color: #999;">(Pro members)</span>
+                </div>
+                <ul class="service-features">
+                    <li>Full profile review</li>
+                    <li>Content performance analysis</li>
+                    <li>Growth strategy roadmap</li>
+                    <li>Actionable recommendations</li>
+                    <li>Follow-up report via email</li>
+                </ul>
+                <a href="mailto:support@delifetransformers.com?subject=Creator Audit Booking" class="btn">Book Now</a>
+            </div>
+
+            <div class="service-card">
+                <h3>LIVE Coaching Session <span class="pro-badge">50% OFF PRO</span></h3>
+                <div class="service-duration">45 minutes | 1-on-1 Session</div>
+                <p>Real-time coaching to improve your live streaming skills, engagement, and monetization.</p>
+                <div class="service-price">
+                    <span class="original">£80</span>
+                    £40 <span style="font-size: 1rem; color: #999;">(Pro members)</span>
+                </div>
+                <ul class="service-features">
+                    <li>Live streaming best practices</li>
+                    <li>Engagement techniques</li>
+                    <li>Monetization strategies</li>
+                    <li>Gift conversion tips</li>
+                    <li>Q&A with expert coach</li>
+                </ul>
+                <a href="mailto:support@delifetransformers.com?subject=LIVE Coaching Booking" class="btn">Book Now</a>
+            </div>
+
+            <div class="service-card">
+                <h3>Content Strategy Package <span class="pro-badge">50% OFF PRO</span></h3>
+                <div class="service-duration">90 minutes | 1-on-1 Session</div>
+                <p>Develop a complete 30-day content strategy tailored to your niche and audience.</p>
+                <div class="service-price">
+                    <span class="original">£150</span>
+                    £75 <span style="font-size: 1rem; color: #999;">(Pro members)</span>
+                </div>
+                <ul class="service-features">
+                    <li>30-day content calendar</li>
+                    <li>Viral hook templates</li>
+                    <li>Posting schedule optimization</li>
+                    <li>Hashtag strategy</li>
+                    <li>Ongoing email support (2 weeks)</li>
+                </ul>
+                <a href="mailto:support@delifetransformers.com?subject=Content Strategy Booking" class="btn">Book Now</a>
+            </div>
+
+            <div class="service-card">
+                <h3>Agency Setup Consultation <span class="pro-badge">50% OFF PRO</span></h3>
+                <div class="service-duration">2 hours | 1-on-1 Session</div>
+                <p>Launch or scale your creator agency with expert guidance on operations and recruitment.</p>
+                <div class="service-price">
+                    <span class="original">£200</span>
+                    £100 <span style="font-size: 1rem; color: #999;">(Pro members)</span>
+                </div>
+                <ul class="service-features">
+                    <li>Agency business model setup</li>
+                    <li>Creator recruitment strategies</li>
+                    <li>Contracts and legal templates</li>
+                    <li>Revenue sharing models</li>
+                    <li>Management tools walkthrough</li>
+                </ul>
+                <a href="mailto:support@delifetransformers.com?subject=Agency Consultation Booking" class="btn">Book Now</a>
+            </div>
+
+            <div class="service-card">
+                <h3>Quick Growth Consultation</h3>
+                <div class="service-duration">30 minutes | 1-on-1 Session</div>
+                <p>Fast-track session for specific questions or quick wins to boost your growth.</p>
+                <div class="service-price">
+                    <span class="original">£50</span>
+                    £25 <span style="font-size: 1rem; color: #999;">(Pro members)</span>
+                </div>
+                <ul class="service-features">
+                    <li>Focused problem-solving</li>
+                    <li>Quick strategy adjustments</li>
+                    <li>Rapid-fire Q&A</li>
+                    <li>Actionable next steps</li>
+                </ul>
+                <a href="mailto:support@delifetransformers.com?subject=Quick Consultation Booking" class="btn">Book Now</a>
+            </div>
+
+            <div class="service-card">
+                <h3>Monthly Mentorship Program <span class="pro-badge">50% OFF PRO</span></h3>
+                <div class="service-duration">4 sessions/month | Ongoing</div>
+                <p>Continuous support with weekly check-ins to ensure consistent growth and accountability.</p>
+                <div class="service-price">
+                    <span class="original">£300/mo</span>
+                    £150/mo <span style="font-size: 1rem; color: #999;">(Pro members)</span>
+                </div>
+                <ul class="service-features">
+                    <li>4 x 30-min sessions per month</li>
+                    <li>Weekly progress reviews</li>
+                    <li>Direct messaging access</li>
+                    <li>Priority support</li>
+                    <li>Custom growth tracking</li>
+                </ul>
+                <a href="mailto:support@delifetransformers.com?subject=Mentorship Program Booking" class="btn btn-pro">Get Started</a>
+            </div>
+        </div>
+
+        <div class="info-banner" style="margin-top: 60px;">
+            <h3>Not a Pro Member Yet?</h3>
+            <p>Upgrade to Pro for £5/month and save 50% on all services above. You'll also unlock AI tools, scheduling, and more!</p>
+            <a href="/" class="btn btn-pro" style="max-width: 300px; margin: 20px auto 0;">Upgrade to Pro</a>
+        </div>
+    </main>
+</body>
+</html>
