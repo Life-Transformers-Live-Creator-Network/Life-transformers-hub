@@ -124,15 +124,21 @@
         }
     </style>
 </head> <body>
-    <header>
-        <nav class="container">
-            <div class="logo">Life Transformers Hub</div>
-            <div class="user-info" id="authButtons">
-                <button class="btn" onclick="openModal('loginModal')">Login</button>
-                <button class="btn" onclick="openModal('signupModal')">Sign Up</button>
-            </div>
-        </nav>
-    </header>
+ <header>
+    <nav class="container">
+        <div class="logo">Life Transformers Hub</div>
+        <div style="display: flex; gap: 20px; align-items: center;">
+            <a href="/" style="color: white; text-decoration: none;">Home</a>
+            <a href="/about.html" style="color: white; text-decoration: none;">About</a>
+            <a href="/services.html" style="color: white; text-decoration: none;">Services</a>
+            <a href="/updates.html" style="color: white; text-decoration: none;">Updates</a>
+        </div>
+        <div class="user-info" id="authButtons">
+            <button class="btn" onclick="openModal('loginModal')">Login</button>
+            <button class="btn" onclick="openModal('signupModal')">Sign Up</button>
+        </div>
+    </nav>
+</header>
 
     <main class="container">
         <section class="hero">
