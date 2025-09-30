@@ -3,200 +3,433 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YouTube Hub - Life Transformers</title>
+    <title>YouTube Channel - Life Transformers Hub</title>
+    <meta name="description" content="Watch our TikTok creator tutorials, tool demonstrations, and live streaming guides on YouTube.">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #1a1b23 0%, #2d1b69 50%, #4c1d95 100%);
-            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
+            color: #333;
         }
-        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-        header { padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        nav { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
-        .logo { font-size: 24px; font-weight: bold; }
-        .nav-links { display: flex; gap: 20px; flex-wrap: wrap; }
-        .nav-links a {
-            color: white;
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        nav a {
             text-decoration: none;
-            padding: 8px 16px;
-            border-radius: 8px;
-            transition: background 0.3s;
+            color: #667eea;
+            font-weight: 600;
+            transition: color 0.3s;
         }
-        .nav-links a:hover { background: rgba(255,255,255,0.1); }
-        .hero {
+
+        nav a:hover {
+            color: #764ba2;
+        }
+
+        /* Header */
+        .page-header {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            margin: 30px 0;
             text-align: center;
-            padding: 60px 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
-        .hero h1 {
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, #ff0000, #fbbf24);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+
+        .page-header h1 {
+            color: #667eea;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
         }
-        .hero p { font-size: 1.2rem; opacity: 0.9; }
+
+        .page-header p {
+            color: #666;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        /* Channel Section */
+        .channel-section {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .channel-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .channel-header h2 {
+            color: #667eea;
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .subscribe-btn {
+            display: inline-block;
+            background: #FF0000;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-top: 20px;
+        }
+
+        .subscribe-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255,0,0,0.3);
+        }
+
+        /* Video Grid */
         .video-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 30px;
-            margin: 40px 0;
+            margin-top: 30px;
         }
+
         .video-card {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 16px;
+            background: #f8f9fa;
+            border-radius: 12px;
             overflow: hidden;
-            transition: transform 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
-        .video-card:hover { transform: translateY(-5px); }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
         .video-wrapper {
             position: relative;
-            padding-bottom: 56.25%;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
             height: 0;
             overflow: hidden;
         }
+
         .video-wrapper iframe {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            border: none;
         }
+
         .video-info {
             padding: 20px;
         }
+
         .video-info h3 {
-            color: #fbbf24;
+            color: #333;
+            font-size: 1.2rem;
             margin-bottom: 10px;
         }
+
+        .video-info p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
         .video-category {
             display: inline-block;
-            background: rgba(239, 68, 68, 0.2);
-            color: #ef4444;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            margin-bottom: 10px;
+            background: #667eea;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            margin-top: 10px;
         }
-        .subscribe-cta {
-            background: rgba(239, 68, 68, 0.1);
-            border: 2px solid #ef4444;
-            border-radius: 16px;
+
+        /* Section Headers */
+        .section-title {
+            color: #667eea;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        /* Placeholder Message */
+        .placeholder {
+            background: #fff3cd;
+            border: 2px dashed #ffc107;
+            border-radius: 12px;
             padding: 30px;
             text-align: center;
-            margin: 40px 0;
+            margin: 20px 0;
         }
-        .subscribe-btn {
-            display: inline-block;
-            background: #ef4444;
-            color: white;
-            padding: 12px 30px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            margin-top: 15px;
-            transition: background 0.3s;
+
+        .placeholder h3 {
+            color: #856404;
+            margin-bottom: 10px;
         }
-        .subscribe-btn:hover { background: #dc2626; }
+
+        .placeholder p {
+            color: #856404;
+            line-height: 1.6;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 1rem;
+            }
+
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
-    <header>
-        <nav class="container">
-            <div class="logo">Life Transformers Hub</div>
-            <div class="nav-links">
-                <a href="/">Home</a>
-                <a href="/about.html">About</a>
-                <a href="/services.html">Services</a>
-                <a href="/wellness.html">Wellness</a>
-                <a href="/youtube.html">YouTube</a>
-                <a href="/updates.html">Updates</a>
-            </div>
-        </nav>
-    </header>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="updates.html">Updates</a></li>
+            <li><a href="wellness.html">Wellness</a></li>
+            <li><a href="youtube.html">YouTube</a></li>
+        </ul>
+    </nav>
 
-    <main class="container">
-        <section class="hero">
-            <h1>LIFE YouTube Channel</h1>
-            <p>Tutorials, tips, and exclusive content to help you grow as a TikTok creator</p>
-        </section>
-
-        <div class="subscribe-cta">
-            <h2 style="color: #ef4444; margin-bottom: 10px;">Subscribe to Our Channel</h2>
-            <p>Get notified of new tutorials, creator spotlights, and LIFE events</p>
-            <a href="https://www.youtube.com/@YourChannelHere" target="_blank" class="subscribe-btn">Subscribe on YouTube</a>
+    <div class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1>🎥 YouTube Channel</h1>
+            <p>Learn how to grow your TikTok presence with our video tutorials, live streaming guides, and creator tips</p>
         </div>
 
-        <div class="video-grid">
-            <div class="video-card">
-                <div class="video-wrapper">
-                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
-                <div class="video-info">
-                    <span class="video-category">Tutorial</span>
-                    <h3>Getting Started with LIFE</h3>
-                    <p>Complete guide to joining the Life Transformers network and accessing all tools.</p>
-                </div>
+        <!-- Channel Section -->
+        <div class="channel-section">
+            <div class="channel-header">
+                <h2>Subscribe to Our Channel</h2>
+                <p>Get weekly tutorials on TikTok growth, tool demonstrations, and creator strategies</p>
+                
+                <!-- REPLACE THIS WITH YOUR ACTUAL YOUTUBE CHANNEL URL -->
+                <a href="https://www.youtube.com/@YourChannelName" target="_blank" class="subscribe-btn">
+                    📺 Subscribe on YouTube
+                </a>
             </div>
 
-            <div class="video-card">
-                <div class="video-wrapper">
-                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
-                <div class="video-info">
-                    <span class="video-category">Tips & Tricks</span>
-                    <h3>10 TikTok LIVE Best Practices</h3>
-                    <p>Proven strategies to increase engagement and gift revenue during your streams.</p>
-                </div>
+            <!-- Placeholder for Channel Embed -->
+            <div class="placeholder">
+                <h3>📌 Setup Instructions</h3>
+                <p><strong>Step 1:</strong> Replace "YourChannelName" in the Subscribe button link with your actual YouTube channel URL</p>
+                <p><strong>Step 2:</strong> Add your YouTube video IDs in the sections below</p>
+                <p><strong>Step 3:</strong> Remove this placeholder box once setup is complete</p>
             </div>
+        </div>
 
+        <!-- Featured Video -->
+        <div class="channel-section">
+            <h2 class="section-title">🌟 Featured Video</h2>
+            
+            <!-- REPLACE VIDEO_ID_HERE WITH YOUR ACTUAL YOUTUBE VIDEO ID -->
+            <!-- Example: If your video URL is https://www.youtube.com/watch?v=dQw4w9WgXcQ -->
+            <!-- Then the VIDEO_ID is: dQw4w9WgXcQ -->
+            
             <div class="video-card">
                 <div class="video-wrapper">
-                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe 
+                        src="https://www.youtube.com/embed/VIDEO_ID_HERE" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
                 </div>
                 <div class="video-info">
-                    <span class="video-category">Tutorial</span>
-                    <h3>Using the AI Hook Generator</h3>
-                    <p>Step-by-step walkthrough of creating viral hooks for your TikTok videos.</p>
-                </div>
-            </div>
-
-            <div class="video-card">
-                <div class="video-wrapper">
-                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
-                <div class="video-info">
-                    <span class="video-category">Event</span>
-                    <h3>LIFE Creator Tournament Highlights</h3>
-                    <p>Best moments from our latest creator battle tournament.</p>
-                </div>
-            </div>
-
-            <div class="video-card">
-                <div class="video-wrapper">
-                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
-                <div class="video-info">
-                    <span class="video-category">Interview</span>
-                    <h3>Creator Spotlight: Success Stories</h3>
-                    <p>Hear from LIFE creators who transformed their streaming careers.</p>
-                </div>
-            </div>
-
-            <div class="video-card">
-                <div class="video-wrapper">
-                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
-                <div class="video-info">
-                    <span class="video-category">Tutorial</span>
-                    <h3>Diamond Calculator Deep Dive</h3>
-                    <p>Understanding TikTok's diamond system and maximizing your earnings.</p>
+                    <h3>Welcome to Life Transformers Hub</h3>
+                    <p>An introduction to our platform and how we help TikTok creators grow and succeed.</p>
+                    <span class="video-category">Introduction</span>
                 </div>
             </div>
         </div>
-    </main>
+
+        <!-- Tool Tutorials -->
+        <div class="channel-section">
+            <h2 class="section-title">🛠️ Tool Tutorials</h2>
+            <div class="video-grid">
+                <!-- Video 1: Diamond Calculator -->
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe 
+                            src="https://www.youtube.com/embed/VIDEO_ID_HERE" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3>TikTok Diamond Calculator Tutorial</h3>
+                        <p>Learn how to calculate your TikTok earnings and understand diamond values.</p>
+                        <span class="video-category">Tool Tutorial</span>
+                    </div>
+                </div>
+
+                <!-- Video 2: AI Hook Generator -->
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe 
+                            src="https://www.youtube.com/embed/VIDEO_ID_HERE" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3>AI Hook Generator - Create Viral Content</h3>
+                        <p>Master the art of creating scroll-stopping hooks for your TikTok videos.</p>
+                        <span class="video-category">Tool Tutorial</span>
+                    </div>
+                </div>
+
+                <!-- Video 3: LIVE Scheduler -->
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe 
+                            src="https://www.youtube.com/embed/VIDEO_ID_HERE" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3>Plan Your TikTok LIVE Streams</h3>
+                        <p>Schedule your lives at the perfect time to maximize viewer engagement.</p>
+                        <span class="video-category">Tool Tutorial</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Growth Strategies -->
+        <div class="channel-section">
+            <h2 class="section-title">📈 Growth Strategies</h2>
+            <div class="video-grid">
+                <!-- Video 4: Algorithm Tips -->
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe 
+                            src="https://www.youtube.com/embed/VIDEO_ID_HERE" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3>Understanding the TikTok Algorithm</h3>
+                        <p>Decode how TikTok's algorithm works and how to make it work for you.</p>
+                        <span class="video-category">Strategy</span>
+                    </div>
+                </div>
+
+                <!-- Video 5: Content Strategy -->
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe 
+                            src="https://www.youtube.com/embed/VIDEO_ID_HERE" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3>Building a Winning Content Strategy</h3>
+                        <p>Create a content plan that attracts followers and keeps them engaged.</p>
+                        <span class="video-category">Strategy</span>
+                    </div>
+                </div>
+
+                <!-- Video 6: Monetization -->
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe 
+                            src="https://www.youtube.com/embed/VIDEO_ID_HERE" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3>Monetizing Your TikTok Account</h3>
+                        <p>Explore different ways to earn money as a TikTok creator.</p>
+                        <span class="video-category">Monetization</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Stories -->
+        <div class="channel-section">
+            <h2 class="section-title">⭐ Creator Success Stories</h2>
+            <div class="video-grid">
+                <!-- Video 7: Case Study -->
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe 
+                            src="https://www.youtube.com/embed/VIDEO_ID_HERE" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3>From 0 to 10K Followers in 30 Days</h3>
+                        <p>Real creator story showing how they used our tools to grow their audience.</p>
+                        <span class="video-category">Success Story</span>
+                    </div>
+                </div>
+
+                <!-- Video 8: Interview -->
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe 
+                            src="https://www.youtube.com/embed/VIDEO_ID_HERE" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3>Creator Interview: Tips from a 100K+ Account</h3>
+                        <p>Learn from successful creators who've built thriving TikTok communities.</p>
+                        <span class="video-category">Interview</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
