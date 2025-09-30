@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikTok Diamond Calculator - Life Transformers Hub</title>
+    <meta name="description" content="Calculate your TikTok LIVE earnings. Convert diamonds to real money in GBP, USD, and EUR.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #667eea;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #764ba2;
+        }
+
+        .page-header {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 30px 0;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .page-header h1 {
+            color: #667eea;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .page-header p {
+            color: #666;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .pro-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #333;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-left: 10px;
+        } .calculator-container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .input-section {
+            margin-bottom: 30px;
+        }
+
+        .input-section label {
+            display: block;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .input-section input {
+            width: 100%;
+            padding: 18px;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            font-size: 1.3rem;
+            transition: border-color 0.3s;
+        }
+
+        .input-section input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .calculate-btn {
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .calculate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .results-container {
+            margin-top: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            border-radius: 15px;
+            display: none;
+        }
+
+        .results-container.show {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .result-card h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .result-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #28a745;
+        }
+
+        .result-label {
+            color: #666;
+            font-size: 0.95rem;
+            margin-top: 5px;
+        }
+
+        .currency-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .pro-upgrade-banner {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .pro-upgrade-banner h3 {
+            color: #333;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .pro-upgrade-banner p {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .upgrade-btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: #333;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 700;
+            transition: transform 0.3s;
+        }
+
+        .upgrade-btn:hover {
+            transform: translateY(-3px);
+        } .info-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .info-section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .info-section h3 {
+            color: #333;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .info-section p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .info-section ul {
+            margin-left: 20px;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .info-section li {
+            margin-bottom: 10px;
+        }
+
+        .quick-reference {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .quick-reference table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .quick-reference th,
+        .quick-reference td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .quick-reference th {
+            background: #667eea;
+            color: white;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .result-value {
+                font-size: 2rem;
+            }
+
+            .currency-grid {
+                grid-template-columns: 1fr;
+            }
+
+            nav ul {
+                gap: 1rem;
+            }
+        }
+    </style>
+</head> <body>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="updates.html">Updates</a></li>
+            <li><a href="wellness.html">Wellness</a></li>
+            <li><a href="youtube.html">YouTube</a></li>
+            <li><a href="pro.html">Go Pro</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1>💎 TikTok Diamond Calculator</h1>
+            <p>Convert your TikTok diamonds to real money instantly. See your earnings in multiple currencies.</p>
+        </div>
+
+        <!-- Calculator -->
+        <div class="calculator-container">
+            <div class="input-section">
+                <label for="diamonds">Enter Number of Diamonds:</label>
+                <input type="number" id="diamonds" placeholder="e.g., 1000" min="0">
+            </div>
+
+            <button class="calculate-btn" onclick="calculateEarnings()">💰 Calculate Earnings</button>
+
+            <!-- Results Section -->
+            <div class="results-container" id="results">
+                <div class="result-card">
+                    <h3>Your Earnings (GBP)</h3>
+                    <div class="result-value" id="gbp-value">£0.00</div>
+                    <div class="result-label">British Pounds</div>
+                </div>
+
+                <!-- Pro Feature: Multiple Currencies -->
+                <div id="pro-currencies" style="display: none;">
+                    <h3 style="color: #667eea; margin: 30px 0 20px 0; text-align: center;">
+                        💎 Pro Feature: Multiple Currencies
+                    </h3>
+                    <div class="currency-grid">
+                        <div class="result-card">
+                            <h3>USD</h3>
+                            <div class="result-value" style="font-size: 1.8rem;" id="usd-value">$0.00</div>
+                            <div class="result-label">US Dollars</div>
+                        </div>
+
+                        <div class="result-card">
+                            <h3>EUR</h3>
+                            <div class="result-value" style="font-size: 1.8rem;" id="eur-value">€0.00</div>
+                            <div class="result-label">Euros</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Breakdown -->
+                <div class="result-card" style="margin-top: 30px;">
+                    <h3>Earnings Breakdown</h3>
+                    <p style="color: #666; line-height: 2;">
+                        <strong>Diamonds:</strong> <span id="breakdown-diamonds">0</span><br>
+                        <strong>Coins:</strong> <span id="breakdown-coins">0</span><br>
+                        <strong>Gross Value:</strong> <span id="breakdown-gross">£0.00</span><br>
+                        <strong>TikTok Commission (50%):</strong> <span id="breakdown-commission">£0.00</span><br>
+                        <strong style="color: #28a745;">Your Earnings:</strong> <span id="breakdown-net" style="color: #28a745; font-weight: 700;">£0.00</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Pro Upgrade Banner -->
+            <div class="pro-upgrade-banner" id="pro-banner" style="display: none;">
+                <h3>🔓 Unlock Pro Features</h3>
+                <p>Get access to multiple currencies (USD, EUR, CAD, AUD), earnings history, and advanced calculators!</p>
+                <a href="pro.html" class="upgrade-btn">Upgrade to Pro - £5/month</a>
+            </div>
+        </div> <!-- Information Section -->
+        <div class="info-section">
+            <h2>How TikTok Diamond Earnings Work</h2>
+            
+            <h3>Understanding TikTok Gifts & Diamonds</h3>
+            <p>When viewers send you gifts during TikTok LIVE streams, those gifts convert into diamonds in your TikTok wallet. Here's how the conversion works:</p>
+
+            <div class="quick-reference">
+                <h3 style="color: #333; margin-top: 0;">Quick Reference Guide</h3>
+                <table>
+                    <tr>
+                        <th>Diamonds</th>
+                        <th>Coins</th>
+                        <th>Approximate GBP</th>
+                    </tr>
+                    <tr>
+                        <td>100</td>
+                        <td>50</td>
+                        <td>£0.20</td>
+                    </tr>
+                    <tr>
+                        <td>500</td>
+                        <td>250</td>
+                        <td>£1.00</td>
+                    </tr>
+                    <tr>
+                        <td>1,000</td>
+                        <td>500</td>
+                        <td>£2.00</td>
+                    </tr>
+                    <tr>
+                        <td>5,000</td>
+                        <td>2,500</td>
+                        <td>£10.00</td>
+                    </tr>
+                    <tr>
+                        <td>10,000</td>
+                        <td>5,000</td>
+                        <td>£20.00</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h3>Conversion Formula</h3>
+            <ul>
+                <li><strong>1 Diamond = 0.5 Coins</strong></li>
+                <li><strong>1 Coin ≈ £0.004</strong> (approximately $0.005 USD)</li>
+                <li><strong>TikTok takes 50% commission</strong> - You receive half of the value</li>
+            </ul>
+
+            <h3>Withdrawal Requirements</h3>
+            <p>To withdraw your TikTok earnings, you need:</p>
+            <ul>
+                <li>Minimum balance varies by region (typically $10-50)</li>
+                <li>Connected PayPal or bank account</li>
+                <li>Meet TikTok's creator requirements</li>
+            </ul>
+
+            <h3>Tips to Earn More Diamonds</h3>
+            <ul>
+                <li>Go LIVE consistently at peak times</li>
+                <li>Engage with your audience during streams</li>
+                <li>Use our LIVE Scheduler tool to find best streaming times</li>
+                <li>Thank viewers who send gifts</li>
+                <li>Create interactive content during LIVE streams</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Exchange rates (approximate)
+        const GBP_TO_USD = 1.27;
+        const GBP_TO_EUR = 1.17;
+
+        function calculateEarnings() {
+            const diamonds = parseInt(document.getElementById('diamonds').value);
+            
+            if (!diamonds || diamonds < 0) {
+                alert('Please enter a valid number of diamonds');
+                return;
+            }
+
+            // Conversion calculations
+            const coins = diamonds * 0.5;
+            const grossGBP = coins * 0.004; // 1 coin ≈ £0.004
+            const commissionGBP = grossGBP * 0.5; // TikTok takes 50%
+            const netGBP = grossGBP - commissionGBP;
+
+            // Convert to other currencies
+            const netUSD = netGBP * GBP_TO_USD;
+            const netEUR = netGBP * GBP_TO_EUR;
+
+            // Update main result
+            document.getElementById('gbp-value').textContent = `£${netGBP.toFixed(2)}`;
+
+            // Update breakdown
+            document.getElementById('breakdown-diamonds').textContent = diamonds.toLocaleString();
+            document.getElementById('breakdown-coins').textContent = coins.toLocaleString();
+            document.getElementById('breakdown-gross').textContent = `£${grossGBP.toFixed(2)}`;
+            document.getElementById('breakdown-commission').textContent = `£${commissionGBP.toFixed(2)}`;
+            document.getElementById('breakdown-net').textContent = `£${netGBP.toFixed(2)}`;
+
+            // Update Pro currencies (hidden for free users)
+            document.getElementById('usd-value').textContent = `$${netUSD.toFixed(2)}`;
+            document.getElementById('eur-value').textContent = `€${netEUR.toFixed(2)}`;
+
+            // Show results
+            document.getElementById('results').classList.add('show');
+
+            // Show Pro banner for free users (hide Pro currencies)
+            // In production, check if user is Pro member
+            const isPro = false; // Change this based on user's membership status
+
+            if (isPro) {
+                document.getElementById('pro-currencies').style.display = 'block';
+                document.getElementById('pro-banner').style.display = 'none';
+            } else {
+                document.getElementById('pro-currencies').style.display = 'none';
+                document.getElementById('pro-banner').style.display = 'block';
+            }
+        }
+
+        // Allow Enter key to calculate
+        document.getElementById('diamonds').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                calculateEarnings();
+            }
+        });
+    </script>
+</body>
+</html>
