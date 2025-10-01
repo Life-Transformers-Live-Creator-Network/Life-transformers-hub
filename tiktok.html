@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikTok Videos - Life Transformers Hub</title>
+    <meta name="description" content="Watch our TikTok videos on creator tips, LIVE streaming strategies, and healing content for creators.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #667eea;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #764ba2;
+        }
+
+        .page-header {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 30px 0;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .page-header h1 {
+            color: #667eea;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .page-header p {
+            color: #666;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .account-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .account-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .account-header h2 {
+            color: #667eea;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .account-username {
+            color: #999;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .account-description {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .follow-btn {
+            display: inline-block;
+            background: #000;
+            color: #69C9D0;
+            padding: 15px 40px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .follow-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+      .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .video-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 177.78%; /* 9:16 aspect ratio for TikTok */
+            overflow: hidden;
+            background: #000;
+        }
+
+        .video-wrapper blockquote {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+
+        .video-info {
+            padding: 15px;
+            background: white;
+        }
+
+        .video-label {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .section-title {
+            color: #667eea;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .info-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .info-box p {
+            color: #856404;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 1rem;
+            }
+
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .video-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+
+            .account-header h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+    
+    <!-- TikTok Embed Script -->
+    <script async src="https://www.tiktok.com/embed.js"></script>
+</head> <body>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="updates.html">Updates</a></li>
+            <li><a href="wellness.html">Wellness</a></li>
+            <li><a href="youtube.html">YouTube</a></li>
+            <li><a href="tiktok.html">TikTok</a></li>
+            <li><a href="pro.html">Go Pro</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1>🎵 Our TikTok Content</h1>
+            <p>Watch our latest TikTok videos on creator tips, LIVE streaming strategies, AI content, and healing resources</p>
+        </div>
+
+        <!-- Account 1: @life_transformer_ -->
+        <div class="account-section">
+            <div class="account-header">
+                <h2>@life_transformer_</h2>
+                <p class="account-username">Creator Tips • LIVE Streams • Healing</p>
+                <p class="account-description">Empowering creators with practical tips, live streaming strategies, and wellness resources</p>
+                <a href="https://www.tiktok.com/@life_transformer_" target="_blank" class="follow-btn">
+                    Follow on TikTok
+                </a>
+            </div>
+
+            <div class="video-grid">
+                <!-- Video 1 -->
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@life_transformer_/video/7449808664509033761" data-video-id="7449808664509033761">
+                            <section>
+                                <a target="_blank" href="https://www.tiktok.com/@life_transformer_">@life_transformer_</a>
+                            </section>
+                        </blockquote>
+                    </div>
+                    <div class="video-info">
+                        <p class="video-label">Creator Tips</p>
+                    </div>
+                </div>
+
+                <!-- Video 2 -->
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@life_transformer_/video/7449777341698714913" data-video-id="7449777341698714913">
+                            <section>
+                                <a target="_blank" href="https://www.tiktok.com/@life_transformer_">@life_transformer_</a>
+                            </section>
+                        </blockquote>
+                    </div>
+                    <div class="video-info">
+                        <p class="video-label">LIVE Streaming</p>
+                    </div>
+                </div>
+
+                <!-- Video 3 -->
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@life_transformer_/video/7449769716925189409" data-video-id="7449769716925189409">
+                            <section>
+                                <a target="_blank" href="https://www.tiktok.com/@life_transformer_">@life_transformer_</a>
+                            </section>
+                        </blockquote>
+                    </div>
+                    <div class="video-info">
+                        <p class="video-label">Healing Content</p>
+                    </div>
+                </div>
+
+                <!-- Video 4 -->
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@life_transformer_/video/7449768074166930721" data-video-id="7449768074166930721">
+                            <section>
+                                <a target="_blank" href="https://www.tiktok.com/@life_transformer_">@life_transformer_</a>
+                            </section>
+                        </blockquote>
+                    </div>
+                    <div class="video-info">
+                        <p class="video-label">Creator Growth</p>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- Account 2: @de_life_transformers -->
+        <div class="account-section">
+            <div class="account-header">
+                <h2>@de_life_transformers</h2>
+                <p class="account-username">Creator Tips</p>
+                <p class="account-description">Expert guidance for TikTok creators looking to grow and monetize their content</p>
+                <a href="https://www.tiktok.com/@de_life_transformers" target="_blank" class="follow-btn">
+                    Follow on TikTok
+                </a>
+            </div>
+
+            <div class="video-grid">
+                <!-- Video 1 -->
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@de_life_transformers/video/7449776003913338145" data-video-id="7449776003913338145">
+                            <section>
+                                <a target="_blank" href="https://www.tiktok.com/@de_life_transformers">@de_life_transformers</a>
+                            </section>
+                        </blockquote>
+                    </div>
+                    <div class="video-info">
+                        <p class="video-label">Creator Tips</p>
+                    </div>
+                </div>
+
+                <!-- Video 2 -->
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@de_life_transformers/video/7449774766606945569" data-video-id="7449774766606945569">
+                            <section>
+                                <a target="_blank" href="https://www.tiktok.com/@de_life_transformers">@de_life_transformers</a>
+                            </section>
+                        </blockquote>
+                    </div>
+                    <div class="video-info">
+                        <p class="video-label">Growth Strategy</p>
+                    </div>
+                </div>
+
+                <!-- Video 3 -->
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@de_life_transformers/video/7449773928516824353" data-video-id="7449773928516824353">
+                            <section>
+                                <a target="_blank" href="https://www.tiktok.com/@de_life_transformers">@de_life_transformers</a>
+                            </section>
+                        </blockquote>
+                    </div>
+                    <div class="video-info">
+                        <p class="video-label">Monetization</p>
+                    </div>
+                </div>
+
+                <!-- Video 4 -->
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@de_life_transformers/video/7449773022176259361" data-video-id="7449773022176259361">
+                            <section>
+                                <a target="_blank" href="https://www.tiktok.com/@de_life_transformers">@de_life_transformers</a>
+                            </section>
+                        </blockquote>
+                    </div>
+                    <div class="video-info">
+                        <p class="video-label">Algorithm Hacks</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Account 3: @patriciatransforms.ai -->
+        <div class="account-section">
+            <div class="account-header">
+                <h2>@patriciatransforms.ai</h2>
+                <p class="account-username">AI Content</p>
+                <p class="account-description">Leveraging AI tools and strategies to transform your creator journey</p>
+                <a href="https://www.tiktok.com/@patriciatransforms.ai" target="_blank" class="follow-btn">
+                    Follow on TikTok
+                </a>
+            </div>
+
+            <div class="video-grid">
+                <!-- Video 1 -->
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@patriciatransforms.ai/video/7449819734997929249" data-video-id="7449819734997929249">
+                            <section>
+                                <a target="_blank" href="https://www.tiktok.com/@patriciatransforms.ai">@patriciatransforms.ai</a>
+                            </section>
+                        </blockquote>
+                    </div>
+                    <div class="video-info">
+                        <p class="video-label">AI Tools</p>
+                    </div>
+                </div>
+
+                <!-- Video 2 -->
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@patriciatransforms.ai/video/7449818943028563233" data-video-id="7449818943028563233">
+                            <section>
+                                <a target="_blank" href="https://www.tiktok.com/@patriciatransforms.ai">@patriciatransforms.ai</a>
+                            </section>
+                        </blockquote>
+                    </div>
+                    <div class="video-info">
+                        <p class="video-label">AI Content Creation</p>
+                    </div>
+                </div>
+
+                <!-- Video 3 -->
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@patriciatransforms.ai/video/7449818943028563233" data-video-id="7449818943028563233">
+                            <section>
+                                <a target="_blank" href="https://www.tiktok.com/@patriciatransforms.ai">@patriciatransforms.ai</a>
+                            </section>
+                        </blockquote>
+                    </div>
+                    <div class="video-info">
+                        <p class="video-label">AI Strategy</p>
+                    </div>
+                </div>
+
+                <!-- Video 4 -->
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@patriciatransforms.ai/video/7449817913076575521" data-video-id="7449817913076575521">
+                            <section>
+                                <a target="_blank" href="https://www.tiktok.com/@patriciatransforms.ai">@patriciatransforms.ai</a>
+                            </section>
+                        </blockquote>
+                    </div>
+                    <div class="video-info">
+                        <p class="video-label">AI Automation</p>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- Info Box -->
+        <div class="info-box">
+            <p><strong>💡 Want to add more videos?</strong> Simply copy one of the video card blocks above and replace the video ID with your new TikTok video ID. The page will automatically update!</p>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="account-section" style="text-align: center;">
+            <h2 style="color: #667eea; margin-bottom: 20px;">Ready to Transform Your Creator Journey?</h2>
+            <p style="color: #666; margin-bottom: 30px; font-size: 1.1rem;">
+                Join our creator network and get access to exclusive tools, coaching, and resources
+            </p>
+            <a href="pro.html" style="display: inline-block; background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 18px 40px; border-radius: 30px; text-decoration: none; font-weight: 700; font-size: 1.1rem;">
+                Start Your Free Trial
+            </a>
+        </div>
+    </div>
+</body>
+</html>
