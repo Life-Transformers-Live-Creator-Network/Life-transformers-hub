@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edge Function Test</title>
+</head>
+<body>
+    <h1>Test Edge Function</h1>
+    <button onclick="testFunction()">Test AI Call</button>
+    <div id="result"></div>
+
+    <script>
+        async function testFunction() {
+            document.getElementById('result').innerHTML = 'Loading...';
+            
+            try {
+                const response = await fetch('https://mfpnlrfipurarjnpkjjf.supabase.co/functions/v1/smart-test', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        prompt: 'Generate 2 short TikTok hooks about wellness'
+                    })
+                });
+                
+                const data = await response.json();
+                document.getElementById('result').innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+            } catch (error) {
+                document.getElementById('result').innerHTML = 'Error: ' + error.message;
+            }
+        }
+    </script>
+</body>
+</html>
