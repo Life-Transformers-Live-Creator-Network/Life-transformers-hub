@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creator Blog - Life Transformers Hub</title>
+    <meta name="description" content="TikTok growth tips, creator strategies, and success stories. Learn how to grow your TikTok presence and monetize your content.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #667eea;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #764ba2;
+        }
+
+        .page-header {
+            background: white;
+            border-radius: 20px;
+            padding: 50px 40px;
+            margin: 30px 0;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .page-header h1 {
+            color: #667eea;
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .page-header p {
+            color: #666;
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        .categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .category-tag {
+            background: white;
+            color: #667eea;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .category-tag:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .category-tag.active {
+            background: #667eea;
+            color: white;
+        } .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .blog-image {
+            width: 100%;
+            height: 220px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+        }
+
+        .blog-content {
+            padding: 25px;
+        }
+
+        .blog-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: #999;
+        }
+
+        .blog-category {
+            background: #667eea;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .blog-date {
+            display: flex;
+            align-items: center;
+        }
+
+        .blog-card h3 {
+            color: #333;
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .blog-excerpt {
+            color: #666;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .read-more {
+            color: #667eea;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            transition: gap 0.3s;
+        }
+
+        .read-more:hover {
+            gap: 8px;
+        }
+
+        .read-more:after {
+            content: "→";
+            margin-left: 5px;
+        }
+
+        .featured-post {
+            background: white;
+            border-radius: 20px;
+            padding: 0;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+        }
+
+        .featured-image {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            color: white;
+            min-height: 400px;
+        }
+
+        .featured-content {
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .featured-badge {
+            background: #FFD700;
+            color: #333;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 20px;
+            width: fit-content;
+        }
+
+        .featured-content h2 {
+            color: #667eea;
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .featured-content p {
+            color: #666;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px 35px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-block;
+            width: fit-content;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        } .newsletter-section {
+            background: white;
+            border-radius: 20px;
+            padding: 50px 40px;
+            margin: 50px 0;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .newsletter-section h2 {
+            color: #667eea;
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .newsletter-section p {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 15px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 18px;
+            border: 2px solid #ddd;
+            border-radius: 30px;
+            font-size: 1rem;
+        }
+
+        .newsletter-form input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .newsletter-form button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 18px 40px;
+            border: none;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .newsletter-form button:hover {
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-post {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-image {
+                min-height: 250px;
+            }
+
+            .featured-content {
+                padding: 30px;
+            }
+
+            .featured-content h2 {
+                font-size: 1.7rem;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            nav ul {
+                gap: 1rem;
+            }
+        }
+    </style>
+</head> <body>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="updates.html">Updates</a></li>
+            <li><a href="wellness.html">Wellness</a></li>
+            <li><a href="youtube.html">YouTube</a></li>
+            <li><a href="pro.html">Go Pro</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1>📚 Creator Blog</h1>
+            <p>TikTok growth strategies, creator tips, and success stories to supercharge your content</p>
+        </div>
+
+        <!-- Categories -->
+        <div class="categories">
+            <a href="#" class="category-tag active">All Posts</a>
+            <a href="#" class="category-tag">TikTok Tips</a>
+            <a href="#" class="category-tag">Growth Strategies</a>
+            <a href="#" class="category-tag">Monetization</a>
+            <a href="#" class="category-tag">Success Stories</a>
+            <a href="#" class="category-tag">Tools & Resources</a>
+        </div>
+
+        <!-- Featured Post -->
+        <div class="featured-post">
+            <div class="featured-image">🚀</div>
+            <div class="featured-content">
+                <span class="featured-badge">⭐ FEATURED</span>
+                <h2>How to Get Your First 1000 Followers on TikTok in 2025</h2>
+                <p>Discover the exact 5-step system that's helping creators grow from zero to 1000 followers. Learn the strategies, tools, and mindset you need to succeed on TikTok in 2025.</p>
+                <a href="blog-post-1000-followers.html" class="cta-button">Read Full Article</a>
+            </div>
+        </div>
+
+        <!-- Blog Grid -->
+        <div class="blog-grid">
+            <!-- Blog Post 1 -->
+            <div class="blog-card" onclick="window.location.href='blog-post-diamond-calculator.html'">
+                <div class="blog-image">💎</div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span class="blog-category">Tools & Resources</span>
+                        <span class="blog-date">📅 Oct 2025</span>
+                    </div>
+                    <h3>Understanding TikTok Diamond Earnings</h3>
+                    <p class="blog-excerpt">Learn how TikTok diamonds work, how much you can earn from LIVE streaming, and tips to maximize your gift income.</p>
+                    <a href="blog-post-diamond-calculator.html" class="read-more">Read More</a>
+                </div>
+            </div>
+
+            <!-- Blog Post 2 -->
+            <div class="blog-card" onclick="window.location.href='blog-post-viral-hooks.html'">
+                <div class="blog-image">🎯</div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span class="blog-category">TikTok Tips</span>
+                        <span class="blog-date">📅 Oct 2025</span>
+                    </div>
+                    <h3>10 Viral TikTok Hooks That Always Work</h3>
+                    <p class="blog-excerpt">Master the first 3 seconds of your videos with these proven hook formulas that stop the scroll and boost your views.</p>
+                    <a href="blog-post-viral-hooks.html" class="read-more">Read More</a>
+                </div>
+            </div>
+
+            <!-- Blog Post 3 -->
+            <div class="blog-card" onclick="window.location.href='blog-post-algorithm.html'">
+                <div class="blog-image">📊</div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span class="blog-category">Growth Strategies</span>
+                        <span class="blog-date">📅 Oct 2025</span>
+                    </div>
+                    <h3>TikTok Algorithm Secrets for 2025</h3>
+                    <p class="blog-excerpt">Decode how the TikTok algorithm works and learn exactly what it takes to get your videos on the For You Page.</p>
+                    <a href="blog-post-algorithm.html" class="read-more">Read More</a>
+                </div>
+            </div>
+
+            <!-- Blog Post 4 -->
+            <div class="blog-card" onclick="window.location.href='blog-post-live-streaming.html'">
+                <div class="blog-image">🎥</div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span class="blog-category">TikTok Tips</span>
+                        <span class="blog-date">📅 Sep 2025</span>
+                    </div>
+                    <h3>TikTok LIVE Streaming: Complete Beginner's Guide</h3>
+                    <p class="blog-excerpt">Everything you need to know about going LIVE on TikTok, from requirements to engagement strategies.</p>
+                    <a href="blog-post-live-streaming.html" class="read-more">Read More</a>
+                </div>
+            </div>
+
+            <!-- Blog Post 5 -->
+            <div class="blog-card" onclick="window.location.href='blog-post-monetization.html'">
+                <div class="blog-image">💰</div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span class="blog-category">Monetization</span>
+                        <span class="blog-date">📅 Sep 2025</span>
+                    </div>
+                    <h3>5 Ways to Monetize TikTok With Under 10K Followers</h3>
+                    <p class="blog-excerpt">You don't need millions of followers to make money. Here are 5 proven monetization strategies for small creators.</p>
+                    <a href="blog-post-monetization.html" class="read-more">Read More</a>
+                </div>
+            </div>
+
+            <!-- Blog Post 6 -->
+            <div class="blog-card" onclick="window.location.href='blog-post-content-strategy.html'">
+                <div class="blog-image">📝</div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span class="blog-category">Growth Strategies</span>
+                        <span class="blog-date">📅 Sep 2025</span>
+                    </div>
+                    <h3>Building a Winning TikTok Content Strategy</h3>
+                    <p class="blog-excerpt">Create a content plan that attracts followers, keeps them engaged, and grows your account consistently.</p>
+                    <a href="blog-post-content-strategy.html" class="read-more">Read More</a>
+                </div>
+            </div>
+        </div> <!-- Newsletter Section -->
+        <div class="newsletter-section">
+            <h2>📬 Join Our Creator Community</h2>
+            <p>Get weekly TikTok tips, exclusive strategies, and creator resources delivered to your inbox</p>
+            <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
+                <input type="email" placeholder="Enter your email address" required>
+                <button type="submit">Subscribe</button>
+            </form>
+            <p style="font-size: 0.9rem; color: #999; margin-top: 15px;">
+                Join 1,000+ creators growing their TikTok presence. Unsubscribe anytime.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function subscribeNewsletter(event) {
+            event.preventDefault();
+            const email = event.target.querySelector('input').value;
+            alert('Thank you for subscribing! We\'ll send creator tips to ' + email);
+            event.target.reset();
+        }
+
+        // Category filtering (placeholder - will be enhanced later)
+        document.querySelectorAll('.category-tag').forEach(tag => {
+            tag.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelectorAll('.category-tag').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
