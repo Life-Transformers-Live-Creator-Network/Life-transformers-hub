@@ -63,11 +63,34 @@
             margin-bottom: 3rem;
         }
 
-        .news-grid {
+        .news-sources {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .source-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+
+        .source-btn:hover, .source-btn.active {
+            background: rgba(255, 215, 0, 0.3);
+            border-color: #ffd700;
+        }
+
+        #news-feed {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 2rem;
-            margin-bottom: 3rem;
         }
 
         .news-card {
@@ -90,7 +113,7 @@
             margin-bottom: 0.5rem;
         }
 
-        .news-category {
+        .news-source {
             display: inline-block;
             background: rgba(255, 215, 0, 0.2);
             padding: 0.3rem 0.8rem;
@@ -102,6 +125,7 @@
         .news-card h3 {
             font-size: 1.5rem;
             margin-bottom: 1rem;
+            line-height: 1.3;
         }
 
         .news-card p {
@@ -120,6 +144,20 @@
         .read-more:hover {
             opacity: 0.7;
         }
+
+        .loading {
+            text-align: center;
+            font-size: 1.2rem;
+            padding: 3rem;
+        }
+
+        .error {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 0, 0, 0.1);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+        }
     </style>
 </head>
 <body>
@@ -131,6 +169,7 @@
             <a href="services.html">Services</a>
             <a href="blog.html">Blog</a>
             <a href="news.html">News</a>
+            <a href="music.html">Music</a>
             <a href="wellness.html">Wellness</a>
             <a href="youtube.html">YouTube</a>
             <a href="tiktok.html">TikTok</a>
@@ -138,63 +177,89 @@
         </nav>
     </div> <div class="container">
         <h1>Creator News & Updates</h1>
-        <p class="subtitle">Stay informed with the latest TikTok creator updates, platform changes, and industry trends</p>
+        <p class="subtitle">Live updates from top TikTok and social media creator news sources</p>
 
-        <div class="news-grid">
-            <!-- News Article 1 -->
-            <div class="news-card">
-                <div class="news-date">October 1, 2025</div>
-                <span class="news-category">Platform Update</span>
-                <h3>TikTok Introduces Enhanced Creator Analytics</h3>
-                <p>TikTok has rolled out new analytics features for creators, including deeper audience insights, content performance predictions, and advanced engagement metrics. Pro creators can now access real-time data on viewer retention and optimal posting times.</p>
-                <a href="#" class="read-more">Read More →</a>
-            </div>
+        <div class="news-sources">
+            <button class="source-btn active" onclick="loadFeed('techcrunch')">TechCrunch</button>
+            <button class="source-btn" onclick="loadFeed('socialmedia')">Social Media Today</button>
+            <button class="source-btn" onclick="loadFeed('tubefilter')">Tubefilter</button>
+        </div>
 
-            <!-- News Article 2 -->
-            <div class="news-card">
-                <div class="news-date">September 28, 2025</div>
-                <span class="news-category">Monetization</span>
-                <h3>New TikTok Creator Fund Payout Structure</h3>
-                <p>TikTok announces changes to the Creator Fund payment system, with increased payouts for high-engagement content and new bonus tiers for consistent creators. Average earnings per 1000 views have increased by 15%.</p>
-                <a href="#" class="read-more">Read More →</a>
-            </div>
-
-            <!-- News Article 3 -->
-            <div class="news-card">
-                <div class="news-date">September 25, 2025</div>
-                <span class="news-category">Tools & Features</span>
-                <h3>TikTok LIVE Enhanced with New Interactive Features</h3>
-                <p>Going LIVE just got better with multi-guest streaming, enhanced gifting options, and new moderator tools. Creators can now host up to 4 guests simultaneously and access advanced audience management features.</p>
-                <a href="#" class="read-more">Read More →</a>
-            </div>
-
-            <!-- News Article 4 -->
-            <div class="news-card">
-                <div class="news-date">September 20, 2025</div>
-                <span class="news-category">Algorithm</span>
-                <h3>Understanding TikTok's Latest Algorithm Changes</h3>
-                <p>Recent updates to TikTok's recommendation algorithm now prioritize watch time and completion rate more heavily. Creators focusing on retention in the first 3 seconds are seeing significantly better reach and engagement.</p>
-                <a href="#" class="read-more">Read More →</a>
-            </div>
-
-            <!-- News Article 5 -->
-            <div class="news-card">
-                <div class="news-date">September 15, 2025</div>
-                <span class="news-category">Growth Strategy</span>
-                <h3>Best Practices for Fall 2025 Content Strategy</h3>
-                <p>Industry experts share winning strategies for Q4 2025. Key trends include shorter videos (under 30 seconds), authentic storytelling, and leveraging trending sounds within the first 24 hours of their popularity.</p>
-                <a href="#" class="read-more">Read More →</a>
-            </div>
-
-            <!-- News Article 6 -->
-            <div class="news-card">
-                <div class="news-date">September 10, 2025</div>
-                <span class="news-category">Success Story</span>
-                <h3>Small Creator Gains 100K Followers in 30 Days</h3>
-                <p>A Life Transformers Hub member shares their journey from 500 to 100K followers using our AI tools and coaching services. Learn the exact strategies and hooks that made their content go viral consistently.</p>
-                <a href="#" class="read-more">Read More →</a>
-            </div>
+        <div id="news-feed">
+            <div class="loading">Loading latest creator news...</div>
         </div>
     </div>
+
+    <script>
+        const RSS_FEEDS = {
+            techcrunch: 'https://techcrunch.com/tag/tiktok/feed/',
+            socialmedia: 'https://www.socialmediatoday.com/rss',
+            tubefilter: 'https://www.tubefilter.com/feed/'
+        };
+
+        async function loadFeed(source) {
+            const feedContainer = document.getElementById('news-feed');
+            feedContainer.innerHTML = '<div class="loading">Loading latest news...</div>';
+            
+            // Update active button
+            document.querySelectorAll('.source-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            try {
+                const rssUrl = RSS_FEEDS[source];
+                const response = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}&count=9`);
+                const data = await response.json();
+
+                if (data.status === 'ok') {
+                    displayNews(data.items);
+                } else {
+                    throw new Error('Failed to load news');
+                }
+            } catch (error) {
+                feedContainer.innerHTML = `
+                    <div class="error">
+                        <h3>Unable to load news feed</h3>
+                        <p>Please try refreshing the page or selecting a different source.</p>
+                    </div>
+                `;
+            }
+        }
+
+        function displayNews(items) {
+            const feedContainer = document.getElementById('news-feed');
+            
+            if (items.length === 0) {
+                feedContainer.innerHTML = '<div class="error">No news articles found.</div>';
+                return;
+            }
+
+            feedContainer.innerHTML = items.map(item => {
+                const date = new Date(item.pubDate).toLocaleDateString('en-GB', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+                
+                const description = item.description
+                    .replace(/<[^>]*>/g, '') // Strip HTML tags
+                    .substring(0, 200) + '...';
+
+                return `
+                    <div class="news-card">
+                        <div class="news-date">${date}</div>
+                        <span class="news-source">${item.author || 'Creator News'}</span>
+                        <h3>${item.title}</h3>
+                        <p>${description}</p>
+                        <a href="${item.link}" target="_blank" class="read-more">Read Full Article →</a>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Load TechCrunch feed by default on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            loadFeed('techcrunch');
+        });
+    </script>
 </body>
 </html>
