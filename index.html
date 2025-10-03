@@ -256,13 +256,44 @@
         const { createClient } = supabase;
         const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
         
-        const AI_CONFIG = {
-            groq: {
-                apiKey: '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',
-                baseUrl: 'https://api.groq.com/openai/v1',
-                model: 'llama-3.1-8b-instant'
-            }
-        };
+       const AI_CONFIG = {
+    groq: {
+        apiKey: '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',
+        baseUrl: 'https://api.groq.com/openai/v1',
+        model: 'llama-3.1-8b-instant'
+    },
+    usageLimits: {
+        free: 10,  // 10 generations per day for free users
+        pro: 100   // 100 generations per day for Pro members
+    }
+};
+
+// Usage tracking (stored in browser)
+function getUsageCount() {
+    const today = new Date().toDateString();
+    const stored = localStorage.getItem('aiUsage');
+    if (!stored) return { date: today, count: 0 };
+    
+    const data = JSON.parse(stored);
+    if (data.date !== today) return { date: today, count: 0 };
+    return data;
+}
+
+function incrementUsage() {
+    const usage = getUsageCount();
+    usage.count++;
+    localStorage.setItem('aiUsage', JSON.stringify(usage));
+    return usage.count;
+}
+
+function checkUsageLimit() {
+    const usage = getUsageCount();
+    const limit = userTier === 'pro' || userTier === 'premium' || userTier === 'ultimate' 
+        ? AI_CONFIG.usageLimits.pro 
+        : AI_CONFIG.usageLimits.free;
+    
+    return usage.count < limit;
+}
         
         let currentUser = null;
         let userTier = 'free';
