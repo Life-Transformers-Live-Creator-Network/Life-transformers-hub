@@ -465,39 +465,43 @@
         </div>
 
         <!-- Signup Form Section -->
+       <!-- Signup Form Section -->
         <div class="hero" id="signup">
-          <h2 style="color: #667eea; margin-bottom: 20px;">Start Your 7-Day Free Trial</h2>
-            <p style="color: #666; margin-bottom: 30px;">No credit card required. Cancel anytime.</p>
+            <h2 style="color: #fbbf24; margin-bottom: 20px;">Choose Your Plan</h2>
+            <p style="margin-bottom: 30px;">Start with a 7-day free trial. Cancel anytime.</p>
             
-            <form style="max-width: 500px; margin: 0 auto; text-align: left;">
-                <div style="margin-bottom: 20px;">
-                    <label style="display: block; color: #333; font-weight: 600; margin-bottom: 8px;">Full Name</label>
-                    <input type="text" placeholder="Enter your full name" required style="width: 100%; padding: 15px; border: 2px solid #ddd; border-radius: 10px; font-size: 1rem;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 1000px; margin: 0 auto;">
+                
+                <!-- Pro Plan Signup -->
+                <div style="background: rgba(255,255,255,0.05); border: 2px solid #fbbf24; border-radius: 16px; padding: 30px; text-align: center;">
+                    <h3 style="color: #fbbf24; margin-bottom: 10px;">Pro</h3>
+                    <div style="font-size: 2.5rem; font-weight: bold; margin: 20px 0;">£5<span style="font-size: 1rem; color: #999;">/month</span></div>
+                    <p style="color: #10b981; margin-bottom: 20px;">✨ 7 days FREE</p>
+                    <a href="#" data-ms-modal="signup" data-ms-plan="Pro Membership" class="btn" style="width: 100%; text-decoration: none; display: block; padding: 15px;">Start Free Trial</a>
                 </div>
 
-                <div style="margin-bottom: 20px;">
-                    <label style="display: block; color: #333; font-weight: 600; margin-bottom: 8px;">Email Address</label>
-                    <input type="email" placeholder="your@email.com" required style="width: 100%; padding: 15px; border: 2px solid #ddd; border-radius: 10px; font-size: 1rem;">
+                <!-- Premium Plan Signup -->
+                <div style="background: rgba(255,255,255,0.05); border: 2px solid #8b5cf6; border-radius: 16px; padding: 30px; text-align: center;">
+                    <h3 style="color: #8b5cf6; margin-bottom: 10px;">Premium</h3>
+                    <div style="font-size: 2.5rem; font-weight: bold; margin: 20px 0;">£35<span style="font-size: 1rem; color: #999;">/month</span></div>
+                    <p style="color: #10b981; margin-bottom: 20px;">✨ 7 days FREE</p>
+                    <a href="#" data-ms-modal="signup" data-ms-plan="Premium Membership" class="btn" style="width: 100%; text-decoration: none; display: block; padding: 15px; background: linear-gradient(135deg, #8b5cf6, #6366f1);">Start Free Trial</a>
                 </div>
 
-                <div style="margin-bottom: 20px;">
-                    <label style="display: block; color: #333; font-weight: 600; margin-bottom: 8px;">TikTok Username (Optional)</label>
-                    <input type="text" placeholder="@yourusername" style="width: 100%; padding: 15px; border: 2px solid #ddd; border-radius: 10px; font-size: 1rem;">
+                <!-- Ultimate Plan Signup -->
+                <div style="background: rgba(255,255,255,0.05); border: 2px solid #ef4444; border-radius: 16px; padding: 30px; text-align: center;">
+                    <h3 style="color: #ef4444; margin-bottom: 10px;">Ultimate</h3>
+                    <div style="font-size: 2.5rem; font-weight: bold; margin: 20px 0;">£100<span style="font-size: 1rem; color: #999;">/month</span></div>
+                    <p style="color: #10b981; margin-bottom: 20px;">✨ 7 days FREE</p>
+                    <a href="#" data-ms-modal="signup" data-ms-plan="Ultimate Membership" class="btn" style="width: 100%; text-decoration: none; display: block; padding: 15px; background: linear-gradient(135deg, #ef4444, #dc2626);">Start Free Trial</a>
                 </div>
 
-                <div style="margin-bottom: 30px;">
-                    <label style="display: flex; align-items: center; color: #666;">
-                        <input type="checkbox" required style="margin-right: 10px; width: 20px; height: 20px;">
-                        I agree to the Terms of Service and Privacy Policy
-                    </label>
-                </div>
+            </div>
 
-                <button type="submit" class="cta-button">🎉 Start My Free Trial</button>
-
-               <p style="text-align: center; color: #999; font-size: 0.9rem; margin-top: 20px;">
-    After 7 days, you'll be charged £5/month. Cancel anytime before then to avoid charges.
-</p>
-            </form>
+            <p style="text-align: center; margin-top: 30px; color: #999; font-size: 0.9rem;">
+                No credit card required for trial • Cancel anytime • Secure payment via Stripe
+            </p>
+        </div>
         </div>
     </div>
 
