@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop - Life Transformers Hub Digital Products</title>
+    <meta name="description" content="Premium TikTok guides, business resources, and personal development e-books for creators and entrepreneurs">
+    
+    <!-- Memberstack -->
+    <script data-memberstack-app="app_cmg8qzm4e004c0tmi91sjhpzn" src="https://static.memberstack.com/scripts/v1/memberstack.js" type="text/javascript"></script>
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1b23 0%, #2d1b69 50%, #4c1d95 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        nav { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+        .logo { font-size: 24px; font-weight: bold; }
+        .nav-links { display: flex; gap: 20px; flex-wrap: wrap; }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+        .nav-links a:hover { background: rgba(255,255,255,0.1); }
+        
+        .hero {
+            text-align: center;
+            padding: 60px 20px 40px;
+        }
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffffff, #fbbf24);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p { font-size: 1.2rem; opacity: 0.9; max-width: 800px; margin: 0 auto; }
+        
+        .pro-banner {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: #1a1b23;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 30px 0;
+            font-weight: 600;
+        }
+        
+        .category-section {
+            margin: 60px 0;
+        }
+        .category-title {
+            font-size: 2rem;
+            color: #fbbf24;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(251, 191, 36, 0.3);
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .product-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: #fbbf24;
+        }
+        
+        .product-title {
+            font-size: 1.2rem;
+            color: #fbbf24;
+            margin-bottom: 12px;
+            line-height: 1.4;
+            min-height: 60px;
+        }
+        
+        .product-description {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+        
+        .product-price {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #10b981;
+            margin: 15px 0;
+        }
+        .product-price .pro-price {
+            font-size: 1rem;
+            color: #fbbf24;
+            display: block;
+            margin-top: 5px;
+        }
+        
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+        }
+        
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">Life Transformers Hub</div>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/about.html">About</a>
+                <a href="/services.html">Services</a>
+                <a href="/blog.html">Blog</a>
+                <a href="/shop.html">Shop</a>
+                <a href="/pro.html">Go Pro</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Digital Products Shop</h1>
+            <p>Premium guides, courses, and resources to accelerate your creator journey and business growth</p>
+        </section>
+
+        <div class="pro-banner">
+            🎉 Pro Members Save 50% on ALL Products! Upgrade to Pro for £5/month and get instant access to exclusive pricing.
+        </div>
+        <!-- TikTok Creator Guides -->
+        <section class="category-section">
+            <h2 class="category-title">📱 TikTok Creator Guides</h2>
+            <div class="products-grid">
+                
+                <div class="product-card">
+                    <h3 class="product-title">10 Valuable & Easy TikTok Content Ideas with Perfect Prompts for 2025</h3>
+                    <p class="product-description">Master affordable, high-impact content strategies that drive engagement and growth on TikTok's dynamic platform.</p>
+                    <div class="product-price">
+                        £9.97
+                        <span class="pro-price">Pro Members: £4.97</span>
+                    </div>
+                    <a href="https://drive.google.com/file/d/10oVMl9nEJcmeCOxouKe5M0Gc3SYbVi-B/view?usp=sharing" target="_blank" class="btn">Download Now</a>
+                </div>
+
+                <div class="product-card">
+                    <h3 class="product-title">From Content to Cash Pro</h3>
+                    <p class="product-description">A step-by-step roadmap for creators to monetise TikTok, YouTube Shorts, and Instagram in 2025, even with a small audience.</p>
+                    <div class="product-price">
+                        £9.97
+                        <span class="pro-price">Pro Members: £4.97</span>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1d0jeRaKiJcgozmc1356FLnOYlZ7xarEk/view?usp=sharing" target="_blank" class="btn">Download Now</a>
+                </div>
+
+                <div class="product-card">
+                    <h3 class="product-title">From Content to Cash: The Ultimate Monetization Roadmap for 2025</h3>
+                    <p class="product-description">Transform your creative passion into a thriving business empire in the £104 billion creator economy.</p>
+                    <div class="product-price">
+                        £9.97
+                        <span class="pro-price">Pro Members: £4.97</span>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1Ol0jufUt4hf6V7l4cDkMw6IfZRhkEaNf/view?usp=sharing" target="_blank" class="btn">Download Now</a>
+                </div>
+
+                <div class="product-card">
+                    <h3 class="product-title">From Live Stream to Cash: Monetise Your TikTok Live Streams in 2025</h3>
+                    <p class="product-description">Step-by-step roadmap to monetise live streams on TikTok, even with a small audience.</p>
+                    <div class="product-price">
+                        £9.97
+                        <span class="pro-price">Pro Members: £4.97</span>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1_jwKjhsdjYhjBPHtxDfUp_fSNF-j4LgO/view?usp=sharing" target="_blank" class="btn">Download Now</a>
+                </div>
+
+                <div class="product-card">
+                    <h3 class="product-title">Hook and Bait Pack</h3>
+                    <p class="product-description">Hook → Value → Bait → CTA. Create short, watchable videos that lead people into your lives and offers.</p>
+                    <div class="product-price">
+                        £9.97
+                        <span class="pro-price">Pro Members: £4.97</span>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1tZaHDbTu4aywzkR7uYl3Ci3xfnWgwvbW/view?usp=sharing" target="_blank" class="btn">Download Now</a>
+                </div>
+
+                <div class="product-card">
+                    <h3 class="product-title">How to Start a TikTok Channel and Find Your On-Demand Niche</h3>
+                    <p class="product-description">Transform your creativity into a thriving TikTok presence. Discover trending niches and build an engaged following from scratch.</p>
+                    <div class="product-price">
+                        £9.97
+                        <span class="pro-price">Pro Members: £4.97</span>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1DgbQM7qHEy33hqvdF3iSruwEOX_gindK/view?usp=sharing" target="_blank" class="btn">Download Now</a>
+                </div>
+
+                <div class="product-card">
+                    <h3 class="product-title">LifeStory to Content Story: Turn Your Experiences into Engaging Videos</h3>
+                    <p class="product-description">Learn how to transform your personal experiences into compelling video content that connects with audiences.</p>
+                    <div class="product-price">
+                        £9.97
+                        <span class="pro-price">Pro Members: £4.97</span>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1yimhc4wz6ketZa_jRgdSwgkzhFMo-esg/view?usp=sharing" target="_blank" class="btn">Download Now</a>
+                </div>
+
+                <div class="product-card">
+                    <h3 class="product-title">Mastering TikTok Live: Best Practices for Streamers</h3>
+                    <p class="product-description">Transform your passion into profit with the ultimate guide to TikTok Live streaming success. Master audience engagement and monetisation.</p>
+                    <div class="product-price">
+                        £9.97
+                        <span class="pro-price">Pro Members: £4.97</span>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1Acp3kpk56bMvpKGPhqBj4BpAcevp9DIb/view?usp=sharing" target="_blank" class="btn">Download Now</a>
+                </div>
+
+                <div class="product-card">
+                    <h3 class="product-title">Zero to 10K Followers in 90 Days</h3>
+                    <p class="product-description">Proven strategies to grow your TikTok following from zero to 10,000 in just 90 days.</p>
+                    <div class="product-price">
+                        £9.97
+                        <span class="pro-price">Pro Members: £4.97</span>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1U7D5Ec_JrCx6wwmds7sI-FEILDQF0zYa/view?usp=sharing" target="_blank" class="btn">Download Now</a>
+                </div>
+
+                <div class="product-card">
+                    <h3 class="product-title">Your Complete Guide to TikTok Affiliate Marketing</h3>
+                    <p class="product-description">Master affiliate marketing on TikTok and create a sustainable income stream from your content.</p>
+                    <div class="product-price">
+                        £9.97
+                        <span class="pro-price">Pro Members: £4.97</span>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1FhOZDA2jaZ7eMUNal9UH2rYUVIxuNCyk/view?usp=sharing" target="_blank" class="btn">Download Now</a>
+                </div>
+
+                <div class="product-card">
+                    <h3 class="product-title">Viral Video Blueprint: How to Make TikTok Videos That Get Seen</h3>
+                    <p class="product-description">Learn the formula for creating viral TikTok content that captures attention and drives massive engagement.</p>
+                    <div class="product-price">
+                        £9.97
+                        <span class="pro-price">Pro Members: £4.97</span>
+                    </div>
+                    <a href="https://drive.google.com/file/d/19QSSPDK0E12jEGqz_xAkDtp8erHqZHrv/view?usp=sharing" target="_blank" class="btn">Download Now</a>
+                </div>
+
+                <div class="product-card">
+                    <h3 class="product-title">Unlock Your Potential: Mastering TikTok Live Streaming Success</h3>
+                    <p class="product-description">Transform your creative passion into a thriving income stream through the power of live streaming on TikTok.</p>
+                    <div class="product-price">
+                        £9.97
+                        <span class="pro-price">Pro Members: £4.97</span>
+                    </div>
+                    <a href="https://drive.google.com/file/d/16TLyWKcNN62_PJsOLQ6WLRiGNTsx0_pK/view?usp=sharing" target="_blank" class="btn">Download Now</a>
+                </div>
+
+                <div class="product-card">
+                    <h3 class="product-title">TikTok in the UK: Unlock Peak Performance</h3>
+                    <p class="product-description">Master the art of timing to dominate the UK's most dynamic social media platform with data-driven strategies.</p>
+                    <div class="product-price">
+                        £9.97
+                        <span class="pro-price">Pro Members: £4.97</span>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1IiOUq4o3QC3I7y8_2mMJyD4fXFeDhtrO/view?usp=sharing" target="_blank" class="btn">Download Now</a>
+                </div>
+                <!-- Business & E-commerce -->
+        <section class="category-section">
+            <h2 class="category-title">💼 Business & E-commerce</h2>
+            <div class="products-grid">
+                
+                <div class="product-card">
+                    <h3 class="product-title">Global Vendor Vault: 15-Industry Top Tier Suppliers by Country</h3>
+                    <p class="product-description">15 industries × 21 countries. Top-rated suppliers with 1-3 day delivery, automation ready, and full onboarding support.</p>
+                    <div class="product-price">
+                        £9.97
+                        <span class="pro-price">Pro Members: £4.97</span>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1kNTQfI-QgFTAJkKeR8Cd9jgDAX-lHz0k/view?usp=sharing" target="_blank" class="btn">Download Now</a>
+                </div>
+
+                <div class="product-card">
+                    <h3 class="product-title">Global Vendor Vault: 15-Industry Top Tier Suppliers Vol. 3</h3>
+                    <p class="product-description">Additional verified vendors across multiple industries with full fulfillment and integration capabilities.</p>
+                    <div class="product-price">
+                        £9.97
+                        <span class="pro-price">Pro Members: £4.97</span>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1PPXepm7qSL0-PxQX9nthKYel1q2Rp_Vj/view?usp=sharing" target="_blank" class="btn">Download Now</a>
+                </div>
+
+                <div class="product-card">
+                    <h3 class="product-title">Global Vendor and Manufacturer Directory 2024: 500 Trusted Partners Worldwide</h3>
+                    <p class="product-description">Comprehensive directory of 500 verified vendors and manufacturers across the globe for your business needs.</p>
+                    <div class="product-price">
+                        £9.97
+                        <span class="pro-price">Pro Members: £4.97</span>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1fFKfWuWVspm0XMOSQRHWIjWFlIQeTskS/view?usp=sharing" target="_blank" class="btn">Download Now</a>
+                </div>
+
+                <div class="product-card">
+                    <h3 class="product-title">How to Create Your Own Physical Product Line in the UK</h3>
+                    <p class="product-description">Complete guide to launching your own physical product line in the UK market from concept to sales.</p>
+                    <div class="product-price">
+                        £9.97
+                        <span class="pro-price">Pro Members: £4.97</span>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1uUAVVbJA3CMGVuIV2oXB8g_sTg_9DvX5/view?usp=sharing" target="_blank" class="btn">Download Now</a>
+                </div>
+
+                <div class="product-card">
+                    <h3 class="product-title">Social Media and E-commerce: A Powerful Partnership</h3>
+                    <p class="product-description">Discover how the fusion of social platforms and e-commerce is revolutionizing online browsing, sharing, and purchasing.</p>
+                    <div class="product-price">
+                        £9.97
+                        <span class="pro-price">Pro Members: £4.97</span>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1e2ZesJunhD-6XR2DafGudxK49kUS8Om3/view?usp=sharing" target="_blank" class="btn">Download Now</a>
+                </div>
+
+                <div class="product-card">
+                    <h3 class="product-title">Selling Digital Products Online Globally</h3>
+                    <p class="product-description">Turn your knowledge, creativity, and skills into profit. Essential platforms and tools to launch your products worldwide.</p>
+                    <div class="product-price">
+                        £9.97
+                        <span class="pro-price">Pro Members: £4.97</span>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1Gq2bgozM77q0IshOeYsL6fO2HB4IzpdN/view?usp=sharing" target="_blank" class="btn">Download Now</a>
+                </div>
+
+                <div class="product-card">
+                    <h3 class="product-title">Scale Your Side Hustle: Use Social Media to Create Supplementary Income</h3>
+                    <p class="product-description">Proven strategies to transform your side hustle into a profitable supplementary income stream using social media.</p>
+                    <div class="product-price">
+                        £9.97
+                        <span class="pro-price">Pro Members: £4.97</span>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1aVC2efcPi5XwmGF_AqgFWzKyWQ9rPDlE/view?usp=sharing" target="_blank" class="btn">Download Now</a>
+                </div>
+
+                <div class="product-card">
+                    <h3 class="product-title">Personal Brand Power: How to Position Yourself & Stand Out</h3>
+                    <p class="product-description">Build a powerful personal brand that differentiates you from competitors and attracts your ideal audience.</p>
+                    <div class="product-price">
+                        £9.97
+                        <span class="pro-price">Pro Members: £4.97</span>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1rHKRZhBtp3_9n_Mhuxfn1QXJweHwstO7/view?usp=sharing" target="_blank" class="btn">Download Now</a>
+                </div>
+
+            </div>
+        </section>
+        <!-- AI & Productivity -->
+        <section class="category-section">
+            <h2 class="category-title">🤖 AI & Productivity Tools</h2>
+            <div class="products-grid">
+                
+                <div class="product-card">
+                    <h3 class="product-title">How to Build Prompt Kit with AI</h3>
+                    <p class="product-description">Create reusable, scalable prompt kits using AI. Essential skills for product managers, designers, and educators to enhance productivity.</p>
+                    <div class="product-price">
+                        £9.97
+                        <span class="pro-price">Pro Members: £4.97</span>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1dP-6983W-wIM48C3n3-YZAkLlkaC2RfB/view?usp=sharing" target="_blank" class="btn">Download Now</a>
+                </div>
+
+                <div class="product-card">
+                    <h3 class="product-title">AI Prompts Collection</h3>
+                    <p class="product-description">Comprehensive collection of AI prompts for various use cases. Boost your productivity with ready-to-use prompt templates.</p>
+                    <div class="product-price">
+                        £9.97
+                        <span class="pro-price">Pro Members: £4.97</span>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1raReNZxdikMT7KSQk5EMnFKszBV-bUDR/view?usp=sharing" target="_blank" class="btn">Download Now</a>
+                </div>
+
+                <div class="product-card">
+                    <h3 class="product-title">Mastering PLR E-Book Creation with Canva</h3>
+                    <p class="product-description">Comprehensive guide on leveraging Canva to create stunning Private Label Rights e-books across diverse niches.</p>
+                    <div class="product-price">
+                        £9.97
+                        <span class="pro-price">Pro Members: £4.97</span>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1SmVTVMf-dn1H9bKYj8dZhjgi7Byq2hv9/view?usp=sharing" target="_blank" class="btn">Download Now</a>
+                </div>
+
+                <div class="product-card">
+                    <h3 class="product-title">Ultimate Guide to Creating Profitable Canva PLR Product Bundle</h3>
+                    <p class="product-description">Step-by-step system for creating and selling profitable PLR product bundles using Canva's design platform.</p>
+                    <div class="product-price">
+                        £9.97
+                        <span class="pro-price">Pro Members: £4.97</span>
+                    </div>
+                    <a href="https://drive.google.com/file/d/12jQ2eWa5fRyClpXrAUzDhu1zw57c7Pfq/view?usp=sharing" target="_blank" class="btn">Download Now</a>
+                </div>
+
+                <div class="product-card">
+                    <h3 class="product-title">Self-Publishing Masterclass: From Idea to Published Author in One Day</h3>
+                    <p class="product-description">Fast-track your journey from idea to published author. Complete guide to self-publishing in 24 hours.</p>
+                    <div class="product-price">
+                        £9.97
+                        <span class="pro-price">Pro Members: £4.97</span>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1XHuYCYGY3KztS_hMqXuuxxs9tRE-I-1-/view?usp=sharing" target="_blank" class="btn">Download Now</a>
+                </div>
+
+                <div class="product-card">
+                    <h3 class="product-title">Crafting Your Page eBook: A Complete Structural Guide for Canva</h3>
+                    <p class="product-description">Master e-book structure and design in Canva. Professional layouts and templates for creating stunning digital products.</p>
+                    <div class="product-price">
+                        £9.97
+                        <span class="pro-price">Pro Members: £4.97</span>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1Prw-6piLiJ6GHkhctWzwI8NAn2zThQhU/view?usp=sharing" target="_blank" class="btn">Download Now</a>
+                </div>
+
+            </div>
+        </section>
+        <!-- Personal Development -->
+        <section class="category-section">
+            <h2 class="category-title">🌟 Personal Development & Wellness</h2>
+            <div class="products-grid">
+                
+                <div class="product-card">
+                    <h3 class="product-title">The Infinite Book of Light</h3>
+                    <p class="product-description">2,000 spiritual quotes for healing, abundance, wisdom and soul transformation. Daily inspiration for your spiritual journey.</p>
+                    <div class="product-price">
+                        £9.97
+                        <span class="pro-price">Pro Members: £4.97</span>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1T2-kEiLc2NNexTG71x_G4Bz_GDR7kU6V/view?usp=sharing" target="_blank" class="btn">Download Now</a>
+                </div>
+
+                <div class="product-card">
+                    <h3 class="product-title">The Life Elevation Blueprint</h3>
+                    <p class="product-description">Transform every aspect of your life with this comprehensive blueprint for personal growth and success.</p>
+                    <div class="product-price">
+                        £9.97
+                        <span class="pro-price">Pro Members: £4.97</span>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1NgM5OvMkYfFuHQeJWo9ij4bG8lgK-SBZ/view?usp=sharing" target="_blank" class="btn">Download Now</a>
+                </div>
+
+                <div class="product-card">
+                    <h3 class="product-title">Longevity Secret For Women: Easy Practices to Live Healthier, Longer</h3>
+                    <p class="product-description">Discover revolutionary wellness practices transforming how women approach health, vitality, and longevity in 2025.</p>
+                    <div class="product-price">
+                        £9.97
+                        <span class="pro-price">Pro Members: £4.97</span>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1TpyovaHiqJ8fcFP0Jpzp6-spiUjw5cbo/view?usp=sharing" target="_blank" class="btn">Download Now</a>
+                </div>
+
+                <div class="product-card">
+                    <h3 class="product-title">Longevity Secret for Men: Unlocking Preventative Wellness and Biohacks</h3>
+                    <p class="product-description">Transform your approach to aging with cutting-edge science, proven biohacks, and personalized wellness strategies for modern men.</p>
+                    <div class="product-price">
+                        £9.97
+                        <span class="pro-price">Pro Members: £4.97</span>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1rHuRJIpODOiSeZ746xPvvhcWsLVmz-dG/view?usp=sharing" target="_blank" class="btn">Download Now</a>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section style="background: rgba(99, 102, 241, 0.1); border: 2px solid #6366f1; border-radius: 16px; padding: 40px; text-align: center; margin: 60px 0;">
+            <h2 style="color: #fbbf24; margin-bottom: 20px; font-size: 2rem;">Ready to Save 50% on Everything?</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 30px; opacity: 0.9;">Join Pro for just £5/month and get instant 50% discount on all 35 e-books, plus access to premium AI tools, coaching discounts, and exclusive resources.</p>
+            <a href="/pro.html" class="btn" style="max-width: 400px; margin: 0 auto; padding: 18px 36px; font-size: 1.1rem; background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #1a1b23;">Upgrade to Pro Now</a>
+        </section>
+
+    </main>
+
+    <footer style="text-align: center; padding: 40px 20px; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 60px;">
+        <p style="opacity: 0.7;">© 2025 Life Transformers Hub. All rights reserved.</p>
+        <p style="opacity: 0.7; margin-top: 10px;">Need help? <a href="mailto:support@delifetransformers.com" style="color: #fbbf24; text-decoration: none;">Contact Support</a></p>
+    </footer>
+
+</body>
+</html>
