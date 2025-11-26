@@ -1,17 +1,18 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Life Transformers Hub - TikTok Creator Tools & Resources</title>
-<meta name="description" content="Free TikTok tools for creators: diamond calculator, AI hook generator, script generator, and more. Grow your TikTok with professional resources.">
-<meta name="keywords" content="TikTok tools, creator resources, TikTok diamond calculator, AI script generator, TikTok growth, content creator tools">
-<meta property="og:title" content="Life Transformers Hub - TikTok Creator Tools">
-<meta property="og:description" content="Professional tools to supercharge your TikTok workflow">
-<meta property="og:url" content="https://delifetransformer.com">
-<meta property="og:type" content="website">
+    <title>Life Transformers Hub - TikTok Creator Tools & Resources</title>
+    <meta name="description" content="Free TikTok tools for creators: diamond calculator, AI hook generator, script generator, and more. Grow your TikTok with professional resources.">
+    <meta name="keywords" content="TikTok tools, creator resources, TikTok diamond calculator, AI script generator, TikTok growth, content creator tools">
+    <meta property="og:title" content="Life Transformers Hub - TikTok Creator Tools">
+    <meta property="og:description" content="Professional tools to supercharge your TikTok workflow">
+    <meta property="og:url" content="https://delifetransformer.com">
+    <meta property="og:type" content="website">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Puter.js for FREE unlimited AI -->
+    <script src="https://js.puter.com/v2/"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -83,6 +84,17 @@
             font-size: 0.8rem;
             font-weight: bold;
         }
+        .premium-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: linear-gradient(135deg, #a855f7, #7c3aed);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
         .modal {
             display: none;
             position: fixed;
@@ -129,731 +141,828 @@
             nav { flex-direction: column; }
             .features { grid-template-columns: 1fr; }
         }
-   </style>
+    </style>
 
-<!-- Memberstack webflow package -->
-<script data-memberstack-app="app_cmg8qzm4e004c0tmi91sjhpzn" src="https://static.memberstack.com/scripts/v1/memberstack.js" type="text/javascript"></script>
+    <!-- Memberstack webflow package -->
+    <script data-memberstack-app="app_cmg8qzm4e004c0tmi91sjhpzn" src="https://static.memberstack.com/scripts/v1/memberstack.js" type="text/javascript"></script>
 
-</head> <body>
+</head>
+<body>
 <header>
     <nav class="container">
         <div class="logo">Life Transformers Hub</div>
-<div style="display: flex; gap: 20px; align-items: center;">
-    <a href="/" style="color: white; text-decoration: none;">Home</a>
-    <a href="about.html" style="color: white; text-decoration: none;">About</a>
-    <a href="services.html" style="color: white; text-decoration: none;">Services</a>
-    <a href="shop.html" style="color: white; text-decoration: none;">Shop</a>
-    <a href="updates.html" style="color: white; text-decoration: none;">Updates</a>
-    <a href="wellness.html" style="color: white; text-decoration: none;">Wellness</a>
-    <a href="youtube.html" style="color: white; text-decoration: none;">YouTube</a>
-    <a href="tiktok.html" style="color: white; text-decoration: none;">TikTok</a>
-    <a href="blog.html" style="color: white; text-decoration: none;">Blog</a>
-    <a href="news.html" style="color: white; text-decoration: none;">News</a>
-    <a href="music.html" style="color: white; text-decoration: none;">Music</a>
-    <a href="pro.html" style="color: white; text-decoration: none;">Go Pro</a>
-</div>
-       <div class="user-info" id="authButtons">
+        <div style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap;">
+            <a href="/" style="color: white; text-decoration: none;">Home</a>
+            <a href="about.html" style="color: white; text-decoration: none;">About</a>
+            <a href="services.html" style="color: white; text-decoration: none;">Services</a>
+            <a href="shop.html" style="color: white; text-decoration: none;">Shop</a>
+            <a href="updates.html" style="color: white; text-decoration: none;">Updates</a>
+            <a href="wellness.html" style="color: white; text-decoration: none;">Wellness</a>
+            <a href="youtube.html" style="color: white; text-decoration: none;">YouTube</a>
+            <a href="tiktok.html" style="color: white; text-decoration: none;">TikTok</a>
+            <a href="blog.html" style="color: white; text-decoration: none;">Blog</a>
+            <a href="news.html" style="color: white; text-decoration: none;">News</a>
+            <a href="music.html" style="color: white; text-decoration: none;">Music</a>
+            <a href="pro.html" style="color: white; text-decoration: none;">Go Pro</a>
+        </div>
+        <div class="user-info" id="authButtons">
             <a href="#" data-ms-modal="login" class="btn" style="text-decoration: none;">Login</a>
             <a href="/pro.html" class="btn btn-pro" style="text-decoration: none;">Sign Up</a>
             <a href="#" data-ms-action="logout" class="btn" style="display: none; text-decoration: none;" id="logoutBtn">Logout</a>
         </div>
     </nav>
 </header>
-    <main class="container">
-        <section class="hero">
-            <h1>Supercharge Your TikTok Workflow</h1>
-            <p>Real-time insights, AI tools, and community support</p>
-            <a href="https://www.tiktok.com/t/ZMBq592R6/" target="_blank" class="btn join-cta">Join the LIFE Network</a>
-        </section>
 
-        <section class="features">
-            <div class="feature-card">
-                <h3>Diamond Calculator</h3>
-                <p>Convert TikTok diamonds to real money in multiple currencies</p>
-               <a href="diamond-calculator.html" style="text-decoration: none;">
-    <button class="btn" style="cursor: pointer;">Use Tool</button>
-</a>
-            </div>
-            <div class="feature-card">
-                <h3>AI Hook Generator</h3>
-                <p>Generate viral TikTok hooks with AI</p>
-                <button class="btn" onclick="openTool('hooks')">Generate Hooks</button>
-            </div>
-            <div class="feature-card">
-                <div class="pro-badge">PRO</div>
-                <h3>AI Script Generator</h3>
-                <p>Create full video scripts with AI</p>
-                <button class="btn" onclick="openTool('script')">Generate Script</button>
-            </div>
-            <div class="feature-card">
-                <div class="pro-badge">PRO</div>
-                <h3>LIVE Scheduler</h3>
-                <p>Plan and schedule your TikTok streams</p>
-                <button class="btn" onclick="openTool('scheduler')">Schedule Stream</button>
-            </div>
-            <div class="feature-card">
-                <div class="pro-badge">PRO</div>
-                <h3>Profile Ring Designer</h3>
-                <p>Create branded profile images</p>
-                <button class="btn" onclick="openTool('ring')">Design Ring</button>
-            </div>
-            <div class="feature-card">
-                <div class="pro-badge">PRO</div>
-                <h3>Countdown Timer</h3>
-                <p>Create countdown overlays for streams</p>
-                <button class="btn" onclick="openTool('countdown')">Create Timer</button>
-            </div>
-        </section>
-    </main>
+<main class="container">
+    <section class="hero">
+        <h1>Supercharge Your TikTok Workflow</h1>
+        <p>Real-time insights, AI tools, and community support</p>
+        <a href="https://www.tiktok.com/t/ZMBq592R6/" target="_blank" class="btn join-cta">Join the LIFE Network</a>
+    </section>
 
-    <div id="loginModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('loginModal')">&times;</span>
-            <h2>Login to LIFE</h2>
-            <form id="loginForm">
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" id="loginEmail" required>
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" id="loginPassword" required>
-                </div>
-                <button type="submit" class="btn" style="width: 100%;">Login</button>
-                <div id="loginError" class="error"></div>
-            </form>
+    <section class="features">
+        <div class="feature-card">
+            <h3>Diamond Calculator</h3>
+            <p>Convert TikTok diamonds to real money in multiple currencies</p>
+            <a href="diamond-calculator.html" style="text-decoration: none;">
+                <button class="btn" style="cursor: pointer;">Use Tool</button>
+            </a>
         </div>
-    </div>
-
-    <div id="signupModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('signupModal')">&times;</span>
-            <h2>Join Life Transformers</h2>
-            <form id="signupForm">
-                <div class="form-group">
-                    <label>Full Name</label>
-                    <input type="text" id="signupName" required>
-                </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" id="signupEmail" required>
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" id="signupPassword" required minlength="6">
-                </div>
-                <button type="submit" class="btn" style="width: 100%;">Create Account</button>
-                <div id="signupError" class="error"></div>
-                <div id="signupSuccess" class="success"></div>
-            </form>
+        <div class="feature-card">
+            <h3>AI Hook Generator</h3>
+            <p>Generate viral TikTok hooks with AI</p>
+            <button class="btn" onclick="openTool('hooks')">Generate Hooks</button>
         </div>
-    </div>
-
-    <div id="toolModal" class="modal">
-        <div class="modal-content" style="max-width: 700px;">
-            <span class="close" onclick="closeModal('toolModal')">&times;</span>
-            <div id="toolContent"></div>
+        <div class="feature-card">
+            <div class="pro-badge">PRO</div>
+            <h3>AI Script Generator</h3>
+            <p>Create full video scripts with AI</p>
+            <button class="btn" onclick="openTool('script')">Generate Script</button>
         </div>
+        <div class="feature-card">
+            <div class="pro-badge">PRO</div>
+            <h3>LIVE Scheduler</h3>
+            <p>Plan and schedule your TikTok streams</p>
+            <button class="btn" onclick="openTool('scheduler')">Schedule Stream</button>
+        </div>
+        <div class="feature-card">
+            <div class="pro-badge">PRO</div>
+            <h3>Profile Ring Designer</h3>
+            <p>Create branded profile images with photo upload</p>
+            <button class="btn" onclick="openTool('ring')">Design Ring</button>
+        </div>
+        <div class="feature-card">
+            <div class="pro-badge">PRO</div>
+            <h3>Countdown Timer</h3>
+            <p>Create countdown overlays for streams</p>
+            <button class="btn" onclick="openTool('countdown')">Create Timer</button>
+        </div>
+        <!-- NEW: AI Video Generator for Premium/Ultimate -->
+        <div class="feature-card">
+            <div class="premium-badge">PREMIUM</div>
+            <h3>AI Video Generator</h3>
+            <p>Create short-form videos from text prompts with AI</p>
+            <button class="btn" onclick="openTool('video')" style="background: linear-gradient(135deg, #a855f7, #7c3aed);">Generate Video</button>
+        </div>
+    </section>
+</main>
+
+<div id="loginModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('loginModal')">&times;</span>
+        <h2>Login to LIFE</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="loginEmail" required>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="loginPassword" required>
+            </div>
+            <button type="submit" class="btn" style="width: 100%;">Login</button>
+            <div id="loginError" class="error"></div>
+        </form>
     </div>
+</div>
 
-    <script> const SUPABASE_URL = 'https://mfpnlrfipurarjnpkjjf.supabase.co';
-        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1mcG5scmZpcHVyYXJqbnBrampmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg3NzIzMDgsImV4cCI6MjA3NDM0ODMwOH0.BrzydqLHn7jLGUwiX8nXZhuGy5ihNYXvCG0RE9Uxtmw';
-        
-        const { createClient } = supabase;
-        const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
-        
-       const AI_CONFIG = {
-    groq: {
-        apiKey: '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',
-        baseUrl: 'https://api.groq.com/openai/v1',
-        model: 'llama-3.1-8b-instant'
-    },
-    usageLimits: {
-        free: 10,  // 10 generations per day for free users
-        pro: 100   // 100 generations per day for Pro members
-    }
-};
+<div id="signupModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('signupModal')">&times;</span>
+        <h2>Join Life Transformers</h2>
+        <form id="signupForm">
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" id="signupName" required>
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="signupEmail" required>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="signupPassword" required minlength="6">
+            </div>
+            <button type="submit" class="btn" style="width: 100%;">Create Account</button>
+            <div id="signupError" class="error"></div>
+            <div id="signupSuccess" class="success"></div>
+        </form>
+    </div>
+</div>
 
-// Usage tracking (stored in browser)
-function getUsageCount() {
-    const today = new Date().toDateString();
-    const stored = localStorage.getItem('aiUsage');
-    if (!stored) return { date: today, count: 0 };
+<div id="toolModal" class="modal">
+    <div class="modal-content" style="max-width: 700px;">
+        <span class="close" onclick="closeModal('toolModal')">&times;</span>
+        <div id="toolContent"></div>
+    </div>
+</div>
+
+<script>
+    const SUPABASE_URL = 'https://mfpnlrfipurarjnpkjjf.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1mcG5scmZpcHVyYXJqbnBrampmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg3NzIzMDgsImV4cCI6MjA3NDM0ODMwOH0.BrzydqLHn7jLGUwiX8nXZhuGy5ihNYXvCG0RE9Uxtmw';
     
-    const data = JSON.parse(stored);
-    if (data.date !== today) return { date: today, count: 0 };
-    return data;
-}
-
-function incrementUsage() {
-    const usage = getUsageCount();
-    usage.count++;
-    localStorage.setItem('aiUsage', JSON.stringify(usage));
-    return usage.count;
-}
-
-function checkUsageLimit() {
-    const usage = getUsageCount();
-    const limit = userTier === 'pro' || userTier === 'premium' || userTier === 'ultimate' 
-        ? AI_CONFIG.usageLimits.pro 
-        : AI_CONFIG.usageLimits.free;
+    const { createClient } = supabase;
+    const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
     
-    return usage.count < limit;
-}
+    // Groq as backup AI
+    const AI_CONFIG = {
+        groq: {
+            apiKey: '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',
+            baseUrl: 'https://api.groq.com/openai/v1',
+            model: 'llama-3.1-8b-instant'
+        }
+    };
+
+    let currentUser = null;
+    let userTier = 'free';
+
+    // ========== AUTH FUNCTIONS ==========
+    supabaseClient.auth.getSession().then(({ data: { session } }) => {
+        if (session) {
+            currentUser = session.user;
+            checkUserTier();
+        }
+        updateAuthUI();
+    });
+
+    supabaseClient.auth.onAuthStateChange((event, session) => {
+        currentUser = session?.user || null;
+        if (currentUser) {
+            checkUserTier();
+        } else {
+            userTier = 'free';
+        }
+        updateAuthUI();
         
-        let currentUser = null;
-        let userTier = 'free';
-        
-        supabaseClient.auth.getSession().then(({ data: { session } }) => {
-            if (session) {
-                currentUser = session.user;
-                checkUserTier();
-            }
-            updateAuthUI();
-        });
-        
-        supabaseClient.auth.onAuthStateChange((event, session) => {
-            currentUser = session?.user || null;
-            if (currentUser) {
-                checkUserTier();
-            } else {
-                userTier = 'free';
-            }
-            updateAuthUI();
+        if (event === 'SIGNED_IN') {
+            closeModal('loginModal');
+            closeModal('signupModal');
+        }
+    });
+
+    async function checkUserTier() {
+        if (!currentUser) return;
+        try {
+            const { data } = await supabaseClient
+                .from('profiles')
+                .select('tier')
+                .eq('id', currentUser.id)
+                .single();
             
-            if (event === 'SIGNED_IN') {
-                closeModal('loginModal');
-                closeModal('signupModal');
-            }
-        });
-        
-        async function checkUserTier() {
-            if (!currentUser) return;
-            try {
-                const { data } = await supabaseClient
-                    .from('profiles')
-                    .select('tier')
-                    .eq('id', currentUser.id)
-                    .single();
-                
-                userTier = data?.tier || 'free';
-                updateProFeatures();
-            } catch (error) {
-                userTier = 'free';
-            }
-        }
-        
-        async function updateUserTier(tier) {
-            if (!currentUser) return;
-            try {
-                await supabaseClient
-                    .from('profiles')
-                    .upsert({ 
-                        id: currentUser.id,
-                        tier: tier,
-                        name: currentUser.user_metadata?.name,
-                        email: currentUser.email
-                    });
-                userTier = tier;
-            } catch (error) {
-                console.error('Error updating user tier:', error);
-            }
-        }
-        
-        function updateAuthUI() {
-            const authButtons = document.getElementById('authButtons');
-            if (currentUser) {
-                const name = currentUser.user_metadata?.name || currentUser.email;
-                const tierBadge = userTier === 'pro' ? '<span style="color:#fbbf24;font-size:0.8rem;">PRO</span>' : '<span style="color:#999;font-size:0.8rem;">FREE</span>';
-                authButtons.innerHTML = `
-                    <span>Welcome, ${name} ${tierBadge}</span>
-                    ${userTier === 'free' ? '<button class="btn btn-pro" onclick="openUpgradeModal()">Upgrade to Pro</button>' : ''}
-                    <button class="btn" onclick="logout()">Logout</button>
-                `;
-            } else {
-                authButtons.innerHTML = `
-                    <button class="btn" onclick="openModal('loginModal')">Login</button>
-                    <button class="btn" onclick="openModal('signupModal')">Sign Up</button>
-                `;
-            }
-        }
-        
-        function updateProFeatures() {
-            const cards = document.querySelectorAll('.feature-card');
-            cards.forEach((card, index) => {
-                if (index >= 2) {
-                    const existingBadge = card.querySelector('.pro-badge');
-                    if (existingBadge) {
-                        existingBadge.textContent = userTier === 'pro' ? 'PRO ✓' : 'PRO';
-                    }
-                }
-            });
-        }
-        
-        function openUpgradeModal() {
-            const modal = document.createElement('div');
-            modal.className = 'modal';
-            modal.style.display = 'flex';
-            modal.innerHTML = `
-                <div class="modal-content">
-                    <span class="close" onclick="this.parentElement.parentElement.remove()">&times;</span>
-                    <h2>Upgrade to Pro</h2>
-                    <div style="background: rgba(255,255,255,0.05); border: 2px solid #fbbf24; border-radius: 16px; padding: 30px; text-align: center; margin: 20px 0;">
-                        <h3>Life Transformers Pro</h3>
-                        <div style="font-size: 3rem; font-weight: bold; margin: 20px 0; color: #fbbf24;">£5<span style="font-size:1rem;">/month</span></div>
-                        <ul style="text-align: left; margin: 20px 0;">
-                            <li>✓ AI Script Generator</li>
-                            <li>✓ LIVE Scheduler</li>
-                            <li>✓ Profile Ring Designer</li>
-                            <li>✓ Countdown Timer</li>
-                            <li>✓ Priority Support</li>
-                            <li>✓ Advanced Analytics</li>
-                        </ul>
-                        <button class="btn btn-pro" style="width: 100%;" onclick="activateProNow()">Activate Pro (Demo)</button>
-                    </div>
-                </div>
-            `;
-            document.body.appendChild(modal);
-        }
-        
-        function activateProNow() {
-            if (!currentUser) {
-                alert('Please login first');
-                return;
-            }
-            
-            userTier = 'pro';
-            updateUserTier('pro');
-            updateAuthUI();
+            userTier = data?.tier || 'free';
             updateProFeatures();
-            
-            document.querySelectorAll('.modal').forEach(modal => modal.remove());
-            
-            alert('Pro activated! All tools are now unlocked.');
-            setTimeout(() => window.location.reload(), 1000);
+        } catch (error) {
+            userTier = 'free';
         }
-        
-        document.getElementById('signupForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const name = document.getElementById('signupName').value;
-            const email = document.getElementById('signupEmail').value;
-            const password = document.getElementById('signupPassword').value;
-            
-            const { error } = await supabaseClient.auth.signUp({
-                email: email,
-                password: password,
-                options: { data: { name: name } }
-            });
-            
-            const errorEl = document.getElementById('signupError');
-            const successEl = document.getElementById('signupSuccess');
-            
-            if (error) {
-                errorEl.textContent = error.message;
-                successEl.textContent = '';
-            } else {
-                errorEl.textContent = '';
-                successEl.textContent = 'Account created successfully!';
-                setTimeout(() => closeModal('signupModal'), 2000);
-            }
-        });
-        
-        document.getElementById('loginForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-            
-            const { error } = await supabaseClient.auth.signInWithPassword({
-                email: email,
-                password: password
-            });
-            
-            if (error) {
-                document.getElementById('loginError').textContent = error.message;
-            }
-        });
-        
-        async function logout() {
-            await supabaseClient.auth.signOut();
-        }
-        
-        function openModal(id) { 
-            document.getElementById(id).style.display = 'flex'; 
-        }
-        
-        function closeModal(id) { 
-            document.getElementById(id).style.display = 'none'; 
-        }
-        
-        async function callAI(prompt) {
-            try {
-                const response = await fetch(AI_CONFIG.groq.baseUrl + '/chat/completions', {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': 'Bearer ' + AI_CONFIG.groq.apiKey,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        model: AI_CONFIG.groq.model,
-                        messages: [{ role: 'user', content: prompt }],
-                        max_tokens: 500
-                    })
+    }
+
+    async function updateUserTier(tier) {
+        if (!currentUser) return;
+        try {
+            await supabaseClient
+                .from('profiles')
+                .upsert({ 
+                    id: currentUser.id,
+                    tier: tier,
+                    name: currentUser.user_metadata?.name,
+                    email: currentUser.email
                 });
-                
-                if (!response.ok) throw new Error('API request failed');
-                const data = await response.json();
-                return data.choices[0].message.content;
-            } catch (error) {
-                return 'Error: Unable to generate content. Please try again.';
-            }
-        } function openTool(tool) {
-            if (!currentUser) {
-                alert('Please login to use tools');
-                openModal('loginModal');
-                return;
-            }
-            
-            const proTools = ['script', 'scheduler', 'ring', 'countdown'];
-            if (proTools.includes(tool) && userTier !== 'pro') {
-                openUpgradeModal();
-                return;
-            }
-            
-            const content = document.getElementById('toolContent');
-            
-            switch(tool) {
-                case 'calculator':
-                    content.innerHTML = createDiamondCalculator();
-                    break;
-                case 'hooks':
-                    content.innerHTML = createHookGenerator();
-                    break;
-                case 'script':
-                    content.innerHTML = createScriptGenerator();
-                    break;
-                case 'scheduler':
-                    content.innerHTML = createScheduler();
-                    break;
-                case 'ring':
-                    content.innerHTML = createRingDesigner();
-                    break;
-                case 'countdown':
-                    content.innerHTML = createCountdownTimer();
-                    break;
-            }
-            
-            openModal('toolModal');
+            userTier = tier;
+        } catch (error) {
+            console.error('Error updating user tier:', error);
         }
-        
-        function createDiamondCalculator() {
-            return `
-                <h2>TikTok Diamond Calculator</h2>
-                <div class="form-group">
-                    <label>Number of Diamonds:</label>
-                    <input type="number" id="diamonds" placeholder="Enter diamonds" min="1">
-                </div>
-                <button class="btn" onclick="calculateDiamonds()" style="width: 100%;">Calculate Value</button>
-                <div id="diamondResult" style="display: none;"></div>
+    }
+
+    function updateAuthUI() {
+        const authButtons = document.getElementById('authButtons');
+        if (currentUser) {
+            const name = currentUser.user_metadata?.name || currentUser.email;
+            let tierBadge = '<span style="color:#999;font-size:0.8rem;">FREE</span>';
+            if (userTier === 'pro') tierBadge = '<span style="color:#fbbf24;font-size:0.8rem;">PRO</span>';
+            if (userTier === 'premium') tierBadge = '<span style="color:#a855f7;font-size:0.8rem;">PREMIUM</span>';
+            if (userTier === 'ultimate') tierBadge = '<span style="color:#ef4444;font-size:0.8rem;">ULTIMATE</span>';
+            
+            authButtons.innerHTML = `
+                <span>Welcome, ${name} ${tierBadge}</span>
+                ${userTier === 'free' ? '<a href="pro.html" class="btn btn-pro">Upgrade</a>' : ''}
+                <button class="btn" onclick="logout()">Logout</button>
+            `;
+        } else {
+            authButtons.innerHTML = `
+                <button class="btn" onclick="openModal('loginModal')">Login</button>
+                <button class="btn" onclick="openModal('signupModal')">Sign Up</button>
             `;
         }
-        
-        function calculateDiamonds() {
-            const diamondsInput = document.getElementById('diamonds');
-            const resultDiv = document.getElementById('diamondResult');
-            const diamonds = parseInt(diamondsInput.value);
-            
-            if (!diamonds || diamonds <= 0) {
-                alert('Please enter a valid number of diamonds');
-                return;
+    }
+
+    function updateProFeatures() {
+        // Update badge display based on user tier
+    }
+
+    // ========== AI FUNCTION (Puter.js Primary, Groq Backup) ==========
+    async function callAI(prompt) {
+        // Try Puter.js first (FREE, unlimited)
+        try {
+            const response = await puter.ai.chat(prompt);
+            if (response && response.length > 0) {
+                return response;
             }
+        } catch (puterError) {
+            console.log('Puter.js failed, trying Groq backup...');
+        }
+        
+        // Fallback to Groq
+        try {
+            const response = await fetch(AI_CONFIG.groq.baseUrl + '/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + AI_CONFIG.groq.apiKey,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    model: AI_CONFIG.groq.model,
+                    messages: [{ role: 'user', content: prompt }],
+                    max_tokens: 500
+                })
+            });
             
-            const gbp = (diamonds * 0.004).toFixed(2);
-            const usd = (diamonds * 0.005).toFixed(2);
-            const eur = (diamonds * 0.0045).toFixed(2);
+            if (!response.ok) throw new Error('Groq API failed');
+            const data = await response.json();
+            return data.choices[0].message.content;
+        } catch (groqError) {
+            console.error('Both AI services failed:', groqError);
+            return 'Error: Unable to generate content. Please try again in a moment.';
+        }
+    }
+
+    // ========== MODAL FUNCTIONS ==========
+    function openModal(id) { 
+        document.getElementById(id).style.display = 'flex'; 
+    }
+    
+    function closeModal(id) { 
+        document.getElementById(id).style.display = 'none'; 
+    }
+
+    // ========== TOOL OPENER ==========
+    function openTool(tool) {
+        if (!currentUser) {
+            alert('Please login to use tools');
+            openModal('loginModal');
+            return;
+        }
+        
+        // Pro tools (require pro, premium, or ultimate)
+        const proTools = ['script', 'scheduler', 'ring', 'countdown'];
+        if (proTools.includes(tool) && !['pro', 'premium', 'ultimate'].includes(userTier)) {
+            alert('This tool requires Pro membership or higher. Visit the Pro page to upgrade!');
+            window.location.href = 'pro.html';
+            return;
+        }
+        
+        // Premium tools (require premium or ultimate)
+        const premiumTools = ['video'];
+        if (premiumTools.includes(tool) && !['premium', 'ultimate'].includes(userTier)) {
+            alert('This tool requires Premium membership or higher. Visit the Pro page to upgrade!');
+            window.location.href = 'pro.html';
+            return;
+        }
+        
+        const content = document.getElementById('toolContent');
+        
+        switch(tool) {
+            case 'hooks':
+                content.innerHTML = createHookGenerator();
+                break;
+            case 'script':
+                content.innerHTML = createScriptGenerator();
+                break;
+            case 'scheduler':
+                content.innerHTML = createScheduler();
+                break;
+            case 'ring':
+                content.innerHTML = createRingDesigner();
+                break;
+            case 'countdown':
+                content.innerHTML = createCountdownTimer();
+                break;
+            case 'video':
+                content.innerHTML = createVideoGenerator();
+                break;
+        }
+        
+        openModal('toolModal');
+    }
+
+    // ========== AI HOOK GENERATOR ==========
+    function createHookGenerator() {
+        return `
+            <h2>🎣 AI Hook Generator</h2>
+            <p style="opacity: 0.7; margin-bottom: 20px;">Generate viral TikTok hooks that grab attention in the first 3 seconds</p>
+            <div class="form-group">
+                <label>Topic/Niche:</label>
+                <input type="text" id="hookTopic" placeholder="e.g., fitness motivation, cooking tips, life advice">
+            </div>
+            <div class="form-group">
+                <label>Hook Style:</label>
+                <select id="hookStyle">
+                    <option value="question">Question Hook (e.g., "Did you know...?")</option>
+                    <option value="shocking">Shocking Statement (e.g., "This changed everything...")</option>
+                    <option value="story">Story Hook (e.g., "So this happened...")</option>
+                    <option value="controversy">Controversy (e.g., "Unpopular opinion...")</option>
+                    <option value="curiosity">Curiosity Gap (e.g., "The secret that...")</option>
+                </select>
+            </div>
+            <button class="btn" onclick="generateHooks()" style="width: 100%;">🚀 Generate 5 Viral Hooks</button>
+            <div id="hooksResult" style="display: none;"></div>
+        `;
+    }
+
+    async function generateHooks() {
+        const topic = document.getElementById('hookTopic').value.trim();
+        const style = document.getElementById('hookStyle').value;
+        const resultDiv = document.getElementById('hooksResult');
+        
+        if (!topic) {
+            alert('Please enter a topic');
+            return;
+        }
+        
+        resultDiv.style.display = 'block';
+        resultDiv.innerHTML = '<p style="color: #fbbf24; text-align: center;">🤖 Generating viral hooks...</p>';
+        
+        const prompt = `You are a TikTok viral content expert. Generate exactly 5 attention-grabbing TikTok hooks about "${topic}" using the "${style}" style.
+
+Rules:
+- Each hook must be under 10 words
+- Must grab attention in the first 3 seconds
+- Make them emotional and relatable
+- Number them 1-5
+
+Format each hook on a new line with its number.`;
+
+        const hooks = await callAI(prompt);
+        
+        resultDiv.innerHTML = `
+            <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 25px; margin-top: 20px;">
+                <h3 style="color: #fbbf24; margin-bottom: 15px;">🔥 Viral Hooks for "${topic}"</h3>
+                <div style="background: rgba(0,0,0,0.3); padding: 20px; border-radius: 8px; white-space: pre-wrap; line-height: 1.8;">${hooks}</div>
+                <button class="btn" onclick="generateHooks()" style="margin-top: 15px;">🔄 Generate More</button>
+            </div>
+        `;
+    }
+
+    // ========== AI SCRIPT GENERATOR ==========
+    function createScriptGenerator() {
+        return `
+            <h2>🎬 AI Script Generator</h2>
+            <p style="opacity: 0.7; margin-bottom: 20px;">Create complete TikTok video scripts with hook, content, and CTA</p>
+            <div class="form-group">
+                <label>Video Topic:</label>
+                <input type="text" id="scriptTopic" placeholder="e.g., morning routine, productivity tips">
+            </div>
+            <div class="form-group">
+                <label>Video Duration:</label>
+                <select id="scriptDuration">
+                    <option value="15-30 seconds">15-30 seconds (Short)</option>
+                    <option value="30-60 seconds">30-60 seconds (Medium)</option>
+                    <option value="60-90 seconds">60-90 seconds (Long)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Tone/Style:</label>
+                <select id="scriptTone">
+                    <option value="energetic and fun">Energetic & Fun</option>
+                    <option value="calm and informative">Calm & Informative</option>
+                    <option value="dramatic and intense">Dramatic & Intense</option>
+                    <option value="friendly and conversational">Friendly & Conversational</option>
+                </select>
+            </div>
+            <button class="btn" onclick="generateScript()" style="width: 100%;">🎬 Generate Script</button>
+            <div id="scriptResult" style="display: none;"></div>
+        `;
+    }
+
+    async function generateScript() {
+        const topic = document.getElementById('scriptTopic').value.trim();
+        const duration = document.getElementById('scriptDuration').value;
+        const tone = document.getElementById('scriptTone').value;
+        const resultDiv = document.getElementById('scriptResult');
+        
+        if (!topic) {
+            alert('Please enter a topic');
+            return;
+        }
+        
+        resultDiv.style.display = 'block';
+        resultDiv.innerHTML = '<p style="color: #fbbf24; text-align: center;">🎬 Writing your script...</p>';
+        
+        const prompt = `You are a TikTok content creator expert. Write a complete TikTok video script about "${topic}".
+
+Requirements:
+- Duration: ${duration}
+- Tone: ${tone}
+- Include: HOOK (first 3 seconds), MAIN CONTENT (middle), CALL TO ACTION (end)
+
+Format it clearly with sections labeled:
+🎣 HOOK:
+📝 MAIN CONTENT:
+📢 CALL TO ACTION:
+
+Make it engaging, relatable, and optimized for TikTok's algorithm.`;
+
+        const script = await callAI(prompt);
+        
+        resultDiv.innerHTML = `
+            <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 25px; margin-top: 20px;">
+                <h3 style="color: #fbbf24; margin-bottom: 15px;">🎬 Script: "${topic}" (${duration})</h3>
+                <div style="background: rgba(0,0,0,0.4); padding: 20px; border-radius: 8px; white-space: pre-wrap; line-height: 1.8;">${script}</div>
+                <button class="btn" onclick="generateScript()" style="margin-top: 15px;">🔄 Generate Another</button>
+            </div>
+        `;
+    }
+
+    // ========== LIVE SCHEDULER ==========
+    function createScheduler() {
+        return `
+            <h2>📅 LIVE Stream Scheduler</h2>
+            <div class="form-group">
+                <label>Stream Title:</label>
+                <input type="text" id="streamTitle" placeholder="e.g., Morning Motivation Live">
+            </div>
+            <div class="form-group">
+                <label>Date:</label>
+                <input type="date" id="streamDate" min="${new Date().toISOString().split('T')[0]}">
+            </div>
+            <div class="form-group">
+                <label>Time:</label>
+                <input type="time" id="streamTime">
+            </div>
+            <div class="form-group">
+                <label>Duration:</label>
+                <select id="streamDuration">
+                    <option value="30">30 minutes</option>
+                    <option value="60">1 hour</option>
+                    <option value="90">1.5 hours</option>
+                    <option value="120">2 hours</option>
+                </select>
+            </div>
+            <button class="btn" onclick="scheduleStream()" style="width: 100%;">📅 Schedule Stream</button>
+            <div id="schedulerResult" style="display: none;"></div>
+        `;
+    }
+
+    function scheduleStream() {
+        const title = document.getElementById('streamTitle').value.trim();
+        const date = document.getElementById('streamDate').value;
+        const time = document.getElementById('streamTime').value;
+        const duration = document.getElementById('streamDuration').value;
+        const resultDiv = document.getElementById('schedulerResult');
+        
+        if (!title || !date || !time) {
+            alert('Please fill in all fields');
+            return;
+        }
+        
+        const startDateTime = new Date(date + 'T' + time);
+        const formattedDate = startDateTime.toLocaleDateString('en-GB', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        const formattedTime = startDateTime.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+        
+        resultDiv.innerHTML = `
+            <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 25px; margin-top: 20px;">
+                <h3 style="color: #10b981; margin-bottom: 15px;">✅ Stream Scheduled!</h3>
+                <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid #10b981; border-radius: 8px; padding: 20px;">
+                    <p><strong>📺 Title:</strong> ${title}</p>
+                    <p><strong>📅 Date:</strong> ${formattedDate}</p>
+                    <p><strong>⏰ Time:</strong> ${formattedTime}</p>
+                    <p><strong>⏱️ Duration:</strong> ${duration} minutes</p>
+                </div>
+                <p style="margin-top: 15px; opacity: 0.7; font-size: 0.9rem;">💡 Tip: Post a reminder video 1 hour before going live!</p>
+            </div>
+        `;
+        resultDiv.style.display = 'block';
+    }
+
+    // ========== UPGRADED PROFILE RING DESIGNER ==========
+    let uploadedImage = null;
+
+    function createRingDesigner() {
+        return `
+            <h2>🎨 Profile Ring Designer</h2>
+            <p style="opacity: 0.7; margin-bottom: 20px;">Create a branded profile ring with your photo</p>
             
-            resultDiv.innerHTML = `
-                <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 25px; margin-top: 20px;">
-                    <h3 style="color: #fbbf24; margin-bottom: 15px; text-align: center;">💎 Your Earnings from ${diamonds.toLocaleString()} Diamonds</h3>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 15px;">
-                        <div style="background: rgba(34, 197, 94, 0.1); border: 1px solid #22c55e; border-radius: 8px; padding: 15px; text-align: center;">
-                            <div style="font-size: 1.5rem; font-weight: bold; color: #22c55e;">£${gbp}</div>
-                            <div style="font-size: 0.9rem; opacity: 0.8;">GBP</div>
-                        </div>
-                        <div style="background: rgba(59, 130, 246, 0.1); border: 1px solid #3b82f6; border-radius: 8px; padding: 15px; text-align: center;">
-                            <div style="font-size: 1.5rem; font-weight: bold; color: #3b82f6;">$${usd}</div>
-                            <div style="font-size: 0.9rem; opacity: 0.8;">USD</div>
-                        </div>
-                        <div style="background: rgba(168, 85, 247, 0.1); border: 1px solid #a855f7; border-radius: 8px; padding: 15px; text-align: center;">
-                            <div style="font-size: 1.5rem; font-weight: bold; color: #a855f7;">€${eur}</div>
-                            <div style="font-size: 0.9rem; opacity: 0.8;">EUR</div>
-                        </div>
+            <div class="form-group">
+                <label>Upload Your Photo:</label>
+                <input type="file" id="ringPhoto" accept="image/*" onchange="previewRingPhoto(this)" style="padding: 10px;">
+            </div>
+            
+            <div class="form-group">
+                <label>Ring Color:</label>
+                <select id="ringColor">
+                    <option value="#6366f1">Purple</option>
+                    <option value="#ef4444">Red</option>
+                    <option value="#10b981">Green</option>
+                    <option value="#f59e0b">Orange</option>
+                    <option value="#3b82f6">Blue</option>
+                    <option value="#ec4899">Pink</option>
+                    <option value="#fbbf24">Gold</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Ring Style:</label>
+                <select id="ringStyle">
+                    <option value="solid">Solid</option>
+                    <option value="gradient">Gradient</option>
+                    <option value="glow">Glow Effect</option>
+                    <option value="animated">Animated Pulse</option>
+                    <option value="rainbow">Rainbow</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Ring Thickness:</label>
+                <select id="ringThickness">
+                    <option value="4">Thin (4px)</option>
+                    <option value="6" selected>Medium (6px)</option>
+                    <option value="8">Thick (8px)</option>
+                    <option value="10">Extra Thick (10px)</option>
+                </select>
+            </div>
+            
+            <button class="btn" onclick="designRing()" style="width: 100%;">🎨 Create Ring</button>
+            <div id="ringResult" style="display: none;"></div>
+        `;
+    }
+
+    function previewRingPhoto(input) {
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                uploadedImage = e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function designRing() {
+        const color = document.getElementById('ringColor').value;
+        const style = document.getElementById('ringStyle').value;
+        const thickness = document.getElementById('ringThickness').value;
+        const resultDiv = document.getElementById('ringResult');
+        
+        // Build ring styles
+        let ringCSS = '';
+        let animation = '';
+        let extraCSS = '';
+        
+        switch(style) {
+            case 'solid':
+                ringCSS = `border: ${thickness}px solid ${color}`;
+                break;
+            case 'gradient':
+                ringCSS = `border: ${thickness}px solid transparent; background: linear-gradient(#1a1b23, #1a1b23) padding-box, linear-gradient(45deg, ${color}, #ffffff, ${color}) border-box`;
+                break;
+            case 'glow':
+                ringCSS = `border: ${thickness}px solid ${color}; box-shadow: 0 0 15px ${color}, 0 0 30px ${color}`;
+                break;
+            case 'animated':
+                ringCSS = `border: ${thickness}px solid ${color}`;
+                animation = 'ring-pulse 2s infinite';
+                break;
+            case 'rainbow':
+                ringCSS = `border: ${thickness}px solid transparent; background: linear-gradient(#1a1b23, #1a1b23) padding-box, linear-gradient(45deg, #ef4444, #f59e0b, #10b981, #3b82f6, #8b5cf6, #ec4899) border-box`;
+                animation = 'ring-rotate 3s linear infinite';
+                extraCSS = `@keyframes ring-rotate { from { filter: hue-rotate(0deg); } to { filter: hue-rotate(360deg); } }`;
+                break;
+        }
+        
+        const imageContent = uploadedImage 
+            ? `<img src="${uploadedImage}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`
+            : '<span style="font-size: 0.8rem; opacity: 0.5;">Your Photo</span>';
+        
+        resultDiv.innerHTML = `
+            <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 25px; margin-top: 20px;">
+                <h3 style="color: #fbbf24; margin-bottom: 20px; text-align: center;">🎨 Your Profile Ring</h3>
+                <div style="text-align: center;">
+                    <div id="ringPreview" style="width: 150px; height: 150px; ${ringCSS}; border-radius: 50%; margin: 20px auto; animation: ${animation}; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                        ${imageContent}
                     </div>
+                    <p style="margin: 10px 0;"><strong>Style:</strong> ${style.charAt(0).toUpperCase() + style.slice(1)}</p>
+                    <p style="margin: 10px 0;"><strong>Thickness:</strong> ${thickness}px</p>
+                    <button class="btn" onclick="downloadRing()" style="margin-top: 15px;">📥 Download Ring</button>
                 </div>
-            `;
-            resultDiv.style.display = 'block';
-        }
-        
-        function createHookGenerator() {
-            return `
-                <h2>AI Hook Generator</h2>
-                <div class="form-group">
-                    <label>Topic:</label>
-                    <input type="text" id="hookTopic" placeholder="e.g., fitness motivation">
-                </div>
-                <div class="form-group">
-                    <label>Style:</label>
-                    <select id="hookStyle">
-                        <option value="question">Question Hook</option>
-                        <option value="shocking">Shocking Statement</option>
-                        <option value="story">Story Hook</option>
-                    </select>
-                </div>
-                <button class="btn" onclick="generateHooks()" style="width: 100%;">Generate Hooks</button>
-                <div id="hooksResult" style="display: none;"></div>
-            `;
-        }
-        
-        async function generateHooks() {
-            const topic = document.getElementById('hookTopic').value.trim();
-            const resultDiv = document.getElementById('hooksResult');
-            
-            if (!topic) {
-                alert('Please enter a topic');
-                return;
-            }
-            
-            resultDiv.style.display = 'block';
-            resultDiv.innerHTML = '<p style="color: #fbbf24;">🤖 Generating viral hooks...</p>';
-            
-            const hooks = await callAI(`Generate 5 viral TikTok hooks about "${topic}". Make them attention-grabbing within 3 seconds. Number them 1-5.`);
-            
-            resultDiv.innerHTML = `
-                <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 25px; margin-top: 20px;">
-                    <h3 style="color: #fbbf24; margin-bottom: 15px;">🔥 Viral Hooks for "${topic}"</h3>
-                    <div style="background: rgba(0,0,0,0.3); padding: 20px; border-radius: 8px; white-space: pre-wrap; line-height: 1.6;">${hooks}</div>
-                </div>
-            `;
-        }
-        
-        function createScriptGenerator() {
-            return `
-                <h2>AI Script Generator</h2>
-                <div class="form-group">
-                    <label>Topic:</label>
-                    <input type="text" id="scriptTopic" placeholder="e.g., morning routine">
-                </div>
-                <div class="form-group">
-                    <label>Duration:</label>
-                    <select id="scriptDuration">
-                        <option value="30 seconds">30 seconds</option>
-                        <option value="60 seconds">60 seconds</option>
-                        <option value="90 seconds">90 seconds</option>
-                    </select>
-                </div>
-                <button class="btn" onclick="generateScript()" style="width: 100%;">Generate Script</button>
-                <div id="scriptResult" style="display: none;"></div>
-            `;
-        }
-        
-        async function generateScript() {
-            const topic = document.getElementById('scriptTopic').value.trim();
-            const duration = document.getElementById('scriptDuration').value;
-            const resultDiv = document.getElementById('scriptResult');
-            
-            if (!topic) {
-                alert('Please enter a topic');
-                return;
-            }
-            
-            resultDiv.style.display = 'block';
-            resultDiv.innerHTML = '<p style="color: #fbbf24;">🎬 Generating your script...</p>';
-            
-            const script = await callAI(`Create a TikTok video script about "${topic}" that is ${duration} long. Include hook, main content, and call-to-action.`);
-            
-            resultDiv.innerHTML = `
-                <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 25px; margin-top: 20px;">
-                    <h3 style="color: #fbbf24; margin-bottom: 15px;">🎬 Script: "${topic}" (${duration})</h3>
-                    <div style="background: rgba(0,0,0,0.4); padding: 20px; border-radius: 8px; white-space: pre-wrap; line-height: 1.6; font-family: monospace;">${script}</div>
-                </div>
-            `;
-        } function createScheduler() {
-            return `
-                <h2>LIVE Stream Scheduler</h2>
-                <div class="form-group">
-                    <label>Stream Title:</label>
-                    <input type="text" id="streamTitle" placeholder="e.g., Morning Motivation Live">
-                </div>
-                <div class="form-group">
-                    <label>Date:</label>
-                    <input type="date" id="streamDate" min="${new Date().toISOString().split('T')[0]}">
-                </div>
-                <div class="form-group">
-                    <label>Time:</label>
-                    <input type="time" id="streamTime">
-                </div>
-                <div class="form-group">
-                    <label>Duration:</label>
-                    <select id="streamDuration">
-                        <option value="30">30 minutes</option>
-                        <option value="60">1 hour</option>
-                        <option value="90">1.5 hours</option>
-                    </select>
-                </div>
-                <button class="btn" onclick="scheduleStream()" style="width: 100%;">Schedule Stream</button>
-                <div id="schedulerResult" style="display: none;"></div>
-            `;
-        }
-        
-        function scheduleStream() {
-            const title = document.getElementById('streamTitle').value.trim();
-            const date = document.getElementById('streamDate').value;
-            const time = document.getElementById('streamTime').value;
-            const duration = document.getElementById('streamDuration').value;
-            const resultDiv = document.getElementById('schedulerResult');
-            
-            if (!title || !date || !time) {
-                alert('Please fill in all fields');
-                return;
-            }
-            
-            const startDateTime = new Date(date + 'T' + time);
-            const formattedDate = startDateTime.toLocaleDateString('en-GB', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-            const formattedTime = startDateTime.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
-            
-            resultDiv.innerHTML = `
-                <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 25px; margin-top: 20px;">
-                    <h3 style="color: #10b981; margin-bottom: 15px;">✅ Stream Scheduled!</h3>
-                    <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid #10b981; border-radius: 8px; padding: 20px;">
-                        <p><strong>📺 Title:</strong> ${title}</p>
-                        <p><strong>📅 Date:</strong> ${formattedDate}</p>
-                        <p><strong>⏰ Time:</strong> ${formattedTime}</p>
-                        <p><strong>⏱️ Duration:</strong> ${duration} minutes</p>
-                    </div>
-                </div>
-            `;
-            resultDiv.style.display = 'block';
-        }
-        
-        function createRingDesigner() {
-            return `
-                <h2>Profile Ring Designer</h2>
-                <div class="form-group">
-                    <label>Ring Color:</label>
-                    <select id="ringColor">
-                        <option value="#6366f1">Purple</option>
-                        <option value="#ef4444">Red</option>
-                        <option value="#10b981">Green</option>
-                        <option value="#f59e0b">Orange</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Ring Style:</label>
-                    <select id="ringStyle">
-                        <option value="solid">Solid</option>
-                        <option value="gradient">Gradient</option>
-                        <option value="animated">Animated</option>
-                    </select>
-                </div>
-                <button class="btn" onclick="designRing()" style="width: 100%;">Create Ring</button>
-                <div id="ringResult" style="display: none;"></div>
-            `;
-        }
-        
-        function designRing() {
-            const color = document.getElementById('ringColor').value;
-            const style = document.getElementById('ringStyle').value;
-            const resultDiv = document.getElementById('ringResult');
-            
-            let ringCSS = style === 'solid' ? `border: 4px solid ${color}` : `border: 4px solid; border-image: linear-gradient(45deg, ${color}, #ffffff) 1`;
-            let animation = style === 'animated' ? 'ring-pulse 2s infinite' : '';
-            
-            resultDiv.innerHTML = `
-                <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 25px; margin-top: 20px;">
-                    <h3 style="color: #fbbf24; margin-bottom: 20px; text-align: center;">🎨 Your Profile Ring</h3>
-                    <div style="text-align: center;">
-                        <div style="width: 120px; height: 120px; ${ringCSS}; border-radius: 50%; margin: 20px auto; animation: ${animation}; background: linear-gradient(135deg, #1a1b23, #2d1b69); display: flex; align-items: center; justify-content: center;">Your Photo</div>
-                        <p><strong>Color:</strong> ${color}</p>
-                        <p><strong>Style:</strong> ${style.charAt(0).toUpperCase() + style.slice(1)}</p>
-                    </div>
-                </div>
-                <style>
-                    @keyframes ring-pulse {
-                        0% { transform: scale(1); }
-                        50% { transform: scale(1.05); }
-                        100% { transform: scale(1); }
-                    }
-                </style>
-            `;
-            resultDiv.style.display = 'block';
-        }
-        
-        function createCountdownTimer() {
-            return `
-                <h2>Countdown Timer</h2>
-                <div class="form-group">
-                    <label>Event Name:</label>
-                    <input type="text" id="eventName" placeholder="e.g., LIVE Stream Starting">
-                </div>
-                <div class="form-group">
-                    <label>Duration (minutes):</label>
-                    <input type="number" id="countdownDuration" value="5" min="1" max="60">
-                </div>
-                <button class="btn" onclick="createTimer()" style="width: 100%;">Create Timer</button>
-                <div id="timerResult" style="display: none;"></div>
-            `;
-        }
-        
-        let countdownInterval = null;
-        
-        function createTimer() {
-            const eventName = document.getElementById('eventName').value.trim() || 'Event';
-            const duration = parseInt(document.getElementById('countdownDuration').value) || 5;
-            const resultDiv = document.getElementById('timerResult');
-            const endTime = new Date(Date.now() + duration * 60000);
-            
-            resultDiv.innerHTML = `
-                <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 25px; margin-top: 20px;">
-                    <h3 style="color: #fbbf24; text-align: center;">⏰ ${eventName}</h3>
-                    <div id="countdown-display" style="font-size: 3rem; font-weight: bold; text-align: center; color: #ef4444; margin: 30px 0; font-family: monospace;">${formatTime(duration * 60)}</div>
-                    <div style="text-align: center;">
-                        <button class="btn" onclick="startCountdown(${endTime.getTime()})">Start</button>
-                        <button class="btn" onclick="stopCountdown()" style="background: #ef4444;">Stop</button>
-                    </div>
-                </div>
-            `;
-            resultDiv.style.display = 'block';
-        }
-        
-        function startCountdown(endTime) {
-            stopCountdown();
-            countdownInterval = setInterval(() => {
-                const now = new Date().getTime();
-                const distance = endTime - now;
-                
-                if (distance < 0) {
-                    stopCountdown();
-                    document.getElementById('countdown-display').innerHTML = '🎉 TIME\'S UP! 🎉';
-                    document.getElementById('countdown-display').style.color = '#10b981';
-                    return;
+            </div>
+            <style>
+                @keyframes ring-pulse {
+                    0% { transform: scale(1); box-shadow: 0 0 0 0 ${color}; }
+                    50% { transform: scale(1.02); box-shadow: 0 0 20px ${color}; }
+                    100% { transform: scale(1); box-shadow: 0 0 0 0 ${color}; }
                 }
+                ${extraCSS}
+            </style>
+        `;
+        resultDiv.style.display = 'block';
+    }
+
+    function downloadRing() {
+        const ring = document.getElementById('ringPreview');
+        if (!ring) return;
+        
+        // Create canvas for download
+        const canvas = document.createElement('canvas');
+        canvas.width = 300;
+        canvas.height = 300;
+        const ctx = canvas.getContext('2d');
+        
+        // Draw background
+        ctx.fillStyle = '#1a1b23';
+        ctx.fillRect(0, 0, 300, 300);
+        
+        // Draw ring circle
+        ctx.beginPath();
+        ctx.arc(150, 150, 140, 0, Math.PI * 2);
+        ctx.strokeStyle = document.getElementById('ringColor').value;
+        ctx.lineWidth = parseInt(document.getElementById('ringThickness').value) * 2;
+        ctx.stroke();
+        
+        // If there's an uploaded image, draw it
+        if (uploadedImage) {
+            const img = new Image();
+            img.onload = function() {
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(150, 150, 130, 0, Math.PI * 2);
+                ctx.clip();
+                ctx.drawImage(img, 20, 20, 260, 260);
+                ctx.restore();
                 
-                const totalSeconds = Math.floor(distance / 1000);
-                document.getElementById('countdown-display').innerHTML = formatTime(totalSeconds);
-            }, 1000);
+                // Download
+                const link = document.createElement('a');
+                link.download = 'profile-ring.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            };
+            img.src = uploadedImage;
+        } else {
+            // Download without image
+            const link = document.createElement('a');
+            link.download = 'profile-ring.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
         }
         
-        function stopCountdown() {
-            if (countdownInterval) {
-                clearInterval(countdownInterval);
-                countdownInterval = null;
+        alert('Ring downloaded! Check your downloads folder.');
+    }
+
+    // ========== COUNTDOWN TIMER ==========
+    let countdownInterval = null;
+
+    function createCountdownTimer() {
+        return `
+            <h2>⏰ Countdown Timer</h2>
+            <div class="form-group">
+                <label>Event Name:</label>
+                <input type="text" id="eventName" placeholder="e.g., LIVE Stream Starting">
+            </div>
+            <div class="form-group">
+                <label>Duration (minutes):</label>
+                <input type="number" id="countdownDuration" value="5" min="1" max="60">
+            </div>
+            <button class="btn" onclick="createTimer()" style="width: 100%;">⏰ Create Timer</button>
+            <div id="timerResult" style="display: none;"></div>
+        `;
+    }
+
+    function createTimer() {
+        const eventName = document.getElementById('eventName').value.trim() || 'Event';
+        const duration = parseInt(document.getElementById('countdownDuration').value) || 5;
+        const resultDiv = document.getElementById('timerResult');
+        const endTime = new Date(Date.now() + duration * 60000);
+        
+        resultDiv.innerHTML = `
+            <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 25px; margin-top: 20px;">
+                <h3 style="color: #fbbf24; text-align: center;">⏰ ${eventName}</h3>
+                <div id="countdown-display" style="font-size: 3rem; font-weight: bold; text-align: center; color: #ef4444; margin: 30px 0; font-family: monospace;">${formatTime(duration * 60)}</div>
+                <div style="text-align: center; display: flex; gap: 10px; justify-content: center;">
+                    <button class="btn" onclick="startCountdown(${endTime.getTime()})">▶️ Start</button>
+                    <button class="btn" onclick="stopCountdown()" style="background: #ef4444;">⏹️ Stop</button>
+                </div>
+            </div>
+        `;
+        resultDiv.style.display = 'block';
+    }
+
+    function startCountdown(endTime) {
+        stopCountdown();
+        countdownInterval = setInterval(() => {
+            const now = new Date().getTime();
+            const distance = endTime - now;
+            
+            if (distance < 0) {
+                stopCountdown();
+                document.getElementById('countdown-display').innerHTML = '🎉 TIME\'S UP! 🎉';
+                document.getElementById('countdown-display').style.color = '#10b981';
+                return;
             }
+            
+            const totalSeconds = Math.floor(distance / 1000);
+            document.getElementById('countdown-display').innerHTML = formatTime(totalSeconds);
+        }, 1000);
+    }
+
+    function stopCountdown() {
+        if (countdownInterval) {
+            clearInterval(countdownInterval);
+            countdownInterval = null;
         }
+    }
+
+    function formatTime(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+    }
+
+    // ========== AI VIDEO GENERATOR (Premium/Ultimate) ==========
+    function createVideoGenerator() {
+        return `
+            <h2>🎥 AI Video Generator</h2>
+            <p style="opacity: 0.7; margin-bottom: 20px;">Create short-form videos from text prompts using AI</p>
+            <div style="background: rgba(168, 85, 247, 0.1); border: 1px solid #a855f7; border-radius: 12px; padding: 25px; text-align: center;">
+                <p style="margin-bottom: 20px;">This tool uses external AI to generate videos up to 10 seconds from your text prompts.</p>
+                <a href="https://aigenmax.art/generate-video" target="_blank" class="btn" style="background: linear-gradient(135deg, #a855f7, #7c3aed); text-decoration: none;">
+                    🚀 Open AI Video Generator
+                </a>
+                <p style="margin-top: 15px; font-size: 0.85rem; opacity: 0.6;">Opens in a new tab • Premium/Ultimate exclusive</p>
+            </div>
+        `;
+    }
+
+    // ========== FORM HANDLERS ==========
+    document.getElementById('signupForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const name = document.getElementById('signupName').value;
+        const email = document.getElementById('signupEmail').value;
+        const password = document.getElementById('signupPassword').value;
         
-        function formatTime(seconds) {
-            const minutes = Math.floor(seconds / 60);
-            const remainingSeconds = seconds % 60;
-            return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+        const { error } = await supabaseClient.auth.signUp({
+            email: email,
+            password: password,
+            options: { data: { name: name } }
+        });
+        
+        const errorEl = document.getElementById('signupError');
+        const successEl = document.getElementById('signupSuccess');
+        
+        if (error) {
+            errorEl.textContent = error.message;
+            successEl.textContent = '';
+        } else {
+            errorEl.textContent = '';
+            successEl.textContent = 'Account created! Check your email to verify.';
+            setTimeout(() => closeModal('signupModal'), 2000);
         }
-    </script>
+    });
+
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('loginEmail').value;
+        const password = document.getElementById('loginPassword').value;
+        
+        const { error } = await supabaseClient.auth.signInWithPassword({
+            email: email,
+            password: password
+        });
+        
+        if (error) {
+            document.getElementById('loginError').textContent = error.message;
+        }
+    });
+
+    async function logout() {
+        await supabaseClient.auth.signOut();
+    }
+</script>
 </body>
 </html>
