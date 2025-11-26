@@ -282,13 +282,8 @@
     const { createClient } = supabase;
     const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
     
-    // Google Gemini AI (Free & Reliable)
-    const AI_CONFIG = {
-        gemini: {
-            apiKey: 'AIzaSyAfXnTXuo-g-_Sow3u5QNUuZT6ZaJGm0tY',
-            baseUrl: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent'
-        }
-    };
+    // Cloudflare Worker URL (API key is hidden safely)
+    const AI_WORKER_URL = 'https://life-transformers-ai.splight333.workers.dev';
 
     let currentUser = null;
     let userTier = 'free';
@@ -376,38 +371,24 @@
         // Update badge display based on user tier
     }
 
-    // ========== AI FUNCTION (Google Gemini via CORS Proxy) ==========
+    // ========== AI FUNCTION (via Cloudflare Worker) ==========
     async function callAI(prompt) {
-        const geminiUrl = AI_CONFIG.gemini.baseUrl + '?key=' + AI_CONFIG.gemini.apiKey;
-        const corsProxy = 'https://corsproxy.io/?';
-        
         try {
-            const response = await fetch(corsProxy + encodeURIComponent(geminiUrl), {
+            const response = await fetch(AI_WORKER_URL, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({
-                    contents: [{
-                        parts: [{
-                            text: prompt
-                        }]
-                    }],
-                    generationConfig: {
-                        temperature: 0.8,
-                        maxOutputTokens: 1000
-                    }
-                })
+                body: JSON.stringify({ prompt: prompt })
             });
             
-            if (!response.ok) {
-                const errorData = await response.json();
-                console.error('Gemini API error:', errorData);
-                throw new Error('API request failed');
-            }
-            
             const data = await response.json();
-            return data.candidates[0].content.parts[0].text;
+            
+            if (data.success) {
+                return data.content;
+            } else {
+                throw new Error(data.error);
+            }
         } catch (error) {
             console.error('AI generation failed:', error);
             return 'Error: Unable to generate content. Please try again.';
