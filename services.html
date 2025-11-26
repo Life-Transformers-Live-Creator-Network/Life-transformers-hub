@@ -6,165 +6,100 @@
     <title>Services - Life Transformers Hub</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #1a1b23 0%, #2d1b69 50%, #4c1d95 100%);
-            color: white;
-            min-height: 100vh;
-        }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, #1a1b23 0%, #2d1b69 50%, #4c1d95 100%); color: white; min-height: 100vh; }
         .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
         header { padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
         nav { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
         .logo { font-size: 24px; font-weight: bold; }
         .nav-links { display: flex; gap: 20px; flex-wrap: wrap; }
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            padding: 8px 16px;
-            border-radius: 8px;
-            transition: background 0.3s;
-        }
+        .nav-links a { color: white; text-decoration: none; padding: 8px 16px; border-radius: 8px; transition: background 0.3s; }
         .nav-links a:hover { background: rgba(255,255,255,0.1); }
-        .hero {
-            text-align: center;
-            padding: 60px 20px;
-        }
-        .hero h1 {
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, #ffffff, #fbbf24);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+        .hero { text-align: center; padding: 60px 20px; }
+        .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: 20px; background: linear-gradient(135deg, #ffffff, #fbbf24); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .hero p { font-size: 1.2rem; opacity: 0.9; }
-        .pro-badge {
-            display: inline-block;
-            background: linear-gradient(135deg, #fbbf24, #f59e0b);
-            color: #1a1b23;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            margin-left: 10px;
-        }
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-            margin: 40px 0;
-        }
-        .service-card {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 16px;
-            padding: 30px;
-            transition: transform 0.3s;
-        }
+        .pro-badge { display: inline-block; background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #1a1b23; padding: 4px 12px; border-radius: 12px; font-size: 0.8rem; font-weight: bold; margin-left: 10px; }
+        .section-title { font-size: 2rem; color: #fbbf24; margin: 60px 0 30px; padding-bottom: 10px; border-bottom: 2px solid rgba(251, 191, 36, 0.3); text-align: center; }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin: 40px 0; }
+        .service-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 30px; transition: transform 0.3s; }
         .service-card:hover { transform: translateY(-5px); }
-        .service-card h3 {
-            color: #fbbf24;
-            margin-bottom: 10px;
-            font-size: 1.5rem;
-        }
-        .service-duration {
-            color: #6366f1;
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-        }
-        .service-price {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #10b981;
-            margin: 15px 0;
-        }
-        .service-price .original {
-            text-decoration: line-through;
-            color: #999;
-            font-size: 1.2rem;
-            margin-right: 10px;
-        }
-        .service-features {
-            list-style: none;
-            margin: 20px 0;
-            line-height: 2;
-        }
-        .service-features li:before {
-            content: "✓ ";
-            color: #10b981;
-            font-weight: bold;
-            margin-right: 8px;
-        }
-        .btn {
-            display: block;
-            width: 100%;
-            padding: 14px 24px;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            color: white;
-            text-decoration: none;
-            text-align: center;
-            transition: transform 0.3s;
-            margin-top: 20px;
-        }
+        .service-card h3 { color: #fbbf24; margin-bottom: 10px; font-size: 1.5rem; }
+        .service-card.healing { border-color: rgba(139, 92, 246, 0.3); }
+        .service-card.healing:hover { border-color: #8b5cf6; }
+        .service-card.healing h3 { color: #a78bfa; }
+        .service-card.featured { border: 2px solid #fbbf24; background: rgba(251, 191, 36, 0.05); }
+        .service-duration { color: #6366f1; font-size: 0.9rem; margin-bottom: 15px; }
+        .service-price { font-size: 2rem; font-weight: bold; color: #10b981; margin: 15px 0; }
+        .service-price .original { text-decoration: line-through; color: #999; font-size: 1.2rem; margin-right: 10px; }
+        .service-features { list-style: none; margin: 20px 0; line-height: 2; }
+        .service-features li:before { content: "✓ "; color: #10b981; font-weight: bold; margin-right: 8px; }
+        .btn { display: block; width: 100%; padding: 14px 24px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; text-decoration: none; text-align: center; transition: transform 0.3s; margin-top: 20px; }
         .btn:hover { transform: translateY(-2px); }
-        .btn-pro {
-            background: linear-gradient(135deg, #fbbf24, #f59e0b);
-            color: #1a1b23;
-        }
-        .info-banner {
-            background: rgba(99, 102, 241, 0.1);
-            border: 2px solid #6366f1;
-            border-radius: 12px;
-            padding: 20px;
-            margin: 30px 0;
-            text-align: center;
-        }
-        .info-banner h3 {
-            color: #6366f1;
-            margin-bottom: 10px;
-        }
-  </style>
-
-    <!-- Memberstack webflow package -->
+        .btn-pro { background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #1a1b23; }
+        .btn-healing { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+        .info-banner { background: rgba(99, 102, 241, 0.1); border: 2px solid #6366f1; border-radius: 12px; padding: 20px; margin: 30px 0; text-align: center; }
+        .info-banner h3 { color: #6366f1; margin-bottom: 10px; }
+        .healing-intro { background: rgba(139, 92, 246, 0.1); border: 2px solid #8b5cf6; border-radius: 16px; padding: 30px; margin: 40px 0; text-align: center; }
+        .healing-intro h3 { color: #a78bfa; font-size: 1.5rem; margin-bottom: 15px; }
+        .healing-intro p { opacity: 0.9; line-height: 1.8; }
+    </style>
+    <!-- Memberstack -->
     <script data-memberstack-app="app_cmg8qzm4e004c0tmi91sjhpzn" src="https://static.memberstack.com/scripts/v1/memberstack.js" type="text/javascript"></script>
-
 </head>
 <body>
     <header>
         <nav class="container">
             <div class="logo">Life Transformers Hub</div>
-       <nav>
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="services.html">Services</a>
-    <a href="shop.html">Shop</a>
-    <a href="blog.html">Blog</a>
-    <a href="news.html">News</a>
-    <a href="music.html">Music</a>
-    <a href="wellness.html">Wellness</a>
-    <a href="youtube.html">YouTube</a>
-    <a href="tiktok.html">TikTok</a>
-    <a href="pro.html">Go Pro</a>
-</nav>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/about.html">About</a>
+                <a href="/services.html">Services</a>
+                <a href="/shop.html">Shop</a>
+                <a href="/blog.html">Blog</a>
+                <a href="/news.html">News</a>
+                <a href="/music.html">Music</a>
+                <a href="/wellness.html">Wellness</a>
+                <a href="/youtube.html">YouTube</a>
+                <a href="/tiktok.html">TikTok</a>
+                <a href="/pro.html">Go Pro</a>
+            </div>
         </nav>
     </header>
 
     <main class="container">
         <section class="hero">
             <h1>Professional Services</h1>
-            <p>One-on-one coaching, audits, and training to accelerate your creator journey</p>
+            <p>Creator coaching, strategy sessions, and sacred energy healing to transform your life and business</p>
         </section>
 
         <div class="info-banner">
-            <h3>Pro Members Save 50%</h3>
-            <p>All services are half price for Pro subscribers (£5/month). Upgrade to Pro and unlock massive savings!</p>
+            <h3>Pro Members Save Up To 50%</h3>
+            <p>Many services are discounted for Pro subscribers (£5/month). Upgrade to Pro and unlock massive savings!</p>
         </div>
 
+        <!-- TikTok & Creator Services -->
+        <h2 class="section-title">📱 TikTok & Creator Services</h2>
+
         <div class="services-grid">
+            
+            <div class="service-card featured">
+                <h3>Clarity Compass <span class="pro-badge">UP TO £299 OFF</span></h3>
+                <div class="service-duration">Sacred Strategy Session | 1-on-1</div>
+                <p>More than a TikTok strategy session. The Clarity Compass is a Seraphil-aligned tool that helps you remember who you are, what you're here to share, and how to express it powerfully and profitably. Niche clarity guided by divine design.</p>
+                <div class="service-price">
+                    <span class="original">£399</span>
+                    £100 <span style="font-size: 1rem; color: #999;">(Pro members)</span>
+                </div>
+                <ul class="service-features">
+                    <li>Divine niche alignment</li>
+                    <li>Soul-purpose clarity</li>
+                    <li>Authentic content direction</li>
+                    <li>Profitable expression strategy</li>
+                    <li>Seraphil-guided insights</li>
+                </ul>
+                <a href="https://buy.stripe.com/14AfZi7SpddggsV41B8g01f" target="_blank" class="btn btn-pro">Book Now - £399</a>
+                <p style="text-align: center; margin-top: 10px; color: #fbbf24; font-size: 0.9rem;">Pro Members: £100 (Save £299!)</p>
+            </div>
+
             <div class="service-card">
                 <h3>Creator Audit <span class="pro-badge">50% OFF PRO</span></h3>
                 <div class="service-duration">60 minutes | 1-on-1 Session</div>
@@ -180,8 +115,8 @@
                     <li>Actionable recommendations</li>
                     <li>Follow-up report via email</li>
                 </ul>
-               <a href="https://buy.stripe.com/fZu8wQ5Khfloa4x2Xx8g00D" target="_blank" class="btn">Book Now - £100</a>
-<p style="text-align: center; margin-top: 10px; color: #fbbf24; font-size: 0.9rem;">Pro Members: £50 (50% OFF)</p>
+                <a href="https://buy.stripe.com/fZu8wQ5Khfloa4x2Xx8g00D" target="_blank" class="btn">Book Now - £100</a>
+                <p style="text-align: center; margin-top: 10px; color: #fbbf24; font-size: 0.9rem;">Pro Members: £50 (50% OFF)</p>
             </div>
 
             <div class="service-card">
@@ -199,8 +134,8 @@
                     <li>Gift conversion tips</li>
                     <li>Q&A with expert coach</li>
                 </ul>
-               <a href="https://buy.stripe.com/7sY14odcJ0qua4x1Tt8g00z" target="_blank" class="btn">Book Now - £80</a>
-<p style="text-align: center; margin-top: 10px; color: #fbbf24; font-size: 0.9rem;">Pro Members: £40 (50% OFF)</p>
+                <a href="https://buy.stripe.com/7sY14odcJ0qua4x1Tt8g00z" target="_blank" class="btn">Book Now - £80</a>
+                <p style="text-align: center; margin-top: 10px; color: #fbbf24; font-size: 0.9rem;">Pro Members: £40 (50% OFF)</p>
             </div>
 
             <div class="service-card">
@@ -218,8 +153,8 @@
                     <li>Hashtag strategy</li>
                     <li>Ongoing email support (2 weeks)</li>
                 </ul>
-             <a href="https://buy.stripe.com/4gMbJ2fkRddg0tXapZ8g00C" target="_blank" class="btn">Book Now - £150</a>
-<p style="text-align: center; margin-top: 10px; color: #fbbf24; font-size: 0.9rem;">Pro Members: £75 (50% OFF)</p>
+                <a href="https://buy.stripe.com/4gMbJ2fkRddg0tXapZ8g00C" target="_blank" class="btn">Book Now - £150</a>
+                <p style="text-align: center; margin-top: 10px; color: #fbbf24; font-size: 0.9rem;">Pro Members: £75 (50% OFF)</p>
             </div>
 
             <div class="service-card">
@@ -237,8 +172,8 @@
                     <li>Revenue sharing models</li>
                     <li>Management tools walkthrough</li>
                 </ul>
-               <a href="https://buy.stripe.com/eVq3cwfkRc9c3G9apZ8g00E" target="_blank" class="btn">Book Now - £200</a>
-<p style="text-align: center; margin-top: 10px; color: #fbbf24; font-size: 0.9rem;">Pro Members: £100 (50% OFF)</p>
+                <a href="https://buy.stripe.com/eVq3cwfkRc9c3G9apZ8g00E" target="_blank" class="btn">Book Now - £200</a>
+                <p style="text-align: center; margin-top: 10px; color: #fbbf24; font-size: 0.9rem;">Pro Members: £100 (50% OFF)</p>
             </div>
 
             <div class="service-card">
@@ -255,8 +190,8 @@
                     <li>Rapid-fire Q&A</li>
                     <li>Actionable next steps</li>
                 </ul>
-               <a href="https://buy.stripe.com/8x228s8Wt1uy3G9bu38g00A" target="_blank" class="btn">Book Now - £50</a>
-<p style="text-align: center; margin-top: 10px; color: #fbbf24; font-size: 0.9rem;">Pro Members: £25 (50% OFF)</p>
+                <a href="https://buy.stripe.com/8x228s8Wt1uy3G9bu38g00A" target="_blank" class="btn">Book Now - £50</a>
+                <p style="text-align: center; margin-top: 10px; color: #fbbf24; font-size: 0.9rem;">Pro Members: £25 (50% OFF)</p>
             </div>
 
             <div class="service-card">
@@ -275,15 +210,62 @@
                     <li>Custom growth tracking</li>
                 </ul>
                 <a href="https://buy.stripe.com/eVq3cw6Ol5KOekNgOn8g00B" target="_blank" class="btn btn-pro">Get Started - £300/month</a>
-<p style="text-align: center; margin-top: 10px; color: #fbbf24; font-size: 0.9rem;">Pro Members: £150/month (50% OFF)</p>
+                <p style="text-align: center; margin-top: 10px; color: #fbbf24; font-size: 0.9rem;">Pro Members: £150/month (50% OFF)</p>
             </div>
         </div>
 
+        <!-- Energy Healing Services -->
+        <h2 class="section-title">✨ Energy Healing & Spiritual Services</h2>
+
+        <div class="healing-intro">
+            <h3>Welcome to the Life Force Temple</h3>
+            <p>Step into sacred healing space where ancient wisdom meets modern transformation. Our energy healing services work at the deepest level — clearing blockages, restoring balance, and reconnecting you with your divine essence. Whether you're seeking clarity, healing, or spiritual awakening, these sessions offer profound transformation guided by universal life force energy.</p>
+        </div>
+
+        <div class="services-grid">
+            
+            <div class="service-card healing">
+                <h3>Inner Aura Consultation + Chakra Scan</h3>
+                <div class="service-duration">45 minutes | Diagnostic Session</div>
+                <p>A comprehensive energy scan to detect blockages, congestion, and depletion in your aura and chakras. This is the essential first step before any healing — assessing your energetic system to recommend the right treatment path.</p>
+                <div class="service-price">£45</div>
+                <ul class="service-features">
+                    <li>Full aura assessment</li>
+                    <li>7 chakra diagnostic scan</li>
+                    <li>Blockage identification</li>
+                    <li>Energy depletion analysis</li>
+                    <li>Personalised treatment plan</li>
+                </ul>
+                <a href="https://buy.stripe.com/14A6oI0pX6OS6Sl7dN8g00s" target="_blank" class="btn btn-healing">Book Session - £45</a>
+            </div>
+
+            <div class="service-card healing">
+                <h3>Divine Soul Blueprint Reading</h3>
+                <div class="service-duration">Akashic, Past Life & Full Chakra Healing</div>
+                <p>Feeling blocked? Lost? Repeating painful patterns? Your soul is speaking — are you ready to listen? Discover the truth behind your patterns, pain, and purpose through Akashic Record reading, past life exploration, and complete chakra healing.</p>
+                <div class="service-price">£75</div>
+                <ul class="service-features">
+                    <li>Akashic Record access</li>
+                    <li>Past life exploration</li>
+                    <li>Soul pattern recognition</li>
+                    <li>Full chakra healing</li>
+                    <li>Divine guidance & clarity</li>
+                </ul>
+                <a href="https://buy.stripe.com/6oU3cw6Olddg0tX9lV8g00r" target="_blank" class="btn btn-healing">Book Reading - £75</a>
+            </div>
+
+        </div>
+
+        <!-- Call to Action -->
         <div class="info-banner" style="margin-top: 60px;">
             <h3>Not a Pro Member Yet?</h3>
-            <p>Upgrade to Pro for £5/month and save 50% on all services above. You'll also unlock AI tools, scheduling, and more!</p>
-            <a href="/" class="btn btn-pro" style="max-width: 300px; margin: 20px auto 0;">Upgrade to Pro</a>
+            <p>Upgrade to Pro for £5/month and save up to 75% on creator services. You'll also unlock AI tools, scheduling, and more!</p>
+            <a href="/pro.html" class="btn btn-pro" style="max-width: 300px; margin: 20px auto 0;">Upgrade to Pro</a>
         </div>
     </main>
+
+    <footer style="text-align: center; padding: 40px 20px; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 60px;">
+        <p style="opacity: 0.7;">© 2025 Life Transformers Hub. All rights reserved.</p>
+    </footer>
 </body>
 </html>
