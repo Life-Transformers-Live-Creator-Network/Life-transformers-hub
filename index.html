@@ -376,10 +376,13 @@
         // Update badge display based on user tier
     }
 
-    // ========== AI FUNCTION (Google Gemini - Free & Fast) ==========
+    // ========== AI FUNCTION (Google Gemini via CORS Proxy) ==========
     async function callAI(prompt) {
+        const geminiUrl = AI_CONFIG.gemini.baseUrl + '?key=' + AI_CONFIG.gemini.apiKey;
+        const corsProxy = 'https://corsproxy.io/?';
+        
         try {
-            const response = await fetch(AI_CONFIG.gemini.baseUrl + '?key=' + AI_CONFIG.gemini.apiKey, {
+            const response = await fetch(corsProxy + encodeURIComponent(geminiUrl), {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
