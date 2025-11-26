@@ -11,8 +11,6 @@
     <meta property="og:url" content="https://delifetransformer.com">
     <meta property="og:type" content="website">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <!-- Puter.js for FREE unlimited AI -->
-    <script src="https://js.puter.com/v2/"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -379,19 +377,8 @@
         // Update badge display based on user tier
     }
 
-    // ========== AI FUNCTION (Puter.js Primary, Groq Backup) ==========
+    // ========== AI FUNCTION (Groq Only - Fast & Free) ==========
     async function callAI(prompt) {
-        // Try Puter.js first (FREE, unlimited)
-        try {
-            const response = await puter.ai.chat(prompt);
-            if (response && response.length > 0) {
-                return response;
-            }
-        } catch (puterError) {
-            console.log('Puter.js failed, trying Groq backup...');
-        }
-        
-        // Fallback to Groq
         try {
             const response = await fetch(AI_CONFIG.groq.baseUrl + '/chat/completions', {
                 method: 'POST',
@@ -402,16 +389,22 @@
                 body: JSON.stringify({
                     model: AI_CONFIG.groq.model,
                     messages: [{ role: 'user', content: prompt }],
-                    max_tokens: 500
+                    max_tokens: 1000,
+                    temperature: 0.8
                 })
             });
             
-            if (!response.ok) throw new Error('Groq API failed');
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error('Groq API error:', errorData);
+                throw new Error('API request failed');
+            }
+            
             const data = await response.json();
             return data.choices[0].message.content;
-        } catch (groqError) {
-            console.error('Both AI services failed:', groqError);
-            return 'Error: Unable to generate content. Please try again in a moment.';
+        } catch (error) {
+            console.error('AI generation failed:', error);
+            return 'Error: Unable to generate content. Please try again.';
         }
     }
 
