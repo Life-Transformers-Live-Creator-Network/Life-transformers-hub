@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Dashboard - Life Transformers Hub</title>
+    <meta name="description" content="Manage your Life Transformers Hub membership, view your plan, and access exclusive tools.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #667eea;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #764ba2;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .dashboard-header {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 30px 0;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        .dashboard-header h1 {
+            color: #667eea;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .welcome-message {
+            color: #666;
+            font-size: 1.2rem;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .dashboard-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .dashboard-card h2 {
+            color: #667eea;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .current-plan {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(118,75,162,0.1));
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .plan-name {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .plan-price {
+            font-size: 1.3rem;
+            color: #666;
+        }
+
+        .trial-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .upgrade-section {
+            margin-top: 20px;
+        }
+
+        .upgrade-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .upgrade-option:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .upgrade-option.premium {
+            border-left: 4px solid #8b5cf6;
+        }
+
+        .upgrade-option.ultimate {
+            border-left: 4px solid #ef4444;
+        }
+
+        .upgrade-info h3 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .upgrade-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .upgrade-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+
+        .upgrade-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .upgrade-btn.premium {
+            background: linear-gradient(135deg, #8b5cf6, #6366f1);
+            color: white;
+        }
+
+        .upgrade-btn.ultimate {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .tool-item {
+            text-align: center;
+            padding: 20px 15px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            transition: transform 0.3s;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .tool-item:hover {
+            transform: translateY(-5px);
+            background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(118,75,162,0.1));
+        }
+
+        .tool-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .tool-item span {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .account-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .account-btn {
+            display: block;
+            padding: 15px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .account-btn:hover {
+            transform: translateX(5px);
+        }
+
+        .account-btn.profile {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .account-btn.billing {
+            background: #e0e7ff;
+            color: #667eea;
+        }
+
+        .account-btn.logout {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .account-btn.cancel {
+            background: #fff;
+            color: #999;
+            border: 1px solid #ddd;
+            font-size: 0.9rem;
+        }
+
+        /* Hide content based on membership */
+        [data-ms-content] {
+            display: none;
+        }
+
+        /* Show login prompt for non-members */
+        .login-prompt {
+            background: white;
+            border-radius: 20px;
+            padding: 60px 40px;
+            margin: 30px 0;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .login-prompt h2 {
+            color: #667eea;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .login-prompt p {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .login-btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: transform 0.3s;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            nav ul {
+                gap: 1rem;
+            }
+
+            .upgrade-option {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+        }
+    </style>
+
+    <!-- Memberstack -->
+    <script data-memberstack-app="app_cmg8qzm4e004c0tmi91sjhpzn" src="https://static.memberstack.com/scripts/v1/memberstack.js" type="text/javascript"></script>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="news.html">News</a></li>
+            <li><a href="music.html">Music</a></li>
+            <li><a href="updates.html">Updates</a></li>
+            <li><a href="wellness.html">Wellness</a></li>
+            <li><a href="youtube.html">YouTube</a></li>
+            <li><a href="tiktok.html">TikTok</a></li>
+            <li><a href="pro.html">Go Pro</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+
+        <!-- Login Prompt (shown to non-members) -->
+        <div class="login-prompt" data-ms-content="!members">
+            <h2>🔐 Member Area</h2>
+            <p>Please log in to access your dashboard and manage your membership.</p>
+            <a href="#" data-ms-modal="login" class="login-btn">Log In</a>
+            <p style="margin-top: 20px; color: #999;">Don't have an account? <a href="pro.html" style="color: #667eea;">Sign up here</a></p>
+        </div>
+
+        <!-- Dashboard Content (shown to logged-in members) -->
+        <div data-ms-content="members">
+            
+            <!-- Header -->
+            <div class="dashboard-header">
+                <h1>Welcome Back! 👋</h1>
+                <p class="welcome-message">Manage your membership and access your tools below.</p>
+            </div>
+
+            <div class="dashboard-grid">
+
+                <!-- Current Plan Card -->
+                <div class="dashboard-card">
+                    <h2>📋 Your Current Plan</h2>
+                    
+                    <!-- Free Plan Display -->
+                    <div data-ms-content="free-membership">
+                        <div class="current-plan">
+                            <div class="plan-name">Free</div>
+                            <div class="plan-price">£0/month</div>
+                        </div>
+                        <div class="upgrade-section">
+                            <p style="color: #666; margin-bottom: 15px;">Upgrade to unlock all features:</p>
+                            <div class="upgrade-option premium">
+                                <div class="upgrade-info">
+                                    <h3>Pro - £5/month</h3>
+                                    <p>All tools + 50% off services</p>
+                                </div>
+                                <a href="#" data-ms-modal="signup" data-ms-price:add="prc_pro-monthly-eixu07av" class="upgrade-btn premium">Upgrade</a>
+                            </div>
+                            <div class="upgrade-option premium">
+                                <div class="upgrade-info">
+                                    <h3>Premium - £35/month</h3>
+                                    <p>Pro + monthly coaching</p>
+                                </div>
+                                <a href="#" data-ms-modal="signup" data-ms-price:add="prc_premium-monthly-cjx10lbo" class="upgrade-btn premium">Upgrade</a>
+                            </div>
+                            <div class="upgrade-option ultimate">
+                                <div class="upgrade-info">
+                                    <h3>Ultimate - £100/month</h3>
+                                    <p>VIP access + 4 coaching sessions</p>
+                                </div>
+                                <a href="#" data-ms-modal="signup" data-ms-price:add="prc_ultimate-membership-uhyn0osh" class="upgrade-btn ultimate">Upgrade</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pro Plan Display -->
+                    <div data-ms-content="pro-membership">
+                        <div class="current-plan">
+                            <div class="plan-name">⭐ Pro</div>
+                            <div class="plan-price">£5/month</div>
+                            <div class="trial-badge" data-ms-content="trial">🎉 Trial Active</div>
+                        </div>
+                        <div class="upgrade-section">
+                            <p style="color: #666; margin-bottom: 15px;">Want more? Upgrade your plan:</p>
+                            <div class="upgrade-option premium">
+                                <div class="upgrade-info">
+                                    <h3>Premium - £35/month</h3>
+                                    <p>Pro + monthly coaching call</p>
+                                </div>
+                                <a href="#" data-ms-modal="signup" data-ms-price:add="prc_premium-monthly-cjx10lbo" class="upgrade-btn premium">Upgrade</a>
+                            </div>
+                            <div class="upgrade-option ultimate">
+                                <div class="upgrade-info">
+                                    <h3>Ultimate - £100/month</h3>
+                                    <p>VIP + 4 coaching sessions/month</p>
+                                </div>
+                                <a href="#" data-ms-modal="signup" data-ms-price:add="prc_ultimate-membership-uhyn0osh" class="upgrade-btn ultimate">Upgrade</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Premium Plan Display -->
+                    <div data-ms-content="premium-membership">
+                        <div class="current-plan">
+                            <div class="plan-name">💎 Premium</div>
+                            <div class="plan-price">£35/month</div>
+                            <div class="trial-badge" data-ms-content="trial">🎉 Trial Active</div>
+                        </div>
+                        <div class="upgrade-section">
+                            <p style="color: #666; margin-bottom: 15px;">Go VIP for maximum benefits:</p>
+                            <div class="upgrade-option ultimate">
+                                <div class="upgrade-info">
+                                    <h3>Ultimate - £100/month</h3>
+                                    <p>4 coaching sessions + WhatsApp support</p>
+                                </div>
+                                <a href="#" data-ms-modal="signup" data-ms-price:add="prc_ultimate-membership-uhyn0osh" class="upgrade-btn ultimate">Upgrade</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ultimate Plan Display -->
+                    <div data-ms-content="ultimate-membership">
+                        <div class="current-plan" style="background: linear-gradient(135deg, rgba(239,68,68,0.1), rgba(220,38,38,0.1));">
+                            <div class="plan-name" style="color: #ef4444;">👑 Ultimate</div>
+                            <div class="plan-price">£100/month</div>
+                            <div class="trial-badge" data-ms-content="trial">🎉 Trial Active</div>
+                        </div>
+                        <p style="color: #666; text-align: center; padding: 20px;">You have our highest tier! Enjoy all VIP benefits.</p>
+                    </div>
+
+                </div>
+
+                <!-- Quick Access Tools -->
+                <div class="dashboard-card">
+                    <h2>🛠️ Your Tools</h2>
+                    <div class="tools-grid">
+                        <a href="index.html#diamond-calculator" class="tool-item">
+                            <div class="tool-icon">💎</div>
+                            <span>Diamond Calculator</span>
+                        </a>
+                        <a href="index.html#hook-generator" class="tool-item" data-ms-content="pro-membership, premium-membership, ultimate-membership">
+                            <div class="tool-icon">🎣</div>
+                            <span>AI Hooks</span>
+                        </a>
+                        <a href="index.html#script-generator" class="tool-item" data-ms-content="pro-membership, premium-membership, ultimate-membership">
+                            <div class="tool-icon">📝</div>
+                            <span>AI Scripts</span>
+                        </a>
+                        <a href="index.html#live-scheduler" class="tool-item" data-ms-content="pro-membership, premium-membership, ultimate-membership">
+                            <div class="tool-icon">📅</div>
+                            <span>LIVE Scheduler</span>
+                        </a>
+                        <a href="index.html#ring-designer" class="tool-item" data-ms-content="pro-membership, premium-membership, ultimate-membership">
+                            <div class="tool-icon">⭕</div>
+                            <span>Ring Designer</span>
+                        </a>
+                        <a href="index.html#countdown" class="tool-item" data-ms-content="pro-membership, premium-membership, ultimate-membership">
+                            <div class="tool-icon">⏰</div>
+                            <span>Countdown</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Account Management -->
+                <div class="dashboard-card">
+                    <h2>⚙️ Account Settings</h2>
+                    <div class="account-actions">
+                        <a href="#" data-ms-modal="profile" class="account-btn profile">👤 Edit Profile</a>
+                        <a href="#" data-ms-modal="billing" class="account-btn billing">💳 Manage Billing</a>
+                        <a href="#" data-ms-action="logout" class="account-btn logout">🚪 Log Out</a>
+                        <a href="#" data-ms-modal="cancel" class="account-btn cancel">Cancel Subscription</a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="dashboard-card">
+                    <h2>🔗 Quick Links</h2>
+                    <div class="account-actions">
+                        <a href="services.html" class="account-btn profile">📞 Book a Service (50% OFF)</a>
+                        <a href="blog.html" class="account-btn profile">📚 Read Blog</a>
+                        <a href="wellness.html" class="account-btn profile">🧘 Wellness Hub</a>
+                        <a href="https://wa.me/YOUR_NUMBER" class="account-btn billing" target="_blank">💬 WhatsApp Support</a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
+```
+
+---
+
+## **COMMIT MESSAGE:**
+
+**SHORT:**
+```
+Add member dashboard page
+```
+
+**EXTENDED:**
+```
+Create dashboard.html for member account management
+
+- Shows current plan (Free/Pro/Premium/Ultimate)
+- Displays trial status when active
+- Upgrade buttons for each tier with correct price IDs
+- Quick access to all tools
+- Account settings (profile, billing, logout, cancel)
+- Login prompt for non-members
+- Responsive design for mobile
