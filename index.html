@@ -425,8 +425,10 @@
     }
 
     // ========== TOOL OPENER ==========
-    function openTool(tool) {
-        if (!currentUser) {
+   function openTool(tool) {
+        // Free tools don't require login
+        const freeTools = ['username', 'timing'];
+        if (!freeTools.includes(tool) && !currentUser) {
             alert('Please login to use tools');
             openModal('loginModal');
             return;
@@ -450,7 +452,7 @@
         
         const content = document.getElementById('toolContent');
         
-        switch(tool) {
+       switch(tool) {
             case 'hooks':
                 content.innerHTML = createHookGenerator();
                 break;
@@ -469,6 +471,14 @@
             case 'video':
                 content.innerHTML = createVideoGenerator();
                 break;
+            case 'username':
+                content.innerHTML = createUsernameGenerator();
+                openModal('toolModal');
+                return; // Exit early - no login required
+            case 'timing':
+                content.innerHTML = createTimeToPost();
+                openModal('toolModal');
+                return; // Exit early - no login required
         }
         
         openModal('toolModal');
