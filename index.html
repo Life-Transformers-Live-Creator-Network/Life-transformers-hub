@@ -903,6 +903,139 @@ Make it engaging, relatable, and optimized for TikTok's algorithm.`;
             </div>
         `;
     }
+    function createUsernameGenerator() {
+        return `
+            <h2>✨ TikTok Username Generator</h2>
+            <p style="opacity: 0.7; margin-bottom: 20px;">Generate creative username ideas for your niche</p>
+            <div class="form-group">
+                <label>Your Niche/Keywords:</label>
+                <input type="text" id="usernameNiche" placeholder="e.g., fitness, cooking, comedy">
+            </div>
+            <button class="btn" onclick="generateUsernames()" style="width: 100%;">Generate Usernames</button>
+            <div id="usernamesResult" style="display: none;"></div>
+        `;
+    }
+    
+    function generateUsernames() {
+        const niche = document.getElementById('usernameNiche').value.trim();
+        const resultDiv = document.getElementById('usernamesResult');
+        
+        if (!niche) {
+            alert('Please enter a niche or keyword');
+            return;
+        }
+        
+        resultDiv.style.display = 'block';
+        resultDiv.innerHTML = '<p style="color: #fbbf24;">🎯 Generating creative usernames...</p>';
+        
+        // Generate username ideas (client-side, no API needed)
+        const prefixes = ['the', 'daily', 'real', 'pro', 'creative', 'official', 'your', 'its'];
+        const suffixes = ['hub', 'zone', 'world', 'life', 'vibes', 'tips', 'guru', 'squad'];
+        const styles = ['', '_official', '_daily', '.tv', '_hub', '_world'];
+        
+        const usernames = [];
+        const nicheClean = niche.toLowerCase().replace(/\s+/g, '');
+        
+        for (let i = 0; i < 10; i++) {
+            let username;
+            const random = Math.random();
+            
+            if (random < 0.3) {
+                username = prefixes[Math.floor(Math.random() * prefixes.length)] + nicheClean + styles[Math.floor(Math.random() * styles.length)];
+            } else if (random < 0.6) {
+                username = nicheClean + suffixes[Math.floor(Math.random() * suffixes.length)] + styles[Math.floor(Math.random() * styles.length)];
+            } else {
+                username = nicheClean + Math.floor(Math.random() * 999) + styles[Math.floor(Math.random() * styles.length)];
+            }
+            
+            if (!usernames.includes(username)) {
+                usernames.push(username);
+            }
+        }
+        
+        resultDiv.innerHTML = `
+            <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 25px; margin-top: 20px;">
+                <h3 style="color: #fbbf24; margin-bottom: 15px;">✨ Username Ideas for "${niche}"</h3>
+                <div style="background: rgba(0,0,0,0.3); padding: 20px; border-radius: 8px;">
+                    ${usernames.map(u => `<div style="padding: 8px; border-bottom: 1px solid rgba(255,255,255,0.1);">@${u}</div>`).join('')}
+                </div>
+                <p style="margin-top: 15px; color: #10b981; font-size: 0.9rem;">💡 Tip: Check availability on TikTok before choosing!</p>
+            </div>
+        `;
+    }
+    
+    function createTimeToPost() {
+        return `
+            <h2>⏰ Best Time to Post Calculator</h2>
+            <p style="opacity: 0.7; margin-bottom: 20px;">Find optimal posting times for your target audience</p>
+            <div class="form-group">
+                <label>Target Region:</label>
+                <select id="targetRegion">
+                    <option value="UK">United Kingdom</option>
+                    <option value="US">United States</option>
+                    <option value="Global">Global Audience</option>
+                    <option value="EU">Europe</option>
+                    <option value="Asia">Asia Pacific</option>
+                </select>
+            </div>
+            <button class="btn" onclick="calculateBestTime()" style="width: 100%;">Calculate Best Times</button>
+            <div id="timeResult" style="display: none;"></div>
+        `;
+    }
+    
+    function calculateBestTime() {
+        const region = document.getElementById('targetRegion').value;
+        const resultDiv = document.getElementById('timeResult');
+        
+        const timingData = {
+            'UK': {
+                weekday: ['7:00 AM - 9:00 AM', '12:00 PM - 1:00 PM', '7:00 PM - 10:00 PM'],
+                weekend: ['9:00 AM - 11:00 AM', '2:00 PM - 4:00 PM', '7:00 PM - 11:00 PM'],
+                timezone: 'GMT'
+            },
+            'US': {
+                weekday: ['6:00 AM - 9:00 AM EST', '12:00 PM - 2:00 PM EST', '7:00 PM - 11:00 PM EST'],
+                weekend: ['9:00 AM - 12:00 PM EST', '3:00 PM - 5:00 PM EST', '8:00 PM - 11:00 PM EST'],
+                timezone: 'EST/PST'
+            },
+            'Global': {
+                weekday: ['8:00 AM - 10:00 AM UTC', '1:00 PM - 3:00 PM UTC', '8:00 PM - 10:00 PM UTC'],
+                weekend: ['10:00 AM - 12:00 PM UTC', '3:00 PM - 6:00 PM UTC', '8:00 PM - 11:00 PM UTC'],
+                timezone: 'UTC'
+            },
+            'EU': {
+                weekday: ['7:00 AM - 9:00 AM CET', '12:30 PM - 2:00 PM CET', '7:00 PM - 10:00 PM CET'],
+                weekend: ['9:00 AM - 11:00 AM CET', '2:00 PM - 5:00 PM CET', '7:00 PM - 10:00 PM CET'],
+                timezone: 'CET'
+            },
+            'Asia': {
+                weekday: ['7:00 AM - 9:00 AM JST', '12:00 PM - 2:00 PM JST', '8:00 PM - 11:00 PM JST'],
+                weekend: ['9:00 AM - 12:00 PM JST', '3:00 PM - 6:00 PM JST', '8:00 PM - 11:00 PM JST'],
+                timezone: 'JST/SGT'
+            }
+        };
+        
+        const data = timingData[region];
+        
+        resultDiv.style.display = 'block';
+        resultDiv.innerHTML = `
+            <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 25px; margin-top: 20px;">
+                <h3 style="color: #fbbf24; margin-bottom: 15px;">⏰ Best Times for ${region}</h3>
+                
+                <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid #10b981; border-radius: 8px; padding: 15px; margin-bottom: 15px;">
+                    <h4 style="color: #10b981; margin-bottom: 10px;">📅 Weekdays (Mon-Fri)</h4>
+                    ${data.weekday.map(time => `<div style="padding: 5px;">✓ ${time}</div>`).join('')}
+                </div>
+                
+                <div style="background: rgba(99, 102, 241, 0.1); border: 1px solid #6366f1; border-radius: 8px; padding: 15px;">
+                    <h4 style="color: #6366f1; margin-bottom: 10px;">🎉 Weekends (Sat-Sun)</h4>
+                    ${data.weekend.map(time => `<div style="padding: 5px;">✓ ${time}</div>`).join('')}
+                </div>
+                
+                <p style="margin-top: 15px; color: #fbbf24; font-size: 0.9rem;">💡 Timezone: ${data.timezone} | Post consistently for best results!</p>
+            </div>
+        `;
+    }
 
     // ========== FORM HANDLERS ==========
     document.getElementById('signupForm').addEventListener('submit', async (e) => {
