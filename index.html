@@ -188,7 +188,8 @@
                 <button class="btn" style="cursor: pointer;">Use Tool</button>
             </a>
         </div>
-        <div class="feature-card">
+       <div class="feature-card">
+            <div class="pro-badge">PRO</div>
             <h3>AI Hook Generator</h3>
             <p>Generate viral TikTok hooks with AI</p>
             <button class="btn" onclick="openTool('hooks')">Generate Hooks</button>
@@ -435,7 +436,7 @@
         }
         
         // Pro tools (require pro, premium, or ultimate)
-        const proTools = ['script', 'scheduler', 'ring', 'countdown'];
+        const proTools = ['hooks', 'script', 'scheduler', 'ring', 'countdown'];
         if (proTools.includes(tool) && !['pro', 'premium', 'ultimate'].includes(userTier)) {
             alert('This tool requires Pro membership or higher. Visit the Pro page to upgrade!');
             window.location.href = 'pro.html';
