@@ -680,170 +680,472 @@ Make it engaging, relatable, and optimized for TikTok's algorithm.`;
     function createRingDesigner() {
         return `
             <h2>🎨 Profile Ring Designer</h2>
-            <p style="opacity: 0.7; margin-bottom: 20px;">Create a branded profile ring with your photo</p>
+            <p style="opacity: 0.7; margin-bottom: 20px;">Create stunning branded profile images</p>
             
-            <div class="form-group">
-                <label>Upload Your Photo:</label>
-                <input type="file" id="ringPhoto" accept="image/*" onchange="previewRingPhoto(this)" style="padding: 10px;">
+            <div style="display: flex; gap: 15px; margin-bottom: 20px;">
+                <button class="btn" onclick="showManualDesigner()" style="flex: 1; background: linear-gradient(135deg, #6366f1, #8b5cf6);">
+                    ✏️ Manual Designer
+                </button>
+                <button class="btn" onclick="showAIDesigner()" style="flex: 1; background: linear-gradient(135deg, #fbbf24, #f59e0b);">
+                    ✨ AI Designer (Pro)
+                </button>
             </div>
-            
-            <div class="form-group">
-                <label>Ring Color:</label>
-                <select id="ringColor">
-                    <option value="#6366f1">Purple</option>
-                    <option value="#ef4444">Red</option>
-                    <option value="#10b981">Green</option>
-                    <option value="#f59e0b">Orange</option>
-                    <option value="#3b82f6">Blue</option>
-                    <option value="#ec4899">Pink</option>
-                    <option value="#fbbf24">Gold</option>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label>Ring Style:</label>
-                <select id="ringStyle">
-                    <option value="solid">Solid</option>
-                    <option value="gradient">Gradient</option>
-                    <option value="glow">Glow Effect</option>
-                    <option value="animated">Animated Pulse</option>
-                    <option value="rainbow">Rainbow</option>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label>Ring Thickness:</label>
-                <select id="ringThickness">
-                    <option value="4">Thin (4px)</option>
-                    <option value="6" selected>Medium (6px)</option>
-                    <option value="8">Thick (8px)</option>
-                    <option value="10">Extra Thick (10px)</option>
-                </select>
-            </div>
-            
-            <button class="btn" onclick="designRing()" style="width: 100%;">🎨 Create Ring</button>
-            <div id="ringResult" style="display: none;"></div>
-        `;
-    }
 
-    function previewRingPhoto(input) {
-        if (input.files && input.files[0]) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                uploadedImage = e.target.result;
-            };
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
+            <!-- Manual Designer -->
+            <div id="manualDesigner">
+                <div class="form-group">
+                    <label>Upload Your Photo:</label>
+                    <input type="file" id="profilePhoto" accept="image/*" onchange="loadProfileImage()" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; color: white; cursor: pointer;">
+                </div>
 
-    function designRing() {
-        const color = document.getElementById('ringColor').value;
-        const style = document.getElementById('ringStyle').value;
-        const thickness = document.getElementById('ringThickness').value;
-        const resultDiv = document.getElementById('ringResult');
-        
-        // Build ring styles
-        let ringCSS = '';
-        let animation = '';
-        let extraCSS = '';
-        
-        switch(style) {
-            case 'solid':
-                ringCSS = `border: ${thickness}px solid ${color}`;
-                break;
-            case 'gradient':
-                ringCSS = `border: ${thickness}px solid transparent; background: linear-gradient(#1a1b23, #1a1b23) padding-box, linear-gradient(45deg, ${color}, #ffffff, ${color}) border-box`;
-                break;
-            case 'glow':
-                ringCSS = `border: ${thickness}px solid ${color}; box-shadow: 0 0 15px ${color}, 0 0 30px ${color}`;
-                break;
-            case 'animated':
-                ringCSS = `border: ${thickness}px solid ${color}`;
-                animation = 'ring-pulse 2s infinite';
-                break;
-            case 'rainbow':
-                ringCSS = `border: ${thickness}px solid transparent; background: linear-gradient(#1a1b23, #1a1b23) padding-box, linear-gradient(45deg, #ef4444, #f59e0b, #10b981, #3b82f6, #8b5cf6, #ec4899) border-box`;
-                animation = 'ring-rotate 3s linear infinite';
-                extraCSS = `@keyframes ring-rotate { from { filter: hue-rotate(0deg); } to { filter: hue-rotate(360deg); } }`;
-                break;
-        }
-        
-        const imageContent = uploadedImage 
-            ? `<img src="${uploadedImage}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`
-            : '<span style="font-size: 0.8rem; opacity: 0.5;">Your Photo</span>';
-        
-        resultDiv.innerHTML = `
-            <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 25px; margin-top: 20px;">
-                <h3 style="color: #fbbf24; margin-bottom: 20px; text-align: center;">🎨 Your Profile Ring</h3>
-                <div style="text-align: center;">
-                    <div id="ringPreview" style="width: 150px; height: 150px; ${ringCSS}; border-radius: 50%; margin: 20px auto; animation: ${animation}; display: flex; align-items: center; justify-content: center; overflow: hidden;">
-                        ${imageContent}
-                    </div>
-                    <p style="margin: 10px 0;"><strong>Style:</strong> ${style.charAt(0).toUpperCase() + style.slice(1)}</p>
-                    <p style="margin: 10px 0;"><strong>Thickness:</strong> ${thickness}px</p>
-                    <button class="btn" onclick="downloadRing()" style="margin-top: 15px;">📥 Download Ring</button>
+                <div class="form-group">
+                    <label>Ring Style:</label>
+                    <select id="ringStyle" onchange="updateRingPreview()">
+                        <option value="solid">Solid Ring</option>
+                        <option value="gradient">Gradient Ring</option>
+                        <option value="metallic-gold">Metallic Gold</option>
+                        <option value="metallic-silver">Metallic Silver</option>
+                        <option value="neon-glow">Neon Glow</option>
+                        <option value="double-ring">Double Ring</option>
+                        <option value="particle">Particle Effects</option>
+                        <option value="glass">Glass Effect</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Primary Color:</label>
+                    <input type="color" id="ringColor1" value="#fbbf24" onchange="updateRingPreview()" style="width: 100%; height: 50px; border: none; border-radius: 8px; cursor: pointer;">
+                </div>
+
+                <div class="form-group">
+                    <label>Secondary Color:</label>
+                    <input type="color" id="ringColor2" value="#f59e0b" onchange="updateRingPreview()" style="width: 100%; height: 50px; border: none; border-radius: 8px; cursor: pointer;">
+                </div>
+
+                <div class="form-group">
+                    <label>Ring Thickness: <span id="thicknessValue">15px</span></label>
+                    <input type="range" id="ringThickness" min="8" max="35" value="15" oninput="updateRingPreview()" style="width: 100%;">
+                </div>
+
+                <div class="form-group">
+                    <label>Glow Intensity: <span id="glowValue">10</span></label>
+                    <input type="range" id="glowIntensity" min="0" max="30" value="10" oninput="updateRingPreview()" style="width: 100%;">
+                </div>
+
+                <div id="ringPreview" style="display: none; margin-top: 30px; text-align: center;">
+                    <h3 style="color: #fbbf24; margin-bottom: 15px;">Preview</h3>
+                    <canvas id="profileCanvas" width="500" height="500" style="max-width: 100%; border: 2px solid rgba(255,255,255,0.2); border-radius: 12px; background: #000;"></canvas>
+                    <button class="btn" onclick="downloadProfileImage()" style="margin-top: 20px; width: 100%;">
+                        📥 Download Profile Image
+                    </button>
                 </div>
             </div>
-            <style>
-                @keyframes ring-pulse {
-                    0% { transform: scale(1); box-shadow: 0 0 0 0 ${color}; }
-                    50% { transform: scale(1.02); box-shadow: 0 0 20px ${color}; }
-                    100% { transform: scale(1); box-shadow: 0 0 0 0 ${color}; }
-                }
-                ${extraCSS}
-            </style>
+
+            <!-- AI Designer (Pro Only) -->
+            <div id="aiDesigner" style="display: none;">
+                <div style="background: rgba(99, 102, 241, 0.1); border: 1px solid #6366f1; border-radius: 12px; padding: 20px; margin-bottom: 20px;">
+                    <h3 style="color: #6366f1; margin-bottom: 10px;">✨ AI Ring Generator</h3>
+                    <p style="opacity: 0.8; font-size: 0.9rem;">Describe your dream profile ring and AI will create it for you!</p>
+                </div>
+
+                <div class="form-group">
+                    <label>Upload Your Photo:</label>
+                    <input type="file" id="aiProfilePhoto" accept="image/*" onchange="loadAIProfileImage()" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; color: white; cursor: pointer;">
+                </div>
+
+                <div class="form-group">
+                    <label>Describe Your Ring Design:</label>
+                    <textarea id="aiRingPrompt" rows="4" placeholder="e.g., 'Golden crown ring with royal gems', 'Cyberpunk neon ring with glowing circuits', 'Elegant floral ring with pastel flowers'" style="width: 100%; padding: 12px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; color: white; resize: vertical;"></textarea>
+                </div>
+
+                <button class="btn" onclick="generateAIRing()" style="width: 100%; background: linear-gradient(135deg, #fbbf24, #f59e0b);">
+                    ✨ Generate AI Ring
+                </button>
+
+                <div id="aiRingResult" style="display: none; margin-top: 30px;">
+                    <h3 style="color: #fbbf24; margin-bottom: 15px;">Your AI-Generated Ring</h3>
+                    <canvas id="aiProfileCanvas" width="500" height="500" style="max-width: 100%; border: 2px solid rgba(255,255,255,0.2); border-radius: 12px; background: #000;"></canvas>
+                    <button class="btn" onclick="downloadAIProfileImage()" style="margin-top: 20px; width: 100%;">
+                        📥 Download AI Ring
+                    </button>
+                </div>
+            </div>
         `;
-        resultDiv.style.display = 'block';
     }
 
-    function downloadRing() {
-        const ring = document.getElementById('ringPreview');
-        if (!ring) return;
-        
-        // Create canvas for download
-        const canvas = document.createElement('canvas');
-        canvas.width = 300;
-        canvas.height = 300;
-        const ctx = canvas.getContext('2d');
-        
-        // Draw background
-        ctx.fillStyle = '#1a1b23';
-        ctx.fillRect(0, 0, 300, 300);
-        
-        // Draw ring circle
-        ctx.beginPath();
-        ctx.arc(150, 150, 140, 0, Math.PI * 2);
-        ctx.strokeStyle = document.getElementById('ringColor').value;
-        ctx.lineWidth = parseInt(document.getElementById('ringThickness').value) * 2;
-        ctx.stroke();
-        
-        // If there's an uploaded image, draw it
-        if (uploadedImage) {
-            const img = new Image();
-            img.onload = function() {
-                ctx.save();
-                ctx.beginPath();
-                ctx.arc(150, 150, 130, 0, Math.PI * 2);
-                ctx.clip();
-                ctx.drawImage(img, 20, 20, 260, 260);
-                ctx.restore();
-                
-                // Download
-                const link = document.createElement('a');
-                link.download = 'profile-ring.png';
-                link.href = canvas.toDataURL('image/png');
-                link.click();
-            };
-            img.src = uploadedImage;
-        } else {
-            // Download without image
-            const link = document.createElement('a');
-            link.download = 'profile-ring.png';
-            link.href = canvas.toDataURL('image/png');
-            link.click();
+    let uploadedImage = null;
+    let aiUploadedImage = null;
+
+    function showManualDesigner() {
+        document.getElementById('manualDesigner').style.display = 'block';
+        document.getElementById('aiDesigner').style.display = 'none';
+    }
+
+    function showAIDesigner() {
+        // Check Pro membership
+        if (!['pro', 'premium', 'ultimate'].includes(userTier)) {
+            alert('AI Ring Designer requires Pro membership or higher. Upgrade to access this feature!');
+            window.location.href = 'pro.html';
+            return;
         }
+        document.getElementById('manualDesigner').style.display = 'none';
+        document.getElementById('aiDesigner').style.display = 'block';
+    }
+
+    function loadProfileImage() {
+        const fileInput = document.getElementById('profilePhoto');
+        const file = fileInput.files[0];
         
-        alert('Ring downloaded! Check your downloads folder.');
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    uploadedImage = img;
+                    document.getElementById('ringPreview').style.display = 'block';
+                    updateRingPreview();
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function updateRingPreview() {
+        if (!uploadedImage) return;
+
+        const canvas = document.getElementById('profileCanvas');
+        const ctx = canvas.getContext('2d');
+        const size = 500;
+        const ringStyle = document.getElementById('ringStyle').value;
+        const color1 = document.getElementById('ringColor1').value;
+        const color2 = document.getElementById('ringColor2').value;
+        const thickness = parseInt(document.getElementById('ringThickness').value);
+        const glowIntensity = parseInt(document.getElementById('glowIntensity').value);
+
+        // Update value displays
+        document.getElementById('thicknessValue').textContent = thickness + 'px';
+        document.getElementById('glowValue').textContent = glowIntensity;
+
+        // Clear canvas with black background
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0, 0, size, size);
+
+        // Draw circular clipped image
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(size/2, size/2, (size/2) - thickness - 10, 0, Math.PI * 2);
+        ctx.closePath();
+        ctx.clip();
+
+        // Calculate dimensions to fill circle
+        const imgAspect = uploadedImage.width / uploadedImage.height;
+        const circleSize = size - (thickness * 2) - 20;
+        let drawWidth, drawHeight, offsetX, offsetY;
+
+        if (imgAspect > 1) {
+            drawHeight = circleSize;
+            drawWidth = drawHeight * imgAspect;
+            offsetX = (size - drawWidth) / 2;
+            offsetY = (size - circleSize) / 2;
+        } else {
+            drawWidth = circleSize;
+            drawHeight = drawWidth / imgAspect;
+            offsetX = (size - circleSize) / 2;
+            offsetY = (size - drawHeight) / 2;
+        }
+
+        ctx.drawImage(uploadedImage, offsetX, offsetY, drawWidth, drawHeight);
+        ctx.restore();
+
+        // Draw ring based on style
+        const centerX = size / 2;
+        const centerY = size / 2;
+        const radius = (size / 2) - (thickness / 2) - 10;
+
+        ctx.lineWidth = thickness;
+
+        switch(ringStyle) {
+            case 'solid':
+                ctx.strokeStyle = color1;
+                ctx.shadowBlur = glowIntensity;
+                ctx.shadowColor = color1;
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+                ctx.stroke();
+                break;
+
+            case 'gradient':
+                const gradient = ctx.createLinearGradient(0, 0, size, size);
+                gradient.addColorStop(0, color1);
+                gradient.addColorStop(0.5, color2);
+                gradient.addColorStop(1, color1);
+                ctx.strokeStyle = gradient;
+                ctx.shadowBlur = glowIntensity;
+                ctx.shadowColor = color1;
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+                ctx.stroke();
+                break;
+
+            case 'metallic-gold':
+                const goldGradient = ctx.createLinearGradient(0, 0, 0, size);
+                goldGradient.addColorStop(0, '#FFD700');
+                goldGradient.addColorStop(0.3, '#FFA500');
+                goldGradient.addColorStop(0.5, '#FFD700');
+                goldGradient.addColorStop(0.7, '#DAA520');
+                goldGradient.addColorStop(1, '#FFD700');
+                ctx.strokeStyle = goldGradient;
+                ctx.shadowBlur = 15;
+                ctx.shadowColor = '#FFD700';
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+                ctx.stroke();
+                break;
+
+            case 'metallic-silver':
+                const silverGradient = ctx.createLinearGradient(0, 0, 0, size);
+                silverGradient.addColorStop(0, '#E8E8E8');
+                silverGradient.addColorStop(0.3, '#C0C0C0');
+                silverGradient.addColorStop(0.5, '#FFFFFF');
+                silverGradient.addColorStop(0.7, '#A8A8A8');
+                silverGradient.addColorStop(1, '#E8E8E8');
+                ctx.strokeStyle = silverGradient;
+                ctx.shadowBlur = 15;
+                ctx.shadowColor = '#FFFFFF';
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+                ctx.stroke();
+                break;
+
+            case 'neon-glow':
+                // Outer glow
+                ctx.strokeStyle = color1;
+                ctx.shadowBlur = glowIntensity * 2;
+                ctx.shadowColor = color1;
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+                ctx.stroke();
+                
+                // Inner bright line
+                ctx.strokeStyle = color2;
+                ctx.shadowBlur = glowIntensity;
+                ctx.shadowColor = color2;
+                ctx.lineWidth = thickness * 0.5;
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, radius - (thickness * 0.25), 0, Math.PI * 2);
+                ctx.stroke();
+                ctx.lineWidth = thickness;
+                break;
+
+            case 'double-ring':
+                // Outer ring
+                ctx.strokeStyle = color1;
+                ctx.shadowBlur = glowIntensity;
+                ctx.shadowColor = color1;
+                ctx.lineWidth = thickness * 0.6;
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+                ctx.stroke();
+                
+                // Inner ring
+                ctx.strokeStyle = color2;
+                ctx.shadowBlur = glowIntensity * 0.5;
+                ctx.shadowColor = color2;
+                ctx.lineWidth = thickness * 0.4;
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, radius - thickness * 0.8, 0, Math.PI * 2);
+                ctx.stroke();
+                break;
+
+            case 'particle':
+                // Draw multiple small circles around the ring
+                const particleCount = 50;
+                ctx.shadowBlur = glowIntensity;
+                ctx.shadowColor = color1;
+                for (let i = 0; i < particleCount; i++) {
+                    const angle = (Math.PI * 2 * i) / particleCount;
+                    const x = centerX + Math.cos(angle) * radius;
+                    const y = centerY + Math.sin(angle) * radius;
+                    const particleSize = thickness / 3;
+                    
+                    ctx.fillStyle = i % 2 === 0 ? color1 : color2;
+                    ctx.beginPath();
+                    ctx.arc(x, y, particleSize, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                break;
+
+            case 'glass':
+                // Main glass ring
+                const glassGradient = ctx.createLinearGradient(0, 0, size, size);
+                glassGradient.addColorStop(0, color1 + '80');
+                glassGradient.addColorStop(0.5, color2 + 'B0');
+                glassGradient.addColorStop(1, color1 + '80');
+                ctx.strokeStyle = glassGradient;
+                ctx.shadowBlur = glowIntensity * 2;
+                ctx.shadowColor = color1;
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+                ctx.stroke();
+                
+                // Highlight reflection
+                ctx.strokeStyle = '#FFFFFF60';
+                ctx.lineWidth = thickness * 0.3;
+                ctx.beginPath();
+                ctx.arc(centerX - 10, centerY - 10, radius - thickness * 0.3, Math.PI, Math.PI * 1.3);
+                ctx.stroke();
+                break;
+        }
+
+        // Reset shadow
+        ctx.shadowBlur = 0;
+    }
+
+    function downloadProfileImage() {
+        const canvas = document.getElementById('profileCanvas');
+        const link = document.createElement('a');
+        link.download = 'tiktok-profile-ring.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+    }
+
+    // AI Designer Functions
+    function loadAIProfileImage() {
+        const fileInput = document.getElementById('aiProfilePhoto');
+        const file = fileInput.files[0];
+        
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    aiUploadedImage = img;
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    async function generateAIRing() {
+        if (!aiUploadedImage) {
+            alert('Please upload a photo first');
+            return;
+        }
+
+        const prompt = document.getElementById('aiRingPrompt').value.trim();
+        if (!prompt) {
+            alert('Please describe your desired ring design');
+            return;
+        }
+
+        const resultDiv = document.getElementById('aiRingResult');
+        resultDiv.style.display = 'block';
+        resultDiv.innerHTML = '<p style="color: #fbbf24;">✨ AI is generating your custom ring design...</p>';
+
+        try {
+            // Call AI to generate ring description/style
+            const fullPrompt = `Create a detailed profile ring border design based on this description: "${prompt}". The ring should be elegant, professional, and suitable for a TikTok profile picture. Describe the colors, effects, gradients, and artistic style that would make this ring visually stunning.`;
+            
+            const aiResponse = await callAI(fullPrompt);
+            
+            // Parse AI response and create custom ring
+            drawAIRing(aiResponse);
+            
+        } catch (error) {
+            resultDiv.innerHTML = '<p style="color: #ef4444;">Error generating AI ring. Please try again.</p>';
+        }
+    }
+
+    function drawAIRing(aiDescription) {
+        const canvas = document.getElementById('aiProfileCanvas');
+        const ctx = canvas.getContext('2d');
+        const size = 500;
+
+        // Clear canvas
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0, 0, size, size);
+
+        // Draw user's photo in center
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(size/2, size/2, (size/2) - 50, 0, Math.PI * 2);
+        ctx.closePath();
+        ctx.clip();
+
+        const imgAspect = aiUploadedImage.width / aiUploadedImage.height;
+        const circleSize = size - 100;
+        let drawWidth, drawHeight, offsetX, offsetY;
+
+        if (imgAspect > 1) {
+            drawHeight = circleSize;
+            drawWidth = drawHeight * imgAspect;
+            offsetX = (size - drawWidth) / 2;
+            offsetY = 50;
+        } else {
+            drawWidth = circleSize;
+            drawHeight = drawWidth / imgAspect;
+            offsetX = 50;
+            offsetY = (size - drawHeight) / 2;
+        }
+
+        ctx.drawImage(aiUploadedImage, offsetX, offsetY, drawWidth, drawHeight);
+        ctx.restore();
+
+        // Create artistic ring based on AI description
+        // This is a simplified version - you could enhance with more AI interpretation
+        const centerX = size / 2;
+        const centerY = size / 2;
+        const radius = (size / 2) - 25;
+
+        // Multi-layer artistic ring
+        const gradient1 = ctx.createLinearGradient(0, 0, size, size);
+        gradient1.addColorStop(0, '#fbbf24');
+        gradient1.addColorStop(0.5, '#f59e0b');
+        gradient1.addColorStop(1, '#fbbf24');
+
+        ctx.strokeStyle = gradient1;
+        ctx.lineWidth = 30;
+        ctx.shadowBlur = 20;
+        ctx.shadowColor = '#fbbf24';
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+        ctx.stroke();
+
+        // Inner decorative ring
+        ctx.strokeStyle = '#FFFFFF80';
+        ctx.lineWidth = 3;
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = '#FFFFFF';
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, radius - 13, 0, Math.PI * 2);
+        ctx.stroke();
+
+        ctx.shadowBlur = 0;
+
+        // Show result
+        document.getElementById('aiRingResult').innerHTML = `
+            <h3 style="color: #fbbf24; margin-bottom: 15px;">✨ Your AI-Generated Ring</h3>
+            <p style="opacity: 0.8; font-size: 0.9rem; margin-bottom: 15px;">${aiDescription.substring(0, 200)}...</p>
+            <canvas id="aiCanvas" width="500" height="500" style="max-width: 100%; border: 2px solid rgba(255,255,255,0.2); border-radius: 12px; background: #000;"></canvas>
+            <button class="btn" onclick="downloadAIProfileImage()" style="margin-top: 20px; width: 100%;">
+                📥 Download AI Ring
+            </button>
+        `;
+
+        // Copy to display canvas
+        const displayCanvas = document.getElementById('aiCanvas');
+        const displayCtx = displayCanvas.getContext('2d');
+        displayCtx.drawImage(canvas, 0, 0);
+    }
+
+    function downloadAIProfileImage() {
+        const canvas = document.getElementById('aiCanvas');
+        const link = document.createElement('a');
+        link.download = 'ai-profile-ring.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
     }
 
     // ========== COUNTDOWN TIMER ==========
