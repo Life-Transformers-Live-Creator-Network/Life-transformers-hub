@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classroom - Life Transformers Hub</title>
+    <script src="https://cdn.memberstack.com/scripts/v1/memberstack.js" data-memberstack-id="app_cmg8qzm4e004c0tmi91sjhpzn"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            padding: 40px 20px;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .welcome-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .welcome-card h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .filter-section {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .course-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .course-thumbnail {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 60px;
+        }
+
+        .course-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .course-content {
+            padding: 20px;
+        }
+
+        .course-title {
+            font-size: 1.4em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .course-description {
+            color: #666;
+            font-size: 0.95em;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .course-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #888;
+            font-size: 0.9em;
+        }
+
+        .difficulty-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .difficulty-beginner {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .difficulty-intermediate {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .difficulty-advanced {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .course-footer {
+            padding: 15px 20px;
+            background: #f8f9fa;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .progress-bar {
+            width: 60%;
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s ease;
+        }
+
+        .start-btn {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.2s ease;
+        }
+
+        .start-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+            color: white;
+            font-size: 1.2em;
+        }
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: white;
+        }
+
+        .empty-state h3 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            .courses-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎓 Life Transformers Classroom</h1>
+            <p>Your Journey to TikTok Mastery Starts Here</p>
+        </div>
+
+        <div class="welcome-card" id="welcomeCard" style="display: none;">
+            <h2>Welcome Back!</h2>
+            <div class="user-info">
+                <div class="user-avatar" id="userAvatar">?</div>
+                <div>
+                    <div id="userName" style="font-weight: 600; font-size: 1.1em;">Loading...</div>
+                    <div id="userTier" style="color: #667eea; font-weight: 500;">Member</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="filter-section">
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All Courses</button>
+                <button class="filter-btn" data-filter="beginner">Beginner</button>
+                <button class="filter-btn" data-filter="intermediate">Intermediate</button>
+                <button class="filter-btn" data-filter="advanced">Advanced</button>
+            </div>
+        </div>
+
+        <div id="coursesContainer">
+            <div class="loading">Loading courses...</div>
+        </div>
+    </div>
+
+    <script>
+        const WORKER_URL = 'https://life-transformers-worker.splight333.workers.dev';
+        let allCourses = [];
+        let currentFilter = 'all';
+        let currentUser = null;
+
+        window.addEventListener('DOMContentLoaded', async () => {
+            console.log('Page loaded, initializing...');
+            
+            try {
+                const member = await window.$memberstackDom.getCurrentMember();
+                currentUser = member.data;
+                
+                if (currentUser) {
+                    console.log('User logged in:', currentUser.id);
+                    displayUserInfo(currentUser);
+                    await verifyAccess();
+                } else {
+                    console.log('No user logged in');
+                }
+                
+                await loadCourses();
+                setupFilters();
+            } catch (error) {
+                console.error('Error:', error);
+                showError('Failed to load classroom. Please refresh the page.');
+            }
+        });
+
+        function displayUserInfo(user) {
+            const welcomeCard = document.getElementById('welcomeCard');
+            const userAvatar = document.getElementById('userAvatar');
+            const userName = document.getElementById('userName');
+            const userTier = document.getElementById('userTier');
+
+            welcomeCard.style.display = 'block';
+            userAvatar.textContent = user.auth?.email?.charAt(0).toUpperCase() || '?';
+            userName.textContent = user.auth?.email?.split('@')[0] || 'Member';
+            
+            const membershipPlan = user.planConnections?.[0]?.planId || 'free';
+            userTier.textContent = membershipPlan.toUpperCase() + ' Member';
+        }
+
+        async function verifyAccess() {
+            if (!currentUser) return false;
+
+            try {
+                const response = await fetch(`${WORKER_URL}/api/classroom/verify-access?userId=${currentUser.id}`);
+                const data = await response.json();
+
+                if (!data.hasAccess) {
+                    showError('Upgrade to a paid membership to access the classroom!');
+                    return false;
+                }
+
+                return true;
+            } catch (error) {
+                console.error('Access verification error:', error);
+                return false;
+            }
+        }
+
+        async function loadCourses() {
+            console.log('Loading courses from:', WORKER_URL);
+            
+            try {
+                const response = await fetch(`${WORKER_URL}/api/classroom/courses`);
+                const data = await response.json();
+
+                console.log('Courses loaded:', data);
+
+                if (data.success && data.courses) {
+                    allCourses = data.courses;
+                    displayCourses(allCourses);
+                } else {
+                    showError('No courses available yet');
+                }
+            } catch (error) {
+                console.error('Load courses error:', error);
+                showError('Failed to connect to server. Please check your connection.');
+            }
+        }
+
+        function displayCourses(courses) {
+            const container = document.getElementById('coursesContainer');
+
+            if (!courses || courses.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <h3>📚 No Courses Available</h3>
+                        <p>New courses coming soon! Check back later.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const coursesHTML = courses.map(course => {
+                const difficultyClass = `difficulty-${(course.difficulty || 'beginner').toLowerCase()}`;
+                const thumbnail = course.thumbnail_url 
+                    ? `<img src="${course.thumbnail_url}" alt="${course.title}">`
+                    : '🎓';
+
+                return `
+                    <div class="course-card" data-course-id="${course.id}">
+                        <div class="course-thumbnail">
+                            ${thumbnail}
+                        </div>
+                        <div class="course-content">
+                            <h3 class="course-title">${course.title}</h3>
+                            <p class="course-description">${course.description || 'Start your learning journey'}</p>
+                            <div class="course-meta">
+                                <div class="meta-item">
+                                    <span>⏱️</span>
+                                    <span>${course.duration_minutes || 0} min</span>
+                                </div>
+                                <span class="difficulty-badge ${difficultyClass}">
+                                    ${course.difficulty || 'Beginner'}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="course-footer">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 0%"></div>
+                            </div>
+                            <button class="start-btn">Start →</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            container.innerHTML = `<div class="courses-grid">${coursesHTML}</div>`;
+
+            document.querySelectorAll('.course-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const courseId = card.dataset.courseId;
+                    window.location.href = `course.html?id=${courseId}`;
+                });
+            });
+        }
+
+        function setupFilters() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            
+            filterButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterButtons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    const filter = btn.dataset.filter;
+                    currentFilter = filter;
+
+                    if (filter === 'all') {
+                        displayCourses(allCourses);
+                    } else {
+                        const filtered = allCourses.filter(course => 
+                            (course.difficulty || 'beginner').toLowerCase() === filter
+                        );
+                        displayCourses(filtered);
+                    }
+                });
+            });
+        }
+
+        function showError(message) {
+            const container = document.getElementById('coursesContainer');
+            container.innerHTML = `
+                <div class="error-message">
+                    <strong>⚠️ ${message}</strong>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
