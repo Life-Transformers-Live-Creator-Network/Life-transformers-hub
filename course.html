@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Course - Life Transformers Hub</title>
-    <script src="https://cdn.memberstack.com/scripts/v1/memberstack.js" data-memberstack-id="app_cmg8qzm4e004c0tmi91sjhpzn"></script>
+    <script data-memberstack-app="app_cmg8qzm4e004c0tmi91sjhpzn" src="https://static.memberstack.com/scripts/v2/memberstack.js" type="text/javascript"></script>
     <style>
         * {
             margin: 0;
@@ -345,15 +345,18 @@
             console.log('Course page loaded');
 
             try {
-                const member = await window.$memberstackDom.getCurrentMember();
-                currentUser = member.data;
-
-                if (currentUser) {
-                    console.log('User logged in:', currentUser.id);
-                } else {
-                    console.log('No user logged in');
-                    showError('Please log in to view courses');
-                    return;
+                if (window.MemberStack) {
+                    const memberstack = window.MemberStack;
+                    const memberJSON = await memberstack.getMemberJSON();
+                    
+                    if (memberJSON.data) {
+                        currentUser = memberJSON.data;
+                        console.log('User logged in:', currentUser.id);
+                    } else {
+                        console.log('No user logged in');
+                        showError('Please log in to view courses');
+                        return;
+                    }
                 }
 
                 const urlParams = new URLSearchParams(window.location.search);
