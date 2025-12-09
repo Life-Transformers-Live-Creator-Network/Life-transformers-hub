@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course - Life Transformers Hub</title>
+    <script src="https://cdn.memberstack.com/scripts/v1/memberstack.js" data-memberstack-id="app_cmg8qzm4e004c0tmi91sjhpzn"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+        }
+
+        .header-bar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-btn {
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .back-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .course-hero {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .course-title {
+            font-size: 2.5em;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .course-meta {
+            display: flex;
+            gap: 30px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #666;
+            font-size: 1em;
+        }
+
+        .difficulty-badge {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+
+        .difficulty-beginner {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .difficulty-intermediate {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .difficulty-advanced {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .course-description {
+            color: #555;
+            line-height: 1.8;
+            font-size: 1.1em;
+            margin-top: 20px;
+        }
+
+        .progress-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 0.85em;
+        }
+
+        .modules-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .module-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .module-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s ease;
+        }
+
+        .module-header:hover {
+            background: linear-gradient(135deg, #5568d3 0%, #653a8b 100%);
+        }
+
+        .module-title {
+            font-size: 1.5em;
+            font-weight: 600;
+        }
+
+        .module-toggle {
+            font-size: 1.5em;
+            transition: transform 0.3s ease;
+        }
+
+        .module-toggle.open {
+            transform: rotate(180deg);
+        }
+
+        .module-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .module-content.open {
+            max-height: 2000px;
+        }
+
+        .module-description {
+            padding: 20px 25px;
+            color: #666;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .lessons-list {
+            padding: 10px;
+        }
+
+        .lesson-item {
+            padding: 20px 25px;
+            border-bottom: 1px solid #e9ecef;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .lesson-item:hover {
+            background: #f8f9fa;
+        }
+
+        .lesson-item:last-child {
+            border-bottom: none;
+        }
+
+        .lesson-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .lesson-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2em;
+        }
+
+        .lesson-icon.completed {
+            background: #28a745;
+        }
+
+        .lesson-details h4 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .lesson-meta {
+            display: flex;
+            gap: 15px;
+            color: #888;
+            font-size: 0.9em;
+        }
+
+        .lesson-duration {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .enroll-section {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .enroll-btn {
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .enroll-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+            color: #667eea;
+            font-size: 1.2em;
+        }
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .course-title {
+                font-size: 1.8em;
+            }
+
+            .course-meta {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .module-title {
+                font-size: 1.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header-bar">
+        <div class="header-content">
+            <h2>📚 Course Details</h2>
+            <a href="classroom.html" class="back-btn">← Back to Classroom</a>
+        </div>
+    </div>
+
+    <div class="container" id="mainContainer">
+        <div class="loading">Loading course...</div>
+    </div>
+
+    <script>
+        const WORKER_URL = 'https://life-transformers-worker.splight333.workers.dev';
+        let currentUser = null;
+        let courseData = null;
+        let userProgress = null;
+
+        window.addEventListener('DOMContentLoaded', async () => {
+            console.log('Course page loaded');
+
+            try {
+                const member = await window.$memberstackDom.getCurrentMember();
+                currentUser = member.data;
+
+                if (currentUser) {
+                    console.log('User logged in:', currentUser.id);
+                } else {
+                    console.log('No user logged in');
+                    showError('Please log in to view courses');
+                    return;
+                }
+
+                const urlParams = new URLSearchParams(window.location.search);
+                const courseId = urlParams.get('id');
+
+                if (!courseId) {
+                    showError('No course ID provided');
+                    return;
+                }
+
+                await loadCourse(courseId);
+                await loadProgress(courseId);
+                renderCourse();
+
+            } catch (error) {
+                console.error('Initialization error:', error);
+                showError('Failed to load course. Please try again.');
+            }
+        });
+
+        async function loadCourse(courseId) {
+            console.log('Loading course:', courseId);
+
+            try {
+                const response = await fetch(`${WORKER_URL}/api/classroom/course?id=${courseId}`);
+                const data = await response.json();
+
+                console.log('Course data:', data);
+
+                if (data.success && data.course) {
+                    courseData = data.course;
+                } else {
+                    throw new Error('Course not found');
+                }
+            } catch (error) {
+                console.error('Load course error:', error);
+                throw error;
+            }
+        }
+
+        async function loadProgress(courseId) {
+            if (!currentUser) return;
+
+            try {
+                const response = await fetch(`${WORKER_URL}/api/classroom/progress?userId=${currentUser.id}&courseId=${courseId}`);
+                const data = await response.json();
+
+                console.log('Progress data:', data);
+
+                if (data.success) {
+                    userProgress = data.progress;
+                }
+            } catch (error) {
+                console.error('Load progress error:', error);
+            }
+        }
+
+        async function enrollInCourse() {
+            if (!currentUser || !courseData) return;
+
+            try {
+                const response = await fetch(`${WORKER_URL}/api/classroom/enroll`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        userId: currentUser.id,
+                        courseId: courseData.id
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    await loadProgress(courseData.id);
+                    renderCourse();
+                }
+            } catch (error) {
+                console.error('Enroll error:', error);
+                alert('Failed to enroll. Please try again.');
+            }
+        }
+
+        function renderCourse() {
+            const container = document.getElementById('mainContainer');
+
+            if (!courseData) {
+                container.innerHTML = '<div class="error-message">Course not found</div>';
+                return;
+            }
+
+            const progressPercent = userProgress?.percentComplete || 0;
+            const completedLessons = userProgress?.completedLessonIds || [];
+
+            let totalLessons = 0;
+            courseData.modules?.forEach(module => {
+                totalLessons += module.lessons?.length || 0;
+            });
+
+            const modulesHTML = courseData.modules?.map((module, index) => {
+                const lessonsHTML = module.lessons?.map(lesson => {
+                    const isCompleted = completedLessons.includes(lesson.id);
+                    const iconEmoji = getContentIcon(lesson.content_type);
+
+                    return `
+                        <div class="lesson-item" onclick="openLesson('${lesson.id}')">
+                            <div class="lesson-info">
+                                <div class="lesson-icon ${isCompleted ? 'completed' : ''}">
+                                    ${isCompleted ? '✓' : iconEmoji}
+                                </div>
+                                <div class="lesson-details">
+                                    <h4>${lesson.title}</h4>
+                                    <div class="lesson-meta">
+                                        <span>${lesson.content_type || 'Lesson'}</span>
+                                        ${lesson.duration_minutes ? `<span class="lesson-duration">${lesson.duration_minutes} min</span>` : ''}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('') || '<div style="padding: 20px; text-align: center; color: #999;">No lessons yet</div>';
+
+                return `
+                    <div class="module-card">
+                        <div class="module-header" onclick="toggleModule(${index})">
+                            <div>
+                                <div style="color: rgba(255,255,255,0.8); font-size: 0.9em; margin-bottom: 5px;">
+                                    Module ${module.order_index || index + 1}
+                                </div>
+                                <div class="module-title">${module.title}</div>
+                            </div>
+                            <div class="module-toggle" id="toggle-${index}">▼</div>
+                        </div>
+                        <div class="module-content" id="content-${index}">
+                            ${module.description ? `<div class="module-description">${module.description}</div>` : ''}
+                            <div class="lessons-list">
+                                ${lessonsHTML}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('') || '<div class="error-message">No modules available</div>';
+
+            const difficultyClass = `difficulty-${(courseData.difficulty || 'beginner').toLowerCase()}`;
+
+            container.innerHTML = `
+                <div class="course-hero">
+                    <h1 class="course-title">${courseData.title}</h1>
+                    <div class="course-meta">
+                        <div class="meta-item">
+                            <span>📚</span>
+                            <span>${courseData.modules?.length || 0} Modules</span>
+                        </div>
+                        <div class="meta-item">
+                            <span>📝</span>
+                            <span>${totalLessons} Lessons</span>
+                        </div>
+                        <div class="meta-item">
+                            <span>⏱️</span>
+                            <span>${courseData.duration_minutes || 0} minutes</span>
+                        </div>
+                        <span class="difficulty-badge ${difficultyClass}">
+                            ${courseData.difficulty || 'Beginner'}
+                        </span>
+                    </div>
+                    <p class="course-description">${courseData.description || 'Start your learning journey'}</p>
+                </div>
+
+                ${progressPercent > 0 ? `
+                    <div class="progress-section">
+                        <div class="progress-header">
+                            <h3>Your Progress</h3>
+                            <span style="color: #667eea; font-weight: 600;">${progressPercent}% Complete</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${progressPercent}%">
+                                ${progressPercent > 10 ? progressPercent + '%' : ''}
+                            </div>
+                        </div>
+                    </div>
+                ` : `
+                    <div class="enroll-section">
+                        <h3 style="margin-bottom: 15px;">Ready to start learning?</h3>
+                        <p style="color: #666; margin-bottom: 25px;">Enroll now to track your progress and earn certificates</p>
+                        <button class="enroll-btn" onclick="enrollInCourse()">Enroll in Course</button>
+                    </div>
+                `}
+
+                <div class="modules-section">
+                    ${modulesHTML}
+                </div>
+            `;
+        }
+
+        function toggleModule(index) {
+            const content = document.getElementById(`content-${index}`);
+            const toggle = document.getElementById(`toggle-${index}`);
+
+            content.classList.toggle('open');
+            toggle.classList.toggle('open');
+        }
+
+        function openLesson(lessonId) {
+            window.location.href = `module.html?lessonId=${lessonId}&courseId=${courseData.id}`;
+        }
+
+        function getContentIcon(type) {
+            const icons = {
+                'video': '▶️',
+                'text': '📄',
+                'quiz': '❓',
+                'pdf': '📑'
+            };
+            return icons[type] || '📖';
+        }
+
+        function showError(message) {
+            const container = document.getElementById('mainContainer');
+            container.innerHTML = `
+                <div class="error-message">
+                    <strong>⚠️ ${message}</strong>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
