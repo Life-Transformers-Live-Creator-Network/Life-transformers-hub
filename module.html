@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lesson - Life Transformers Hub</title>
-    <script src="https://cdn.memberstack.com/scripts/v1/memberstack.js" data-memberstack-id="app_cmg8qzm4e004c0tmi91sjhpzn"></script>
+    <script data-memberstack-app="app_cmg8qzm4e004c0tmi91sjhpzn" src="https://static.memberstack.com/scripts/v2/memberstack.js" type="text/javascript"></script>
     <style>
         * {
             margin: 0;
@@ -288,12 +288,16 @@
             console.log('Module viewer loaded');
 
             try {
-                const member = await window.$memberstackDom.getCurrentMember();
-                currentUser = member.data;
-
-                if (!currentUser) {
-                    showError('Please log in to view lessons');
-                    return;
+                if (window.MemberStack) {
+                    const memberstack = window.MemberStack;
+                    const memberJSON = await memberstack.getMemberJSON();
+                    
+                    if (memberJSON.data) {
+                        currentUser = memberJSON.data;
+                    } else {
+                        showError('Please log in to view lessons');
+                        return;
+                    }
                 }
 
                 const urlParams = new URLSearchParams(window.location.search);
