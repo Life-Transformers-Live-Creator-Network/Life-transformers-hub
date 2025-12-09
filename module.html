@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson - Life Transformers Hub</title>
+    <script src="https://cdn.memberstack.com/scripts/v1/memberstack.js" data-memberstack-id="app_cmg8qzm4e004c0tmi91sjhpzn"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+        }
+
+        .header-bar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-btn {
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .back-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .lesson-header {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .lesson-title {
+            font-size: 2em;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .lesson-meta {
+            display: flex;
+            gap: 20px;
+            color: #666;
+            flex-wrap: wrap;
+        }
+
+        .meta-tag {
+            padding: 5px 12px;
+            background: #f0f0f0;
+            border-radius: 15px;
+            font-size: 0.9em;
+        }
+
+        .lesson-content-area {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            min-height: 400px;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .text-content {
+            line-height: 1.8;
+            color: #333;
+            font-size: 1.1em;
+        }
+
+        .text-content h2 {
+            color: #667eea;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .text-content h3 {
+            color: #764ba2;
+            margin-top: 25px;
+            margin-bottom: 12px;
+        }
+
+        .text-content p {
+            margin-bottom: 15px;
+        }
+
+        .text-content ul, .text-content ol {
+            margin-left: 30px;
+            margin-bottom: 15px;
+        }
+
+        .text-content li {
+            margin-bottom: 8px;
+        }
+
+        .pdf-viewer {
+            width: 100%;
+            height: 600px;
+            border: none;
+            border-radius: 10px;
+        }
+
+        .lesson-actions {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .complete-btn {
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .complete-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .complete-btn.completed {
+            background: #28a745;
+        }
+
+        .complete-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-btn {
+            padding: 12px 25px;
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .progress-info {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+            color: #667eea;
+            font-size: 1.2em;
+        }
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .completion-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: #d4edda;
+            color: #155724;
+            border-radius: 25px;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .lesson-title {
+                font-size: 1.5em;
+            }
+
+            .lesson-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .nav-buttons {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .complete-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header-bar">
+        <div class="header-content">
+            <h2>📖 Lesson Viewer</h2>
+            <a href="#" id="backToCourse" class="back-btn">← Back to Course</a>
+        </div>
+    </div>
+
+    <div class="container" id="mainContainer">
+        <div class="loading">Loading lesson...</div>
+    </div>
+
+    <script>
+        const WORKER_URL = 'https://life-transformers-worker.splight333.workers.dev';
+        let currentUser = null;
+        let courseData = null;
+        let currentLesson = null;
+        let allLessons = [];
+        let currentLessonIndex = 0;
+        let completedLessons = [];
+
+        window.addEventListener('DOMContentLoaded', async () => {
+            console.log('Module viewer loaded');
+
+            try {
+                const member = await window.$memberstackDom.getCurrentMember();
+                currentUser = member.data;
+
+                if (!currentUser) {
+                    showError('Please log in to view lessons');
+                    return;
+                }
+
+                const urlParams = new URLSearchParams(window.location.search);
+                const lessonId = urlParams.get('lessonId');
+                const courseId = urlParams.get('courseId');
+
+                if (!lessonId || !courseId) {
+                    showError('Missing lesson or course ID');
+                    return;
+                }
+
+                document.getElementById('backToCourse').href = `course.html?id=${courseId}`;
+
+                await loadCourseData(courseId);
+                await loadProgress(courseId);
+                findAndDisplayLesson(lessonId);
+
+            } catch (error) {
+                console.error('Initialization error:', error);
+                showError('Failed to load lesson. Please try again.');
+            }
+        });
+
+        async function loadCourseData(courseId) {
+            try {
+                const response = await fetch(`${WORKER_URL}/api/classroom/course?id=${courseId}`);
+                const data = await response.json();
+
+                if (data.success && data.course) {
+                    courseData = data.course;
+                    
+                    allLessons = [];
+                    courseData.modules?.forEach(module => {
+                        module.lessons?.forEach(lesson => {
+                            allLessons.push({
+                                ...lesson,
+                                moduleName: module.title
+                            });
+                        });
+                    });
+                    
+                    allLessons.sort((a, b) => {
+                        const moduleA = courseData.modules.find(m => m.lessons.some(l => l.id === a.id));
+                        const moduleB = courseData.modules.find(m => m.lessons.some(l => l.id === b.id));
+                        if (moduleA.order_index !== moduleB.order_index) {
+                            return moduleA.order_index - moduleB.order_index;
+                        }
+                        return a.order_index - b.order_index;
+                    });
+                } else {
+                    throw new Error('Course not found');
+                }
+            } catch (error) {
+                console.error('Load course error:', error);
+                throw error;
+            }
+        }
+
+        async function loadProgress(courseId) {
+            try {
+                const response = await fetch(`${WORKER_URL}/api/classroom/progress?userId=${currentUser.id}&courseId=${courseId}`);
+                const data = await response.json();
+
+                if (data.success) {
+                    completedLessons = data.progress.completedLessonIds || [];
+                }
+            } catch (error) {
+                console.error('Load progress error:', error);
+            }
+        }
+
+        function findAndDisplayLesson(lessonId) {
+            currentLessonIndex = allLessons.findIndex(l => l.id === lessonId);
+            
+            if (currentLessonIndex === -1) {
+                showError('Lesson not found');
+                return;
+            }
+
+            currentLesson = allLessons[currentLessonIndex];
+            renderLesson();
+        }
+
+        function renderLesson() {
+            const container = document.getElementById('mainContainer');
+            const isCompleted = completedLessons.includes(currentLesson.id);
+
+            let contentHTML = '';
+
+            if (currentLesson.content_type === 'video' && currentLesson.content_url) {
+                const videoId = extractYouTubeId(currentLesson.content_url);
+                if (videoId) {
+                    contentHTML = `
+                        <div class="video-container">
+                            <iframe 
+                                src="https://www.youtube.com/embed/${videoId}" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                    `;
+                }
+            } else if (currentLesson.content_type === 'pdf' && currentLesson.content_url) {
+                contentHTML = `
+                    <iframe 
+                        class="pdf-viewer" 
+                        src="${currentLesson.content_url}">
+                    </iframe>
+                `;
+            }
+
+            if (currentLesson.content_text) {
+                contentHTML += `<div class="text-content">${formatTextContent(currentLesson.content_text)}</div>`;
+            }
+
+            if (!contentHTML) {
+                contentHTML = '<div class="text-content"><p>No content available for this lesson yet.</p></div>';
+            }
+
+            const hasPrevious = currentLessonIndex > 0;
+            const hasNext = currentLessonIndex < allLessons.length - 1;
+
+            container.innerHTML = `
+                <div class="lesson-header">
+                    <h1 class="lesson-title">${currentLesson.title}</h1>
+                    <div class="lesson-meta">
+                        <span class="meta-tag">📚 ${currentLesson.moduleName}</span>
+                        <span class="meta-tag">${currentLesson.content_type || 'Lesson'}</span>
+                        ${currentLesson.duration_minutes ? `<span class="meta-tag">⏱️ ${currentLesson.duration_minutes} min</span>` : ''}
+                        ${isCompleted ? '<span class="completion-badge">✓ Completed</span>' : ''}
+                    </div>
+                </div>
+
+                <div class="lesson-content-area">
+                    ${contentHTML}
+                </div>
+
+                <div class="lesson-actions">
+                    <button 
+                        class="complete-btn ${isCompleted ? 'completed' : ''}" 
+                        onclick="markComplete()"
+                        ${isCompleted ? 'disabled' : ''}>
+                        ${isCompleted ? '✓ Completed' : 'Mark as Complete'}
+                    </button>
+
+                    <div class="progress-info">
+                        Lesson ${currentLessonIndex + 1} of ${allLessons.length}
+                    </div>
+
+                    <div class="nav-buttons">
+                        <button 
+                            class="nav-btn" 
+                            onclick="navigateLesson(-1)"
+                            ${!hasPrevious ? 'disabled' : ''}>
+                            ← Previous
+                        </button>
+                        <button 
+                            class="nav-btn" 
+                            onclick="navigateLesson(1)"
+                            ${!hasNext ? 'disabled' : ''}>
+                            Next →
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        async function markComplete() {
+            if (!currentUser || !currentLesson) return;
+
+            try {
+                const response = await fetch(`${WORKER_URL}/api/classroom/mark-complete`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        userId: currentUser.id,
+                        lessonId: currentLesson.id
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    completedLessons.push(currentLesson.id);
+                    renderLesson();
+                    
+                    if (currentLessonIndex < allLessons.length - 1) {
+                        setTimeout(() => navigateLesson(1), 1000);
+                    }
+                }
+            } catch (error) {
+                console.error('Mark complete error:', error);
+                alert('Failed to mark as complete. Please try again.');
+            }
+        }
+
+        function navigateLesson(direction) {
+            const newIndex = currentLessonIndex + direction;
+            
+            if (newIndex >= 0 && newIndex < allLessons.length) {
+                currentLessonIndex = newIndex;
+                currentLesson = allLessons[newIndex];
+                
+                const urlParams = new URLSearchParams(window.location.search);
+                urlParams.set('lessonId', currentLesson.id);
+                window.history.pushState({}, '', `?${urlParams.toString()}`);
+                
+                renderLesson();
+                window.scrollTo(0, 0);
+            }
+        }
+
+        function extractYouTubeId(url) {
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+            const match = url.match(regExp);
+            return (match && match[2].length === 11) ? match[2] : null;
+        }
+
+        function formatTextContent(text) {
+            return text
+                .replace(/\n\n/g, '</p><p>')
+                .replace(/\n/g, '<br>')
+                .replace(/^(.+)$/, '<p>$1</p>');
+        }
+
+        function showError(message) {
+            const container = document.getElementById('mainContainer');
+            container.innerHTML = `
+                <div class="error-message">
+                    <strong>⚠️ ${message}</strong>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
