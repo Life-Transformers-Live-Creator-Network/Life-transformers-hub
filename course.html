@@ -56,6 +56,46 @@
             padding: 40px 20px;
         }
 
+        .auth-prompt {
+            background: white;
+            border-radius: 15px;
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .auth-prompt h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+
+        .auth-prompt p {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        .auth-btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: transform 0.2s ease;
+            margin: 10px;
+        }
+
+        .auth-btn:hover {
+            transform: scale(1.05);
+        }
+
         .course-hero {
             background: white;
             border-radius: 15px;
@@ -292,6 +332,11 @@
             transform: scale(1.05);
         }
 
+        .enroll-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
         .loading {
             text-align: center;
             padding: 60px 20px;
@@ -345,6 +390,9 @@
             console.log('Course page loaded');
 
             try {
+                // Wait for Memberstack to load
+                await new Promise(resolve => setTimeout(resolve, 1000));
+
                 if (window.MemberStack) {
                     const memberstack = window.MemberStack;
                     const memberJSON = await memberstack.getMemberJSON();
@@ -354,9 +402,12 @@
                         console.log('User logged in:', currentUser.id);
                     } else {
                         console.log('No user logged in');
-                        showError('Please log in to view courses');
+                        showAuthPrompt();
                         return;
                     }
+                } else {
+                    showAuthPrompt();
+                    return;
                 }
 
                 const urlParams = new URLSearchParams(window.location.search);
@@ -376,6 +427,17 @@
                 showError('Failed to load course. Please try again.');
             }
         });
+
+        function showAuthPrompt() {
+            const container = document.getElementById('mainContainer');
+            container.innerHTML = `
+                <div class="auth-prompt">
+                    <h2>🔐 Login Required</h2>
+                    <p>Please log in to view courses and track your progress!</p>
+                    <a href="/" class="auth-btn">Go to Homepage & Login</a>
+                </div>
+            `;
+        }
 
         async function loadCourse(courseId) {
             console.log('Loading course:', courseId);
@@ -415,7 +477,14 @@
         }
 
         async function enrollInCourse() {
-            if (!currentUser || !courseData) return;
+            if (!currentUser || !courseData) {
+                alert('Please log in to enroll in courses');
+                return;
+            }
+
+            const btn = document.querySelector('.enroll-btn');
+            btn.disabled = true;
+            btn.textContent = 'Enrolling...';
 
             try {
                 const response = await fetch(`${WORKER_URL}/api/classroom/enroll`, {
@@ -428,14 +497,19 @@
                 });
 
                 const data = await response.json();
+                console.log('Enrollment response:', data);
 
                 if (data.success) {
                     await loadProgress(courseData.id);
                     renderCourse();
+                } else {
+                    throw new Error('Enrollment failed');
                 }
             } catch (error) {
                 console.error('Enroll error:', error);
                 alert('Failed to enroll. Please try again.');
+                btn.disabled = false;
+                btn.textContent = 'Enroll in Course';
             }
         }
 
@@ -559,6 +633,10 @@
         }
 
         function openLesson(lessonId) {
+            if (!currentUser) {
+                alert('Please log in to access lessons');
+                return;
+            }
             window.location.href = `module.html?lessonId=${lessonId}&courseId=${courseData.id}`;
         }
 
