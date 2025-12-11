@@ -56,6 +56,46 @@
             padding: 40px 20px;
         }
 
+        .auth-prompt {
+            background: white;
+            border-radius: 15px;
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .auth-prompt h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+
+        .auth-prompt p {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        .auth-btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: transform 0.2s ease;
+            margin: 10px;
+        }
+
+        .auth-btn:hover {
+            transform: scale(1.05);
+        }
+
         .lesson-header {
             background: white;
             border-radius: 15px;
@@ -288,6 +328,9 @@
             console.log('Module viewer loaded');
 
             try {
+                // Wait for Memberstack to load
+                await new Promise(resolve => setTimeout(resolve, 1000));
+
                 if (window.MemberStack) {
                     const memberstack = window.MemberStack;
                     const memberJSON = await memberstack.getMemberJSON();
@@ -295,9 +338,12 @@
                     if (memberJSON.data) {
                         currentUser = memberJSON.data;
                     } else {
-                        showError('Please log in to view lessons');
+                        showAuthPrompt();
                         return;
                     }
+                } else {
+                    showAuthPrompt();
+                    return;
                 }
 
                 const urlParams = new URLSearchParams(window.location.search);
@@ -320,6 +366,17 @@
                 showError('Failed to load lesson. Please try again.');
             }
         });
+
+        function showAuthPrompt() {
+            const container = document.getElementById('mainContainer');
+            container.innerHTML = `
+                <div class="auth-prompt">
+                    <h2>🔐 Login Required</h2>
+                    <p>Please log in to access lessons and track your progress!</p>
+                    <a href="/" class="auth-btn">Go to Homepage & Login</a>
+                </div>
+            `;
+        }
 
         async function loadCourseData(courseId) {
             try {
@@ -467,7 +524,14 @@
         }
 
         async function markComplete() {
-            if (!currentUser || !currentLesson) return;
+            if (!currentUser || !currentLesson) {
+                alert('Please log in to track progress');
+                return;
+            }
+
+            const btn = document.querySelector('.complete-btn');
+            btn.disabled = true;
+            btn.textContent = 'Marking Complete...';
 
             try {
                 const response = await fetch(`${WORKER_URL}/api/classroom/mark-complete`, {
@@ -480,6 +544,7 @@
                 });
 
                 const data = await response.json();
+                console.log('Mark complete response:', data);
 
                 if (data.success) {
                     completedLessons.push(currentLesson.id);
@@ -488,10 +553,14 @@
                     if (currentLessonIndex < allLessons.length - 1) {
                         setTimeout(() => navigateLesson(1), 1000);
                     }
+                } else {
+                    throw new Error('Failed to mark complete');
                 }
             } catch (error) {
                 console.error('Mark complete error:', error);
                 alert('Failed to mark as complete. Please try again.');
+                btn.disabled = false;
+                btn.textContent = 'Mark as Complete';
             }
         }
 
