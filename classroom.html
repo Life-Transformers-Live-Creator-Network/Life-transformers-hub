@@ -368,6 +368,17 @@
     </div>
 
     <script>
+        // ========================================
+        // TEST MODE - Set to true to bypass authentication
+        // ========================================
+        const TEST_MODE = true;
+        const TEST_USER = {
+            id: 'test-user-123',
+            auth: { email: 'patricia@lifetransformers.com' },
+            planConnections: [{ planId: 'pro' }]
+        };
+        // ========================================
+
         const WORKER_URL = 'https://life-transformers-worker.splight333.workers.dev';
         let allCourses = [];
         let currentFilter = 'all';
@@ -377,6 +388,17 @@
             console.log('Page loaded, initializing...');
             
             try {
+                // TEST MODE BYPASS
+                if (TEST_MODE) {
+                    console.log('⚠️ TEST MODE ACTIVE - Using fake user');
+                    currentUser = TEST_USER;
+                    showMainContent();
+                    displayUserInfo(currentUser);
+                    await loadCourses();
+                    setupFilters();
+                    return;
+                }
+
                 // Wait a bit for Memberstack to fully load
                 await new Promise(resolve => setTimeout(resolve, 1000));
 
