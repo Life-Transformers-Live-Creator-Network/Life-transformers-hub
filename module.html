@@ -316,6 +316,17 @@
     </div>
 
     <script>
+        // ========================================
+        // TEST MODE - Set to true to bypass authentication
+        // ========================================
+        const TEST_MODE = true;
+        const TEST_USER = {
+            id: 'test-user-123',
+            auth: { email: 'patricia@lifetransformers.com' },
+            planConnections: [{ planId: 'pro' }]
+        };
+        // ========================================
+
         const WORKER_URL = 'https://life-transformers-worker.splight333.workers.dev';
         let currentUser = null;
         let courseData = null;
@@ -328,8 +339,13 @@
             console.log('Module viewer loaded');
 
             try {
-                // Wait for Memberstack to load
-                await new Promise(resolve => setTimeout(resolve, 1000));
+                // TEST MODE BYPASS
+                if (TEST_MODE) {
+                    console.log('⚠️ TEST MODE ACTIVE - Using fake user');
+                    currentUser = TEST_USER;
+                } else {
+                    // Wait for Memberstack to load
+                    await new Promise(resolve => setTimeout(resolve, 1000));
 
                 if (window.MemberStack) {
                     const memberstack = window.MemberStack;
@@ -345,6 +361,7 @@
                     showAuthPrompt();
                     return;
                 }
+            } // Close TEST_MODE else
 
                 const urlParams = new URLSearchParams(window.location.search);
                 const lessonId = urlParams.get('lessonId');
