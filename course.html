@@ -56,46 +56,6 @@
             padding: 40px 20px;
         }
 
-        .auth-prompt {
-            background: white;
-            border-radius: 15px;
-            padding: 60px 40px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .auth-prompt h2 {
-            color: #667eea;
-            margin-bottom: 20px;
-            font-size: 2em;
-        }
-
-        .auth-prompt p {
-            color: #666;
-            margin-bottom: 30px;
-            font-size: 1.1em;
-            line-height: 1.6;
-        }
-
-        .auth-btn {
-            display: inline-block;
-            padding: 15px 40px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            text-decoration: none;
-            border-radius: 10px;
-            font-size: 1.1em;
-            font-weight: 600;
-            transition: transform 0.2s ease;
-            margin: 10px;
-        }
-
-        .auth-btn:hover {
-            transform: scale(1.05);
-        }
-
         .course-hero {
             background: white;
             border-radius: 15px;
@@ -381,6 +341,10 @@
     </div>
 
     <script>
+        // TEST MODE - Set to true to bypass authentication
+        const TEST_MODE = true;
+        const TEST_USER = { id: 'test-user-123' };
+
         const WORKER_URL = 'https://life-transformers-worker.splight333.workers.dev';
         let currentUser = null;
         let courseData = null;
@@ -390,26 +354,24 @@
             console.log('Course page loaded');
 
             try {
-                // Wait for Memberstack to load
-                await new Promise(resolve => setTimeout(resolve, 1000));
-
-                if (window.MemberStack) {
-                    const memberstack = window.MemberStack;
-                    const memberJSON = await memberstack.getMemberJSON();
-                    
-                    if (memberJSON.data) {
-                        currentUser = memberJSON.data;
-                        console.log('User logged in:', currentUser.id);
+                if (TEST_MODE) {
+                    console.log('⚠️ TEST MODE ACTIVE');
+                    currentUser = TEST_USER;
+                } else {
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    if (window.MemberStack) {
+                        const memberJSON = await window.MemberStack.getMemberJSON();
+                        if (memberJSON.data) {
+                            currentUser = memberJSON.data;
+                        } else {
+                            showError('Please log in to view courses');
+                            return;
+                        }
                     } else {
-                        console.log('No user logged in');
-                        showAuthPrompt();
+                        showError('Please log in to view courses');
                         return;
                     }
-                } else {
-                    showAuthPrompt();
-                    return;
                 }
-            } // Close TEST_MODE else
 
                 const urlParams = new URLSearchParams(window.location.search);
                 const courseId = urlParams.get('id');
@@ -424,39 +386,19 @@
                 renderCourse();
 
             } catch (error) {
-                console.error('Initialization error:', error);
-                showError('Failed to load course. Please try again.');
+                console.error('Error:', error);
+                showError('Failed to load course: ' + error.message);
             }
         });
 
-        function showAuthPrompt() {
-            const container = document.getElementById('mainContainer');
-            container.innerHTML = `
-                <div class="auth-prompt">
-                    <h2>🔐 Login Required</h2>
-                    <p>Please log in to view courses and track your progress!</p>
-                    <a href="/" class="auth-btn">Go to Homepage & Login</a>
-                </div>
-            `;
-        }
-
         async function loadCourse(courseId) {
-            console.log('Loading course:', courseId);
+            const response = await fetch(`${WORKER_URL}/api/classroom/course?id=${courseId}`);
+            const data = await response.json();
 
-            try {
-                const response = await fetch(`${WORKER_URL}/api/classroom/course?id=${courseId}`);
-                const data = await response.json();
-
-                console.log('Course data:', data);
-
-                if (data.success && data.course) {
-                    courseData = data.course;
-                } else {
-                    throw new Error('Course not found');
-                }
-            } catch (error) {
-                console.error('Load course error:', error);
-                throw error;
+            if (data.success && data.course) {
+                courseData = data.course;
+            } else {
+                throw new Error('Course not found');
             }
         }
 
@@ -467,21 +409,16 @@
                 const response = await fetch(`${WORKER_URL}/api/classroom/progress?userId=${currentUser.id}&courseId=${courseId}`);
                 const data = await response.json();
 
-                console.log('Progress data:', data);
-
                 if (data.success) {
                     userProgress = data.progress;
                 }
             } catch (error) {
-                console.error('Load progress error:', error);
+                console.error('Progress error:', error);
             }
         }
 
         async function enrollInCourse() {
-            if (!currentUser || !courseData) {
-                alert('Please log in to enroll in courses');
-                return;
-            }
+            if (!currentUser || !courseData) return;
 
             const btn = document.querySelector('.enroll-btn');
             btn.disabled = true;
@@ -498,17 +435,14 @@
                 });
 
                 const data = await response.json();
-                console.log('Enrollment response:', data);
 
                 if (data.success) {
                     await loadProgress(courseData.id);
                     renderCourse();
-                } else {
-                    throw new Error('Enrollment failed');
                 }
             } catch (error) {
                 console.error('Enroll error:', error);
-                alert('Failed to enroll. Please try again.');
+                alert('Failed to enroll');
                 btn.disabled = false;
                 btn.textContent = 'Enroll in Course';
             }
@@ -614,7 +548,7 @@
                 ` : `
                     <div class="enroll-section">
                         <h3 style="margin-bottom: 15px;">Ready to start learning?</h3>
-                        <p style="color: #666; margin-bottom: 25px;">Enroll now to track your progress and earn certificates</p>
+                        <p style="color: #666; margin-bottom: 25px;">Enroll now to track your progress</p>
                         <button class="enroll-btn" onclick="enrollInCourse()">Enroll in Course</button>
                     </div>
                 `}
@@ -634,10 +568,6 @@
         }
 
         function openLesson(lessonId) {
-            if (!currentUser) {
-                alert('Please log in to access lessons');
-                return;
-            }
             window.location.href = `module.html?lessonId=${lessonId}&courseId=${courseData.id}`;
         }
 
