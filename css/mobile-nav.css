@@ -1,12 +1,3 @@
-/* ============================================
-   MOBILE NAVIGATION - PROFESSIONAL SLIDE-OUT MENU
-   Created: December 2024
-   Purpose: Fix scattered mobile navigation
-   ============================================ */
-
-/* ============================================
-   HEADER & LOGO
-   ============================================ */
 .site-header {
   position: fixed;
   top: 0;
@@ -51,9 +42,6 @@
   background-clip: text;
 }
 
-/* ============================================
-   HAMBURGER MENU BUTTON
-   ============================================ */
 .mobile-menu-btn {
   display: flex;
   flex-direction: column;
@@ -86,7 +74,6 @@
   box-shadow: 0 0 8px var(--pink-accent);
 }
 
-/* Animated hamburger to X */
 .mobile-menu-btn.active span:nth-child(1) {
   transform: translateY(10.5px) rotate(45deg);
 }
@@ -99,9 +86,6 @@
   transform: translateY(-10.5px) rotate(-45deg);
 }
 
-/* ============================================
-   MOBILE NAVIGATION PANEL
-   ============================================ */
 .mobile-nav {
   position: fixed;
   top: 0;
@@ -156,9 +140,6 @@
   box-shadow: var(--shadow-pink);
 }
 
-/* ============================================
-   CLEAN VERTICAL NAVIGATION LIST
-   ============================================ */
 .mobile-nav-list {
   list-style: none;
   padding: 12px 0;
@@ -203,7 +184,6 @@
   flex: 1;
 }
 
-/* Hover Effect */
 .nav-link:hover {
   background: rgba(244, 185, 66, 0.08);
   color: var(--gold-primary);
@@ -219,7 +199,6 @@
   filter: drop-shadow(0 0 8px var(--gold-primary));
 }
 
-/* Active State - Gold Border */
 .nav-item.active .nav-link {
   background: rgba(244, 185, 66, 0.12);
   color: var(--gold-primary);
@@ -233,7 +212,6 @@
   filter: drop-shadow(0 0 10px var(--gold-primary));
 }
 
-/* Divider with Golden Line */
 .nav-divider {
   height: 2px;
   background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
@@ -241,9 +219,6 @@
   box-shadow: 0 0 10px rgba(244, 185, 66, 0.5);
 }
 
-/* ============================================
-   CTA NAVIGATION BUTTONS
-   ============================================ */
 .nav-cta .nav-link {
   font-weight: 600;
   border-radius: 12px;
@@ -254,7 +229,6 @@
   justify-content: center;
 }
 
-/* Login Button - Purple */
 .nav-link-login {
   background: rgba(108, 92, 231, 0.15);
   border-color: var(--purple-button);
@@ -267,7 +241,6 @@
   box-shadow: 0 4px 16px rgba(108, 92, 231, 0.4);
 }
 
-/* Sign Up - Vibrant Green */
 .nav-link-signup {
   background: var(--green-primary);
   color: var(--text-dark);
@@ -283,7 +256,6 @@
   box-shadow: var(--shadow-green);
 }
 
-/* Go Pro - Gold with Crown */
 .nav-link-pro {
   background: var(--gold-primary);
   color: var(--text-dark);
@@ -320,9 +292,6 @@
   }
 }
 
-/* ============================================
-   OVERLAY BACKDROP
-   ============================================ */
 .nav-overlay {
   position: fixed;
   top: 0;
@@ -342,16 +311,10 @@
   visibility: visible;
 }
 
-/* ============================================
-   BODY LOCK WHEN NAV OPEN
-   ============================================ */
 body.nav-open {
   overflow: hidden;
 }
 
-/* ============================================
-   RESPONSIVE
-   ============================================ */
 @media (max-width: 480px) {
   :root {
     --nav-width: 280px;
@@ -372,25 +335,3 @@ body.nav-open {
     display: none;
   }
 }
-```
-
----
-
-### **Commit Messages:**
-
-**Short:**
-```
-Add mobile navigation CSS
-```
-
-**Extended:**
-```
-Create professional slide-out navigation menu.
-
-- Fix scattered mobile navigation layout
-- Add hamburger menu with animation
-- Implement clean vertical list design
-- Use Victory Palette colors (gold/green/pink)
-- Add hover effects and active states
-- Include Login/Sign Up/Go Pro CTA buttons
-- Add overlay backdrop
