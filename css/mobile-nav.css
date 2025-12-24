@@ -1,0 +1,396 @@
+/* ============================================
+   MOBILE NAVIGATION - PROFESSIONAL SLIDE-OUT MENU
+   Created: December 2024
+   Purpose: Fix scattered mobile navigation
+   ============================================ */
+
+/* ============================================
+   HEADER & LOGO
+   ============================================ */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--header-height);
+  background: rgba(30, 19, 56, 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 2px solid var(--gold-border);
+  z-index: 1000;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.header-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  height: 100%;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.logo-icon {
+  font-size: 28px;
+}
+
+.logo-text {
+  background: linear-gradient(135deg, var(--gold-primary), var(--green-primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============================================
+   HAMBURGER MENU BUTTON
+   ============================================ */
+.mobile-menu-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 32px;
+  height: 24px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1001;
+  transition: transform 0.3s ease;
+}
+
+.mobile-menu-btn span {
+  display: block;
+  width: 100%;
+  height: 3px;
+  background: var(--gold-primary);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.mobile-menu-btn:hover {
+  transform: scale(1.1);
+}
+
+.mobile-menu-btn:hover span {
+  background: var(--pink-accent);
+  box-shadow: 0 0 8px var(--pink-accent);
+}
+
+/* Animated hamburger to X */
+.mobile-menu-btn.active span:nth-child(1) {
+  transform: translateY(10.5px) rotate(45deg);
+}
+
+.mobile-menu-btn.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-menu-btn.active span:nth-child(3) {
+  transform: translateY(-10.5px) rotate(-45deg);
+}
+
+/* ============================================
+   MOBILE NAVIGATION PANEL
+   ============================================ */
+.mobile-nav {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: var(--nav-width);
+  height: 100vh;
+  background: linear-gradient(180deg, #1e1338 0%, #2d1f47 100%);
+  transition: right 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  z-index: 999;
+  overflow-y: auto;
+  box-shadow: -8px 0 32px rgba(0, 0, 0, 0.5);
+}
+
+.mobile-nav.active {
+  right: 0;
+}
+
+.mobile-nav-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 2px solid var(--gold-border);
+  background: rgba(45, 31, 71, 0.8);
+}
+
+.nav-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--gold-primary);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.nav-close {
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 0, 128, 0.15);
+  border: 2px solid var(--pink-accent);
+  border-radius: 50%;
+  color: var(--pink-accent);
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.nav-close:hover {
+  background: var(--pink-accent);
+  color: white;
+  transform: rotate(90deg);
+  box-shadow: var(--shadow-pink);
+}
+
+/* ============================================
+   CLEAN VERTICAL NAVIGATION LIST
+   ============================================ */
+.mobile-nav-list {
+  list-style: none;
+  padding: 12px 0;
+  margin: 0;
+}
+
+.nav-item {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 24px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.nav-link::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  background: var(--gold-primary);
+  transition: width 0.3s ease;
+}
+
+.nav-icon {
+  font-size: 22px;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.nav-text {
+  flex: 1;
+}
+
+/* Hover Effect */
+.nav-link:hover {
+  background: rgba(244, 185, 66, 0.08);
+  color: var(--gold-primary);
+  padding-left: 32px;
+}
+
+.nav-link:hover::before {
+  width: 4px;
+}
+
+.nav-link:hover .nav-icon {
+  transform: scale(1.15) translateX(4px);
+  filter: drop-shadow(0 0 8px var(--gold-primary));
+}
+
+/* Active State - Gold Border */
+.nav-item.active .nav-link {
+  background: rgba(244, 185, 66, 0.12);
+  color: var(--gold-primary);
+  border-left: 4px solid var(--gold-primary);
+  padding-left: 20px;
+  font-weight: 700;
+}
+
+.nav-item.active .nav-link .nav-icon {
+  color: var(--gold-primary);
+  filter: drop-shadow(0 0 10px var(--gold-primary));
+}
+
+/* Divider with Golden Line */
+.nav-divider {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+  margin: 16px 24px;
+  box-shadow: 0 0 10px rgba(244, 185, 66, 0.5);
+}
+
+/* ============================================
+   CTA NAVIGATION BUTTONS
+   ============================================ */
+.nav-cta .nav-link {
+  font-weight: 600;
+  border-radius: 12px;
+  margin: 8px 16px;
+  padding: 14px 20px;
+  border: 2px solid transparent;
+  text-align: center;
+  justify-content: center;
+}
+
+/* Login Button - Purple */
+.nav-link-login {
+  background: rgba(108, 92, 231, 0.15);
+  border-color: var(--purple-button);
+  color: var(--text-primary);
+}
+
+.nav-link-login:hover {
+  background: var(--purple-button);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(108, 92, 231, 0.4);
+}
+
+/* Sign Up - Vibrant Green */
+.nav-link-signup {
+  background: var(--green-primary);
+  color: var(--text-dark);
+  border-color: var(--green-button);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.nav-link-signup:hover {
+  background: var(--green-button);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-green);
+}
+
+/* Go Pro - Gold with Crown */
+.nav-link-pro {
+  background: var(--gold-primary);
+  color: var(--text-dark);
+  border-color: var(--gold-border);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-link-pro::after {
+  content: '👑';
+  position: absolute;
+  right: 16px;
+  font-size: 18px;
+  animation: crown-glow 2s infinite;
+}
+
+.nav-link-pro:hover {
+  background: var(--gold-border);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-gold);
+}
+
+@keyframes crown-glow {
+  0%, 100% { 
+    opacity: 1; 
+    transform: scale(1) rotate(0deg);
+  }
+  50% { 
+    opacity: 0.7; 
+    transform: scale(1.2) rotate(10deg);
+  }
+}
+
+/* ============================================
+   OVERLAY BACKDROP
+   ============================================ */
+.nav-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 998;
+}
+
+.nav-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ============================================
+   BODY LOCK WHEN NAV OPEN
+   ============================================ */
+body.nav-open {
+  overflow: hidden;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 480px) {
+  :root {
+    --nav-width: 280px;
+  }
+  
+  .logo-text {
+    display: none;
+  }
+  
+  .nav-link {
+    padding: 14px 20px;
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .mobile-menu-btn {
+    display: none;
+  }
+}
+```
+
+---
+
+### **Commit Messages:**
+
+**Short:**
+```
+Add mobile navigation CSS
+```
+
+**Extended:**
+```
+Create professional slide-out navigation menu.
+
+- Fix scattered mobile navigation layout
+- Add hamburger menu with animation
+- Implement clean vertical list design
+- Use Victory Palette colors (gold/green/pink)
+- Add hover effects and active states
+- Include Login/Sign Up/Go Pro CTA buttons
+- Add overlay backdrop
