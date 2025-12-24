@@ -1,0 +1,259 @@
+/* ============================================
+   VICTORY PALETTE - EXTRACTED FROM SERVICES & SHOP PAGES
+   Created: December 2024
+   Purpose: Consistent color scheme across all pages
+   ============================================ */
+
+:root {
+  /* Backgrounds */
+  --bg-dark-primary: #1e1338;          /* Main dark purple */
+  --bg-card: #2d1f47;                   /* Card background */
+  --bg-card-border: #3a2957;            /* Subtle borders */
+  
+  /* Primary Colors */
+  --gold-primary: #f4b942;              /* Main gold/yellow */
+  --gold-border: #daa520;               /* Gold borders */
+  
+  --green-primary: #00ff88;             /* Vibrant green */
+  --green-button: #00d974;              /* Green buttons */
+  
+  --pink-accent: #ff0080;               /* Pink badges/accents */
+  --pink-badge-bg: #ff1493;             /* Pink badge background */
+  
+  --purple-button: #6c5ce7;             /* Purple CTAs */
+  --purple-button-hover: #5849c7;       /* Purple hover */
+  
+  /* Text Colors */
+  --text-primary: #ffffff;
+  --text-secondary: #e0d4f7;            /* Light purple text */
+  --text-muted: #b39ddb;                /* Muted purple */
+  --text-dark: #1a0b2e;                 /* Dark text on light backgrounds */
+  
+  /* Checkmarks */
+  --checkmark-green: #00ff88;
+  
+  /* Shadows & Effects */
+  --shadow-gold: 0 4px 20px rgba(244, 185, 66, 0.3);
+  --shadow-green: 0 4px 20px rgba(0, 255, 136, 0.3);
+  --shadow-pink: 0 4px 20px rgba(255, 0, 128, 0.3);
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4);
+  
+  /* Spacing */
+  --header-height: 64px;
+  --nav-width: 320px;
+}
+
+/* ============================================
+   GLOBAL BASE STYLES
+   ============================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: linear-gradient(180deg, var(--bg-dark-primary) 0%, var(--bg-card) 100%);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* ============================================
+   CARD COMPONENT - MATCHING SERVICES & SHOP
+   ============================================ */
+.victory-card {
+  background: var(--bg-card);
+  border: 2px solid var(--gold-border);
+  border-radius: 16px;
+  padding: 32px 24px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-card);
+  transition: all 0.3s ease;
+}
+
+.victory-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(244, 185, 66, 0.25), var(--shadow-card);
+  border-color: var(--gold-primary);
+}
+
+/* Card Header */
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.card-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--gold-primary);
+  line-height: 1.2;
+  text-shadow: 0 2px 8px rgba(244, 185, 66, 0.3);
+}
+
+.card-badge {
+  background: var(--pink-badge-bg);
+  color: white;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: var(--shadow-pink);
+}
+
+/* Card Content */
+.card-description {
+  color: var(--text-secondary);
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+/* Features List with Green Checkmarks */
+.features-list {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.features-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  color: var(--text-primary);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.features-list li::before {
+  content: '✓';
+  color: var(--checkmark-green);
+  font-size: 24px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* Pricing Section */
+.card-pricing {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin: 24px 0;
+}
+
+.price-amount {
+  font-size: 48px;
+  font-weight: 800;
+  color: var(--green-primary);
+  text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+  line-height: 1;
+}
+
+.price-pro {
+  color: var(--gold-primary);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* ============================================
+   BUTTONS - MATCHING YOUR GOOD PAGES
+   ============================================ */
+.card-button {
+  width: 100%;
+  padding: 16px 32px;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+/* Gold Button (Primary) */
+.button-gold {
+  background: var(--gold-primary);
+  color: var(--text-dark);
+  border-color: var(--gold-border);
+}
+
+.button-gold:hover {
+  background: var(--gold-border);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-gold);
+}
+
+/* Green Button */
+.button-green {
+  background: var(--green-primary);
+  color: var(--text-dark);
+  border-color: var(--green-button);
+}
+
+.button-green:hover {
+  background: var(--green-button);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-green);
+}
+
+/* Purple Button (Secondary) */
+.button-purple {
+  background: var(--purple-button);
+  color: white;
+  border-color: var(--purple-button);
+}
+
+.button-purple:hover {
+  background: var(--purple-button-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(108, 92, 231, 0.4);
+}
+
+/* Pro Member Text */
+.pro-member-text {
+  text-align: center;
+  color: var(--gold-primary);
+  font-weight: 600;
+  margin-top: 12px;
+  font-size: 16px;
+}
+
+/* ============================================
+   PAGE CONTAINERS
+   ============================================ */
+.page-container {
+  background: linear-gradient(180deg, var(--bg-dark-primary) 0%, var(--bg-card) 100%);
+  min-height: 100vh;
+  padding: 80px 20px 40px;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+  .card-title {
+    font-size: 24px;
+  }
+  
+  .price-amount {
+    font-size: 36px;
+  }
+  
+  .card-button {
+    font-size: 16px;
+    padding: 14px 24px;
+  }
+}
