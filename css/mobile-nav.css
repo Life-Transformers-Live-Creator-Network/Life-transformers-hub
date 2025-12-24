@@ -11,14 +11,21 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
-.header-container {
-  max-width: 1400px;
-  margin: 0 auto;
-  height: 100%;
-  padding: 0 20px;
-  display: flex;
+.mobile-menu-btn {
+  display: flex !important;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: center;
+  width: 32px;
+  height: 24px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1001;
+  transition: transform 0.3s ease;
+  position: relative;
+  flex-shrink: 0;
+  margin-left: auto;
 }
 
 .logo {
